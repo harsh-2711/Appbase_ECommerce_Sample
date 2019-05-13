@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.beingdev.magicprint">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".init.CustomApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="MyDatabase.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="5" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.beingdev.magicprint.db.Notification" />
+        <!--
+        Add the following to your AndroidManifest.xml to prevent the launching of your main Activity
+        if you are calling startActivity above.
+        -->
+        <meta-data
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Register"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".HelpCenter"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".Profile"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".Cart"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".UpdateData"
+            android:theme="@style/WhiteTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ForgotPassword"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".NotificationActivity"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".prodcutscategory.Cards"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".IndividualProduct"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".Wishlist"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".OrderDetails"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".OrderPlaced"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".prodcutscategory.Tshirts"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".prodcutscategory.Bags"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".prodcutscategory.Calendars"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".prodcutscategory.Keychains"
+            android:theme="@style/WhiteTheme" />
+        <activity
+            android:name=".prodcutscategory.Stationary"
+            android:theme="@style/WhiteTheme" />
+        <activity android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+    </application>
+
+</manifest>

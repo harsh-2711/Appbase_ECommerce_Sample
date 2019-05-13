@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "763710677037",
+    "firebase_url": "https://magic-print-8db31.firebaseio.com",
+    "project_id": "magic-print-8db31",
+    "storage_bucket": "magic-print-8db31.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763710677037:android:3c7d6470405dd51d",
+        "android_client_info": {
+          "package_name": "com.beingdev.magicprint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763710677037-oqv89qlsh8ef5dcj5mqe9k0stkbsgdgr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQK0ptquntWfeTTNVqVH7lDWeP-rLR4K8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

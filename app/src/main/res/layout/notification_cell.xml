@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:padding="10dp"
+    android:gravity="center"
+    android:background="@drawable/notifback"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/notifimage"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/notificon"/>
+
+            <TextView
+                android:layout_toRightOf="@id/notifimage"
+                android:id="@+id/notiftitle"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#424242"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/notifbody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="#424242"/>
+    </LinearLayout>
+
+</RelativeLayout>
