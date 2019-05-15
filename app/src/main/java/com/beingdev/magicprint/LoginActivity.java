@@ -103,6 +103,24 @@ public class LoginActivity extends AppCompatActivity {
                 email=edtemail.getText().toString();
                 pass=edtpass.getText().toString();
 
+                //Passing all received data from server to next activity
+                String sessionname = "Developer";
+                sessionmobile = "123";
+                String sessionemail =  email;
+                String sessionphoto =  "https://cdn.shopify.com/s/files/1/0148/1300/3876/products/tata-nano-rubber-mats-grey-allure-auto-cm-543-1100x1100-imaecjxkgfhnb3hq_925d7e5f-5a84-425a-8e0e-01f7538c2346.jpg?v=1547046928";
+
+                //create shared preference and store data
+                session.createLoginSession(sessionname,sessionemail,sessionmobile,sessionphoto);
+
+                //count value of firebase cart and wishlist
+                countFirebaseValues();
+
+                Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(loginSuccess);
+                finish();
+
+                /*
+
                 if (validateUsername(email) && validatePassword(pass)) { //Username and Password Validation
 
                     //Progress Bar while connection establishes
@@ -169,6 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                     requestQueue.add(loginRequest);
                 }
 
+                */
             }
         });
 

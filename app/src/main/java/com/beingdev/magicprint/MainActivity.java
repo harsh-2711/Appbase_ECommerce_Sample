@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,15 +85,12 @@ public class MainActivity extends AppCompatActivity {
         //ImageSLider
         inflateImageSlider();
 
-
-        /*
         if (session.getFirstTime()) {
             //tap target view
             tapview();
             session.setFirstTime(false);
         }
 
-        */
     }
 
     private void tapview() {
@@ -167,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void getValues() {
 
-        /*
         //create new session object by passing application context
         session = new UserSession(getApplicationContext());
 
@@ -181,13 +179,6 @@ public class MainActivity extends AppCompatActivity {
         email = user.get(UserSession.KEY_EMAIL);
         mobile = user.get(UserSession.KEY_MOBiLE);
         photo = user.get(UserSession.KEY_PHOTO);
-
-        */
-
-        name = "Harsh";
-        email = "a@1.com";
-        mobile = "120";
-        photo = "xxxxxxxxxxxxxxxx";
 
     }
 
@@ -418,6 +409,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Notifications(View view) {
+        Log.e("Check", "App crashing due to notifications");
         startActivity(new Intent(MainActivity.this, NotificationActivity.class));
     }
 
