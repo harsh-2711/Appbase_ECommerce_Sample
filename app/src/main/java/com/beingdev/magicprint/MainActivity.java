@@ -456,8 +456,17 @@ public class MainActivity extends AppCompatActivity {
 
             AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io","shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
             try {
-                String result = client.prepareGet("products","2211491315812").execute().body().string();
+                //String result = client.prepareGet("products","2208131121252").execute().body().string();
+                //Log.d("Result", result);
+
+                String query =  "{ \"match_phrase_prefix\": { \"tags\": { \"query\": \"Footwear\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
+                String result = client.prepareSearch("products", query)
+                        .execute()
+                        .body()
+                        .string();
+
                 Log.d("Result", result);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
