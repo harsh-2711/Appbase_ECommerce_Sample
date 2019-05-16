@@ -138,6 +138,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     implementation 'androidx.vectordrawable:vectordrawable:1.0.0-beta01'
+
+    // Appbase library
+    implementation("io.appbase:appbase-droid:1.0.0")
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -2,6 +2,7 @@ package com.beingdev.magicprint;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,10 +46,13 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 import com.webianks.easy_feedback.EasyFeedback;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import es.dmoral.toasty.Toasty;
+import io.appbase.client.AppbaseClient;
+import io.appbase.requestbuilders.AppbaseRequestBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Network network = new Network();
+        network.execute();
 
         Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
         TextView appname = findViewById(R.id.appname);
@@ -440,5 +447,22 @@ public class MainActivity extends AppCompatActivity {
     public void keychainsActivity(View view) {
 
         startActivity(new Intent(MainActivity.this, Keychains.class));
+    }
+
+    public class Network extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io","shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
+            try {
+                String result = client.prepareGet("products","2211491315812").execute().body().string();
+                Log.d("Result", result);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
     }
 }
