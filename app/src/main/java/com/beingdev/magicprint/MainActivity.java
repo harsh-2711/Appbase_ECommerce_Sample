@@ -8,10 +8,13 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
@@ -67,11 +71,35 @@ public class MainActivity extends AppCompatActivity {
     private String name, email, photo, mobile;
     private String  first_time;
 
+    MaterialSearchBar searchBar;
+    Button shopByCategory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
+        shopByCategory = (Button) findViewById(R.id.shopByCategory);
+
+        searchBar.addTextChangeListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Search search = new Search();
+                search.execute(String.valueOf(s));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         Network network = new Network();
         network.execute();
@@ -460,6 +488,32 @@ public class MainActivity extends AppCompatActivity {
                 //Log.d("Result", result);
 
                 String query =  "{ \"match_phrase_prefix\": { \"tags\": { \"query\": \"Footwear\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
+                String result = client.prepareSearch("products", query)
+                        .execute()
+                        .body()
+                        .string();
+
+                Log.d("Result", result);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    public class Search extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+
+            AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io","shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
+            try {
+                //String result = client.prepareGet("products","2208131121252").execute().body().string();
+                //Log.d("Result", result);
+
+                String query =  "{ \"match_phrase_prefix\": { \"title\": { \"query\": \"" + strings[0] + "\", \"analyzer\": \"standard\", \"max_expansions\": 30 } } }";
                 String result = client.prepareSearch("products", query)
                         .execute()
                         .body()
