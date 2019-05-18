@@ -197,10 +197,10 @@ public class MainActivity extends AppCompatActivity {
 
         //populating Image slider
         ArrayList<String> sliderImages = new ArrayList<>();
-        sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/Business_stationery_home_banner.jpg");
+        //sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/Business_stationery_home_banner.jpg");
         sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/calendar-diaries-home-banner.jpg");
         sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/calendar-diaries-banner.jpg");
-        sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/free-visiting-cards-home-banner.JPG");
+        //sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/free-visiting-cards-home-banner.JPG");
 
         for (String s : sliderImages) {
             DefaultSliderView sliderView = new DefaultSliderView(this);

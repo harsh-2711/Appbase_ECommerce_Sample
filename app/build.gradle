@@ -141,6 +141,8 @@ dependencies {
 
     // Appbase library
     implementation("io.appbase:appbase-droid:1.0.0")
+
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

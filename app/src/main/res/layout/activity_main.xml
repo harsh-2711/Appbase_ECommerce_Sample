@@ -84,6 +84,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/shopByCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shop By Category"
+                    android:textAllCaps="false"
+                    android:layout_weight="0.1"/>
+
+                <com.mancj.materialsearchbar.MaterialSearchBar
+                    style="@style/MaterialSearchBarLight"
+                    app:mt_speechMode="false"
+                    app:mt_hint="Search"
+                    app:mt_placeholder="Search"
+                    app:mt_maxSuggestionsCount="10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/searchBar"
+                    android:layout_weight="0.5"/>
+
+            </LinearLayout>
 
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/slider"
