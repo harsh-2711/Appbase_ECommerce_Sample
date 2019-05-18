@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
     MaterialSearchBar searchBar;
     Button shopByCategory;
 
+    boolean x = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    shopByCategory.setVisibility(View.VISIBLE);
+                    Toast.makeText(getApplicationContext(), "HI", Toast.LENGTH_LONG).show();
+                }
+                else
+                    shopByCategory.setVisibility(View.GONE);
+            }
+        });
+
+        searchBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(x) {
+                    shopByCategory.setVisibility(View.VISIBLE);
+                    Toast.makeText(getApplicationContext(), "HI", Toast.LENGTH_LONG).show();
+                    x = !x;
+                    searchBar.disableSearch();
+                }
+                else {
+                    shopByCategory.setVisibility(View.GONE);
+                    x = !x;
+                    searchBar.enableSearch();
+                }
             }
         });
 
