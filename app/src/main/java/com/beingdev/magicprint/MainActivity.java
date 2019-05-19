@@ -85,50 +85,13 @@ public class MainActivity extends AppCompatActivity {
         searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         shopByCategory = (Button) findViewById(R.id.shopByCategory);
 
-        searchBar.addTextChangeListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Search search = new Search();
-                search.execute(String.valueOf(s));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
-                    shopByCategory.setVisibility(View.VISIBLE);
-                    Toast.makeText(getApplicationContext(), "HI", Toast.LENGTH_LONG).show();
-                }
-                else
-                    shopByCategory.setVisibility(View.GONE);
-            }
-        });
+        searchBar.disableSearch();
 
         searchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(x) {
-                    shopByCategory.setVisibility(View.VISIBLE);
-                    Toast.makeText(getApplicationContext(), "HI", Toast.LENGTH_LONG).show();
-                    x = !x;
-                    searchBar.disableSearch();
-                }
-                else {
-                    shopByCategory.setVisibility(View.GONE);
-                    x = !x;
-                    searchBar.enableSearch();
-                }
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -519,32 +482,6 @@ public class MainActivity extends AppCompatActivity {
                 //Log.d("Result", result);
 
                 String query =  "{ \"match_phrase_prefix\": { \"tags\": { \"query\": \"Footwear\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
-                String result = client.prepareSearch("products", query)
-                        .execute()
-                        .body()
-                        .string();
-
-                Log.d("Result", result);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-    }
-
-    public class Search extends AsyncTask<String, Void, Void> {
-
-        @Override
-        protected Void doInBackground(String... strings) {
-
-            AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io","shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
-            try {
-                //String result = client.prepareGet("products","2208131121252").execute().body().string();
-                //Log.d("Result", result);
-
-                String query =  "{ \"match_phrase_prefix\": { \"title\": { \"query\": \"" + strings[0] + "\", \"analyzer\": \"standard\", \"max_expansions\": 30 } } }";
                 String result = client.prepareSearch("products", query)
                         .execute()
                         .body()
