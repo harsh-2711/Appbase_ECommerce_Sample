@@ -91,7 +91,12 @@ public class SearchActivity extends AppCompatActivity {
                     JSONObject source = obj.getJSONObject("_source");
                     String entry = source.getString("title");
 
-                    Log.d("FINAL HITS", entry);
+                    //Log.d("FINAL HITS", entry);
+                    String desc = source.getString("body_html");
+
+                    JSONObject img = source.getJSONObject("image");
+                    String url = img.getString("src");
+                    Log.d("FINAL HITS", url);
 
                     filteredData.add(new SearchItemModel(entry));
                 }
