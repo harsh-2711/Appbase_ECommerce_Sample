@@ -1,7 +1,9 @@
 package com.beingdev.magicprint.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.beingdev.magicprint.IndividualProduct;
 import com.beingdev.magicprint.R;
+import com.beingdev.magicprint.models.GenericProductModel;
 import com.beingdev.magicprint.models.SearchItemModel;
 
 import java.util.ArrayList;
@@ -34,6 +38,7 @@ public class SearchAdapter extends ArrayAdapter<SearchItemModel> implements View
     @Override
     public void onClick(View v) {
 
+        Log.d("HERE", "I AM HERE");
         int position = (Integer) v.getTag();
         Object object= getItem(position);
         SearchItemModel searchItemModel = (SearchItemModel) object;

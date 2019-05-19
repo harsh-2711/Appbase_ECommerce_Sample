@@ -2,14 +2,18 @@ package com.beingdev.magicprint;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.beingdev.magicprint.adapters.SearchAdapter;
+import com.beingdev.magicprint.models.GenericProductModel;
 import com.beingdev.magicprint.models.SearchItemModel;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
@@ -19,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import io.appbase.client.AppbaseClient;
 
@@ -96,9 +101,10 @@ public class SearchActivity extends AppCompatActivity {
 
                     JSONObject img = source.getJSONObject("image");
                     String url = img.getString("src");
-                    Log.d("FINAL HITS", url);
 
-                    filteredData.add(new SearchItemModel(entry));
+                    float price = (new Random().nextInt(5000 - 500 + 1)) + 500;
+
+                    filteredData.add(new SearchItemModel(1, entry, url, desc, price));
                 }
 
                 //Log.d("Result", finalHits.toString());
@@ -117,6 +123,19 @@ public class SearchActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             searchAdapter = new SearchAdapter(filteredData, getApplicationContext());
             listView.setAdapter(searchAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    SearchItemModel searchItemModel = filteredData.get(position);
+                    GenericProductModel product = new GenericProductModel(searchItemModel.getId(), searchItemModel.getItem(),
+                            searchItemModel.getImage(), searchItemModel.getDescription(), searchItemModel.getPrice());
+                    Intent intent = new Intent(getApplicationContext(), IndividualProduct.class);
+                    intent.putExtra("product", product);
+                    startActivity(intent);
+                }
+            });
         }
     }
 }
