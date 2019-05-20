@@ -95,8 +95,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Network network = new Network();
-        network.execute();
+        shopByCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ShopByCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Network network = new Network();
+        // network.execute();
 
         Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
         TextView appname = findViewById(R.id.appname);

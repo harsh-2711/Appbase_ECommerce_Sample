@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".ShopByCategoryActivity"></activity>
+        <activity android:name=".SearchActivity" />
 
         <meta-data
             android:name="AA_DB_NAME"
