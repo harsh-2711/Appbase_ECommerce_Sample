@@ -4,12 +4,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -17,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.beingdev.magicprint.networksync.CheckInternetConnection;
 import com.beingdev.magicprint.prodcutscategory.Bags;
@@ -50,32 +48,31 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 import com.webianks.easy_feedback.EasyFeedback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import es.dmoral.toasty.Toasty;
 import io.appbase.client.AppbaseClient;
-import io.appbase.requestbuilders.AppbaseRequestBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
+    MaterialSearchBar searchBar;
+    Button shopByCategory;
+    boolean x = false;
     private SliderLayout sliderShow;
     private Drawer result;
     private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
-
-
     //to get user session data
     private UserSession session;
     private HashMap<String, String> user;
     private String name, email, photo, mobile;
-    private String  first_time;
-
-    MaterialSearchBar searchBar;
-    Button shopByCategory;
-
-    boolean x = false;
-
+    private String first_time;
+    private JSONObject obj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
 
+        new Network().execute();
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
@@ -132,71 +130,71 @@ public class MainActivity extends AppCompatActivity {
 
     private void tapview() {
 
-            new TapTargetSequence(this)
-                    .targets(
-                            TapTarget.forView(findViewById(R.id.notifintro), "Notifications", "Latest offers will be available here !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)                   // Whether to draw a drop shadow or not
-                                    .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.first),
-                            TapTarget.forView(findViewById(R.id.view_profile), "Profile", "You can view and edit your profile here !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)                   // Whether to draw a drop shadow or not
-                                    .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.third),
-                            TapTarget.forView(findViewById(R.id.cart), "Your Cart", "Here is Shortcut to your cart !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)
-                                    .cancelable(false)// Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.second),
-                            TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)
-                                    .cancelable(false)// Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.fourth))
-                    .listener(new TapTargetSequence.Listener() {
-                        // This listener will tell us when interesting(tm) events happen in regards
-                        // to the sequence
-                        @Override
-                        public void onSequenceFinish() {
-                            //session.setFirstTime(false);
-                            Toasty.success(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
-                        }
+        new TapTargetSequence(this)
+                .targets(
+                        TapTarget.forView(findViewById(R.id.notifintro), "Notifications", "Latest offers will be available here !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.first),
+                        TapTarget.forView(findViewById(R.id.view_profile), "Profile", "You can view and edit your profile here !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.third),
+                        TapTarget.forView(findViewById(R.id.cart), "Your Cart", "Here is Shortcut to your cart !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)
+                                .cancelable(false)// Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.second),
+                        TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)
+                                .cancelable(false)// Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.fourth))
+                .listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                        //session.setFirstTime(false);
+                        Toasty.success(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
+                    }
 
-                        @Override
-                        public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onSequenceCanceled(TapTarget lastTarget) {
-                            // Boo
-                        }
-                    }).start();
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        // Boo
+                    }
+                }).start();
 
     }
 
@@ -291,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(true)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
-                        item1, item2, item3, item4, item5, new DividerDrawerItem(), item7, item8, item9, item10,new DividerDrawerItem(),item12,item13
+                        item1, item2, item3, item4, item5, new DividerDrawerItem(), item7, item8, item9, item10, new DividerDrawerItem(), item12, item13
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -479,23 +477,39 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, Keychains.class));
     }
 
-    public class Network extends AsyncTask<Void,Void,Void> {
+    public class Network extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
 
-            AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io","shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
+            AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io", "shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
             try {
                 //String result = client.prepareGet("products","2208131121252").execute().body().string();
                 //Log.d("Result", result);
 
-                String query =  "{ \"match_phrase_prefix\": { \"tags\": { \"query\": \"Footwear\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
+                String query = "{ \"match\": { \"tags\": { \"query\": \"accessories\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
                 String result = client.prepareSearch("products", query)
                         .execute()
                         .body()
                         .string();
 
-                Log.d("Result", result);
+                try {
+                    obj = new JSONObject(result);
+                    JSONObject geodata = obj.getJSONObject("hits");
+                    JSONArray products = geodata.getJSONArray("hits");
+                    for (int i = 0; i < products.length(); i++) {
+                        JSONObject product = products.getJSONObject(i);
+                        String id = product.get("_id").toString();
+                        JSONObject newObj =  (JSONObject) product.get("_source");
+                        String title = newObj.getString("handle");
+                        JSONObject image = (JSONObject) newObj.get("image");
+                        String src = image.getString("src");
+                        Log.d("Result", title);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();

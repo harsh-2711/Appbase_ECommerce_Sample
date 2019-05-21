@@ -128,7 +128,7 @@ public class Wishlist extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(Wishlist.this,IndividualProduct.class);
-                        intent.putExtra("product",new GenericProductModel(model.getPrid(),model.getPrname(),model.getPrimage(),model.getPrdesc(),Float.parseFloat(model.getPrprice())));
+                        intent.putExtra("product",new GenericProductModel(String.valueOf(model.getPrid()),model.getPrname(),model.getPrimage(),model.getPrdesc(),Float.parseFloat(model.getPrprice())));
                         startActivity(intent);
                     }
                 });

@@ -127,7 +127,7 @@ public class IndividualProduct extends AppCompatActivity {
 
     private SingleProductModel getProductObject() {
 
-        return new SingleProductModel(model.getCardid(), Integer.parseInt(quantityProductPage.getText().toString()), useremail, usermobile, model.getCardname(), Float.toString(model.getCardprice()), model.getCardimage(), model.carddiscription,customheader.getText().toString(),custommessage.getText().toString());
+        return new SingleProductModel(Integer.parseInt(model.getCardid()), Integer.parseInt(quantityProductPage.getText().toString()), useremail, usermobile, model.getCardname(), Float.toString(model.getCardprice()), model.getCardimage(), model.carddiscription,customheader.getText().toString(),custommessage.getText().toString());
 
     }
 
