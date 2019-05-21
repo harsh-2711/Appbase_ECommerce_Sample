@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.beingdev.magicprint.adapters.CategoryAdapter;
 import com.beingdev.magicprint.models.CategoryItemModel;
@@ -23,6 +26,8 @@ import io.appbase.client.AppbaseClient;
 public class ShopByCategoryActivity extends AppCompatActivity {
 
     ListView categoryList;
+    ProgressBar progressBar;
+    TextView fetchingText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,11 @@ public class ShopByCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shop_by_category);
 
         categoryList = (ListView) findViewById(R.id.categoryList);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        fetchingText = (TextView) findViewById(R.id.fetchingText);
 
+        progressBar.setVisibility(View.VISIBLE);
+        fetchingText.setVisibility(View.VISIBLE);
         LoadCategory loadCategory = new LoadCategory();
         loadCategory.execute();
     }
@@ -104,6 +113,8 @@ public class ShopByCategoryActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            progressBar.setVisibility(View.GONE);
+            fetchingText.setVisibility(View.GONE);
             categoryAdapter = new CategoryAdapter(categories, getApplicationContext());
             categoryList.setAdapter(categoryAdapter);
         }
