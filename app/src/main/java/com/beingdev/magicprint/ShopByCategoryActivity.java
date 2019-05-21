@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.beingdev.magicprint.adapters.CategoryAdapter;
+import com.beingdev.magicprint.models.CategoryItemModel;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,8 @@ public class ShopByCategoryActivity extends AppCompatActivity {
     private class LoadCategory extends AsyncTask<Void, Void, Void> {
 
         ArrayList<String> arrayList, arrayList2;
+        ArrayList<CategoryItemModel> categories;
+        private CategoryAdapter categoryAdapter;
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -42,6 +47,7 @@ public class ShopByCategoryActivity extends AppCompatActivity {
 
             arrayList = new ArrayList<>();
             arrayList2 = new ArrayList<>();
+            categories = new ArrayList<>();
 
             for(int k = 65; k < 91; k++) {
 
@@ -84,10 +90,22 @@ public class ShopByCategoryActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Log.d("RESULT", arrayList2.toString());
+                //Log.d("RESULT", arrayList2.toString());
+            }
+
+            for(int i = 0; i < arrayList2.size(); i++) {
+                categories.add(new CategoryItemModel(arrayList2.get(i)));
             }
 
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            categoryAdapter = new CategoryAdapter(categories, getApplicationContext());
+            categoryList.setAdapter(categoryAdapter);
         }
     }
 }

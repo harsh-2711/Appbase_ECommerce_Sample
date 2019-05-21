@@ -1,8 +1,6 @@
 package com.beingdev.magicprint.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,25 +11,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.beingdev.magicprint.IndividualProduct;
 import com.beingdev.magicprint.R;
-import com.beingdev.magicprint.models.GenericProductModel;
-import com.beingdev.magicprint.models.SearchItemModel;
+import com.beingdev.magicprint.models.CategoryItemModel;
 
 import java.util.ArrayList;
 
-public class SearchAdapter extends ArrayAdapter<SearchItemModel> implements View.OnClickListener{
+public class CategoryAdapter extends ArrayAdapter<CategoryItemModel> implements View.OnClickListener {
 
-    private ArrayList<SearchItemModel> filteredData;
-    Context mContext;
+    private ArrayList<CategoryItemModel> categories;
+    private Context mContext;
 
     private static class ViewHolder {
         TextView entry;
     }
 
-    public SearchAdapter(ArrayList<SearchItemModel> filteredData, Context mContext) {
-        super(mContext, R.layout.row_item, filteredData);
-        this.filteredData = filteredData;
+    public CategoryAdapter(ArrayList<CategoryItemModel> categories, Context mContext) {
+        super(mContext, R.layout.category_item_row, categories);
+        this.categories = categories;
         this.mContext = mContext;
     }
 
@@ -41,26 +37,26 @@ public class SearchAdapter extends ArrayAdapter<SearchItemModel> implements View
         Log.d("HERE", "I AM HERE");
         int position = (Integer) v.getTag();
         Object object= getItem(position);
-        SearchItemModel searchItemModel = (SearchItemModel) object;
+        CategoryItemModel categoryItemModel = (CategoryItemModel) object;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        SearchItemModel searchItem = getItem(position);
+        CategoryItemModel categoryItem = getItem(position);
 
-        ViewHolder viewHolder;
+        CategoryAdapter.ViewHolder viewHolder;
 
         final View result;
 
         if(convertView == null) {
 
-            viewHolder = new ViewHolder();
+            viewHolder = new CategoryAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.row_item, parent, false);
+            convertView = inflater.inflate(R.layout.category_item_row, parent, false);
 
-            viewHolder.entry = (TextView) convertView.findViewById(R.id.entryText);
+            viewHolder.entry = (TextView) convertView.findViewById(R.id.categoryRowID);
 
             result = convertView;
 
@@ -68,11 +64,11 @@ public class SearchAdapter extends ArrayAdapter<SearchItemModel> implements View
 
         }
         else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (CategoryAdapter.ViewHolder) convertView.getTag();
             result = convertView;
         }
 
-        viewHolder.entry.setText(searchItem.getItem());
+        viewHolder.entry.setText(categoryItem.getCategory());
 
         return convertView;
     }
