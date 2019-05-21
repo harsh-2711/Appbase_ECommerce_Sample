@@ -194,7 +194,8 @@ public class Tshirts extends AppCompatActivity {
                         JSONObject image = (JSONObject) newObj.get("image");
                         String src = image.getString("src");
                         Log.d("Result", title);
-                        tshirts.add(new GenericProductModel(id,title,src,title, 0));
+                        Long val = Long.parseLong(id);
+                        tshirts.add(new GenericProductModel(val.intValue(),title,src,title, 0));
                     }
 
                 } catch (JSONException e) {

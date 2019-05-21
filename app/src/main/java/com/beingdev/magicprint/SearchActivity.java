@@ -129,7 +129,7 @@ public class SearchActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     SearchItemModel searchItemModel = filteredData.get(position);
-                    GenericProductModel product = new GenericProductModel(String.valueOf(searchItemModel.getId()), searchItemModel.getItem(),
+                    GenericProductModel product = new GenericProductModel(searchItemModel.getId(), searchItemModel.getItem(),
                             searchItemModel.getImage(), searchItemModel.getDescription(), searchItemModel.getPrice());
                     Intent intent = new Intent(getApplicationContext(), IndividualProduct.class);
                     intent.putExtra("product", product);

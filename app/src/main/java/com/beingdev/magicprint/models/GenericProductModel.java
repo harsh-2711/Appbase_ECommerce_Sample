@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class GenericProductModel implements Serializable {
 
-    public String cardid;
+    public int cardid;
     public String cardname;
     public String cardimage;
     public String carddiscription;
@@ -17,7 +17,7 @@ public class GenericProductModel implements Serializable {
     public GenericProductModel() {
     }
 
-    public GenericProductModel(String cardid, String cardname, String cardimage, String carddiscription, float cardprice) {
+    public GenericProductModel(int cardid, String cardname, String cardimage, String carddiscription, float cardprice) {
         this.cardid = cardid;
         this.cardname = cardname;
         this.cardimage = cardimage;
@@ -57,11 +57,11 @@ public class GenericProductModel implements Serializable {
         this.cardprice = cardprice;
     }
 
-    public String getCardid() {
+    public int getCardid() {
         return cardid;
     }
 
-    public void setCardid(String cardid) {
+    public void setCardid(int cardid) {
         this.cardid = cardid;
     }
 }

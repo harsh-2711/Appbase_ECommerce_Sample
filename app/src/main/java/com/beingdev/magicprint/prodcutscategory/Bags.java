@@ -194,7 +194,8 @@ public class Bags extends AppCompatActivity {
                         JSONObject image = (JSONObject) newObj.get("image");
                         String src = image.getString("src");
                         Log.d("Result", title);
-                        bags.add(new GenericProductModel(id,title,src,title, 0));
+                        Long val = Long.parseLong(id);
+                        bags.add(new GenericProductModel(val.intValue(),title,src,title, 0));
                     }
 
                 } catch (JSONException e) {
