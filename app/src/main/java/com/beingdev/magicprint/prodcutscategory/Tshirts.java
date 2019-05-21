@@ -1,12 +1,19 @@
 package com.beingdev.magicprint.prodcutscategory;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +29,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import io.appbase.client.AppbaseClient;
+
 /**
  * Created by kshitij on 22/1/18.
  */
@@ -35,6 +51,8 @@ public class Tshirts extends AppCompatActivity {
     private StaggeredGridLayoutManager mLayoutManager;
     private LottieAnimationView tv_no_item;
 
+    private TshirtsAdapter adapter;
+    private ArrayList<GenericProductModel> tshirts = new ArrayList<>();
     //Getting reference to Firebase Database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = database.getReference();
@@ -68,35 +86,8 @@ public class Tshirts extends AppCompatActivity {
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        final FirebaseRecyclerAdapter<GenericProductModel,Cards.MovieViewHolder> adapter = new FirebaseRecyclerAdapter<GenericProductModel, Cards.MovieViewHolder>(
-                GenericProductModel.class,
-                R.layout.cards_cardview_layout,
-                Cards.MovieViewHolder.class,
-                //referencing the node where we want the database to store the data from our Object
-                mDatabaseReference.child("Products").child("Tshirt").getRef()
-        ) {
-            @Override
-            protected void populateViewHolder(final Cards.MovieViewHolder viewHolder, final GenericProductModel model, final int position) {
-                if(tv_no_item.getVisibility()== View.VISIBLE){
-                    tv_no_item.setVisibility(View.GONE);
-                }
-                viewHolder.cardname.setText(model.getCardname());
-                viewHolder.cardprice.setText("₹ "+Float.toString(model.getCardprice()));
-                Picasso.with(Tshirts.this).load(model.getCardimage()).into(viewHolder.cardimage);
-
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Tshirts.this,IndividualProduct.class);
-                        intent.putExtra("product",getItem(position));
-                        startActivity(intent);
-                    }
-                });
-            }
-        };
-
-
+        adapter = new TshirtsAdapter(tshirts);
+        new loadList().execute();
 
         mRecyclerView.setAdapter(adapter);
 
@@ -109,19 +100,50 @@ public class Tshirts extends AppCompatActivity {
 
 
     //viewHolder for our Firebase UI
-    public static class MovieViewHolder extends RecyclerView.ViewHolder{
+    public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MovieViewHolder> {
+        private ArrayList<GenericProductModel> listdata;
 
-        TextView cardname;
-        ImageView cardimage;
-        TextView cardprice;
+        // RecyclerView recyclerView;
+        public TshirtsAdapter(ArrayList<GenericProductModel> listdata) {
+            this.listdata = listdata;
+        }
+        @Override
+        public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+            View listItem= layoutInflater.inflate(R.layout.cards_cardview_layout, parent, false);
+            MovieViewHolder viewHolder = new MovieViewHolder(listItem);
+            return viewHolder;
+        }
 
-        View mView;
-        public MovieViewHolder(View v) {
-            super(v);
-            mView =v;
-            cardname = v.findViewById(R.id.cardcategory);
-            cardimage = v.findViewById(R.id.cardimage);
-            cardprice = v.findViewById(R.id.cardprice);
+        @Override
+        public void onBindViewHolder(@NonNull MovieViewHolder viewHolder, int position) {
+            final GenericProductModel model = listdata.get(position);
+            viewHolder.cardname.setText(model.getCardname());
+            viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
+            Picasso.with(Tshirts.this).load(model.getCardimage()).into(viewHolder.cardimage);
+        }
+
+
+        @Override
+        public int getItemCount() {
+            return listdata.size();
+        }
+
+        public class MovieViewHolder extends RecyclerView.ViewHolder {
+
+            TextView cardname;
+            ImageView cardimage;
+            TextView cardprice;
+
+            View mView;
+
+            public MovieViewHolder(View v) {
+                super(v);
+                mView = v;
+                cardname = v.findViewById(R.id.cardcategory);
+                cardimage = v.findViewById(R.id.cardimage);
+                cardprice = v.findViewById(R.id.cardprice);
+            }
         }
     }
 
@@ -143,4 +165,54 @@ public class Tshirts extends AppCompatActivity {
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
     }
+
+    public class loadList extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io", "shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
+            try {
+                //String result = client.prepareGet("products","2208131121252").execute().body().string();
+                //Log.d("Result", result);
+
+                String query = "{ \"match\": { \"tags\": { \"query\": \"mens-shirts\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
+                String result = client.prepareSearch("products", query)
+                        .execute()
+                        .body()
+                        .string();
+
+                try {
+                    JSONObject obj = new JSONObject(result);
+                    JSONObject geodata = obj.getJSONObject("hits");
+                    JSONArray products = geodata.getJSONArray("hits");
+                    for (int i = 0; i < products.length(); i++) {
+                        JSONObject product = products.getJSONObject(i);
+                        String id = product.get("_id").toString();
+                        JSONObject newObj =  (JSONObject) product.get("_source");
+                        String title = newObj.getString("handle");
+                        JSONObject image = (JSONObject) newObj.get("image");
+                        String src = image.getString("src");
+                        Log.d("Result", title);
+                        tshirts.add(new GenericProductModel(id,title,src,title, 0));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
 }
