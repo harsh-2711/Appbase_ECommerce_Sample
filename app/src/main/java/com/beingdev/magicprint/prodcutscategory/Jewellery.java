@@ -42,7 +42,7 @@ import io.appbase.client.AppbaseClient;
  * Created by kshitij on 22/1/18.
  */
 
-public class Tshirts extends AppCompatActivity {
+public class Jewellery extends AppCompatActivity {
 
 
     //created for firebaseui android tutorial by Vamsi Tallapudi
@@ -51,8 +51,8 @@ public class Tshirts extends AppCompatActivity {
     private StaggeredGridLayoutManager mLayoutManager;
     private LottieAnimationView tv_no_item;
 
-    private TshirtsAdapter adapter;
-    private ArrayList<GenericProductModel> tshirts = new ArrayList<>();
+    private JewelleryAdapter adapter;
+    private ArrayList<GenericProductModel> jewelleries = new ArrayList<>();
     //Getting reference to Firebase Database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = database.getReference();
@@ -86,7 +86,8 @@ public class Tshirts extends AppCompatActivity {
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        adapter = new TshirtsAdapter(tshirts);
+        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
+        adapter = new JewelleryAdapter(jewelleries);
         new loadList().execute();
 
         mRecyclerView.setAdapter(adapter);
@@ -94,17 +95,17 @@ public class Tshirts extends AppCompatActivity {
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(Tshirts.this,Cart.class));
+        startActivity(new Intent(Jewellery.this, Cart.class));
         finish();
     }
 
 
     //viewHolder for our Firebase UI
-    public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MovieViewHolder> {
+    public class JewelleryAdapter extends RecyclerView.Adapter<JewelleryAdapter.MovieViewHolder> {
         private ArrayList<GenericProductModel> listdata;
 
         // RecyclerView recyclerView;
-        public TshirtsAdapter(ArrayList<GenericProductModel> listdata) {
+        public JewelleryAdapter(ArrayList<GenericProductModel> listdata) {
             this.listdata = listdata;
         }
         @Override
@@ -123,7 +124,7 @@ public class Tshirts extends AppCompatActivity {
             }
             viewHolder.cardname.setText(model.getCardname());
             viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
-            Picasso.with(Tshirts.this).load(model.getCardimage()).into(viewHolder.cardimage);
+            Picasso.with(Jewellery.this).load(model.getCardimage()).into(viewHolder.cardimage);
         }
 
 
@@ -149,9 +150,8 @@ public class Tshirts extends AppCompatActivity {
             }
         }
     }
-
     public void Notifications(View view) {
-        startActivity(new Intent(Tshirts.this,NotificationActivity.class));
+        startActivity(new Intent(Jewellery.this, NotificationActivity.class));
         finish();
     }
 
@@ -198,7 +198,7 @@ public class Tshirts extends AppCompatActivity {
                         String src = image.getString("src");
                         Log.d("Result", title);
                         Long val = Long.parseLong(id);
-                        tshirts.add(new GenericProductModel(val.intValue(),title,src,title, 0));
+                        jewelleries.add(new GenericProductModel(val.intValue(),title,src,title, 0));
                     }
 
                 } catch (JSONException e) {

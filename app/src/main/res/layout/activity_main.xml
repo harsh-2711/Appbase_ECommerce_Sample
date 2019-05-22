@@ -201,7 +201,7 @@
 
                             <TextView
                                 android:layout_below="@id/bags"
-                                android:text="Bags"
+                                android:text="Accesories"
                                 style="@style/homegridtext"/>
 
                         </RelativeLayout>
@@ -220,11 +220,11 @@
                         <ImageView
                             android:id="@+id/Stationary"
                             style="@style/homegridimage"
-                            android:src="@drawable/pens" />
+                            android:src="@drawable/jewellery" />
 
                         <TextView
                             android:layout_below="@id/Stationary"
-                            android:text="Stationary"
+                            android:text="Jewellery"
                             style="@style/homegridtext"/>
 
                     </RelativeLayout>
@@ -272,11 +272,11 @@
                         <ImageView
                             android:id="@+id/keychain"
                             style="@style/homegridimage"
-                            android:src="@drawable/keychain" />
+                            android:src="@drawable/watch" />
 
                         <TextView
                             android:layout_below="@id/keychain"
-                            android:text="Keychains"
+                            android:text="Watches"
                             style="@style/homegridtext"/>
 
                     </RelativeLayout>

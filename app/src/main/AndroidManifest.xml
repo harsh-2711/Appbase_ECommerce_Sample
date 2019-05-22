@@ -102,10 +102,10 @@
             android:name=".prodcutscategory.Calendars"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Keychains"
+            android:name=".prodcutscategory.Watches"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Stationary"
+            android:name=".prodcutscategory.Jewellery"
             android:theme="@style/WhiteTheme" />
         <activity
             android:name=".WelcomeActivity"

@@ -112,6 +112,9 @@ public class Bags extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MovieViewHolder viewHolder, int position) {
             final GenericProductModel model = listdata.get(position);
+            if(tv_no_item.getVisibility()== View.VISIBLE){
+                tv_no_item.setVisibility(View.GONE);
+            }
             viewHolder.cardname.setText(model.getCardname());
             viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
             Picasso.with(Bags.this).load(model.getCardimage()).into(viewHolder.cardimage);

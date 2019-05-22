@@ -20,8 +20,8 @@ import com.beingdev.magicprint.networksync.CheckInternetConnection;
 import com.beingdev.magicprint.prodcutscategory.Bags;
 import com.beingdev.magicprint.prodcutscategory.Calendars;
 import com.beingdev.magicprint.prodcutscategory.Cards;
-import com.beingdev.magicprint.prodcutscategory.Keychains;
-import com.beingdev.magicprint.prodcutscategory.Stationary;
+import com.beingdev.magicprint.prodcutscategory.Jewellery;
+import com.beingdev.magicprint.prodcutscategory.Watches;
 import com.beingdev.magicprint.prodcutscategory.Tshirts;
 import com.beingdev.magicprint.usersession.UserSession;
 import com.daimajia.slider.library.SliderLayout;
@@ -464,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void stationaryAcitivity(View view) {
 
-        startActivity(new Intent(MainActivity.this, Stationary.class));
+        startActivity(new Intent(MainActivity.this, Jewellery.class));
     }
 
     public void calendarsActivity(View view) {
@@ -474,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void keychainsActivity(View view) {
 
-        startActivity(new Intent(MainActivity.this, Keychains.class));
+        startActivity(new Intent(MainActivity.this, Watches.class));
     }
 
     public class Network extends AsyncTask<Void, Void, Void> {
