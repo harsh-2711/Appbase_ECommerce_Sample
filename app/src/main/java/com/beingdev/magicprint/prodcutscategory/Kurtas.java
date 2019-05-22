@@ -42,7 +42,7 @@ import io.appbase.client.AppbaseClient;
  * Created by kshitij on 22/1/18.
  */
 
-public class Watches extends AppCompatActivity {
+public class Kurtas extends AppCompatActivity {
 
 
     //created for firebaseui android tutorial by Vamsi Tallapudi
@@ -51,12 +51,11 @@ public class Watches extends AppCompatActivity {
     private StaggeredGridLayoutManager mLayoutManager;
     private LottieAnimationView tv_no_item;
 
-    private WatchesAdapter adapter;
-    private ArrayList<GenericProductModel> tshirts = new ArrayList<>();
+    private ArrayList<GenericProductModel> kurtas = new ArrayList<>();
+    private KurtasAdapter adapter;
     //Getting reference to Firebase Database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = database.getReference();
-    private ArrayList<GenericProductModel> watches = new ArrayList<>();
 
 
     @Override
@@ -74,6 +73,7 @@ public class Watches extends AppCompatActivity {
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
+
         //Initializing our Recyclerview
         mRecyclerView = findViewById(R.id.my_recycler_view);
         tv_no_item = findViewById(R.id.tv_no_cards);
@@ -86,27 +86,29 @@ public class Watches extends AppCompatActivity {
         //using staggered grid pattern in recyclerview
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        adapter = new KurtasAdapter(kurtas);
+        new loadList().execute();
 
         //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        adapter = new WatchesAdapter(watches);
-        new loadList().execute();
+        ;
+
 
         mRecyclerView.setAdapter(adapter);
 
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(Watches.this, Cart.class));
+        startActivity(new Intent(Kurtas.this, Cart.class));
         finish();
     }
 
 
     //viewHolder for our Firebase UI
-    public class WatchesAdapter extends RecyclerView.Adapter<WatchesAdapter.MovieViewHolder> {
+    public class KurtasAdapter extends RecyclerView.Adapter<KurtasAdapter.MovieViewHolder> {
         private ArrayList<GenericProductModel> listdata;
 
         // RecyclerView recyclerView;
-        public WatchesAdapter(ArrayList<GenericProductModel> listdata) {
+        public KurtasAdapter(ArrayList<GenericProductModel> listdata) {
             this.listdata = listdata;
         }
         @Override
@@ -125,7 +127,7 @@ public class Watches extends AppCompatActivity {
             }
             viewHolder.cardname.setText(model.getCardname());
             viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
-            Picasso.with(Watches.this).load(model.getCardimage()).into(viewHolder.cardimage);
+            Picasso.with(getApplicationContext()).load(model.getCardimage()).into(viewHolder.cardimage);
 
             viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -160,8 +162,9 @@ public class Watches extends AppCompatActivity {
             }
         }
     }
+
     public void Notifications(View view) {
-        startActivity(new Intent(Watches.this, NotificationActivity.class));
+        startActivity(new Intent(Kurtas.this, NotificationActivity.class));
         finish();
     }
 
@@ -189,7 +192,7 @@ public class Watches extends AppCompatActivity {
                 //String result = client.prepareGet("products","2208131121252").execute().body().string();
                 //Log.d("Result", result);
 
-                String query = "{ \"match\": { \"tags\": { \"query\": \"watches\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
+                String query = "{ \"match\": { \"tags\": { \"query\": \"women-kurtas\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
                 String result = client.prepareSearch("products", query)
                         .execute()
                         .body()
@@ -208,7 +211,7 @@ public class Watches extends AppCompatActivity {
                         String src = image.getString("src");
                         Log.d("Result", title);
                         Long val = Long.parseLong(id);
-                        watches.add(new GenericProductModel(val.intValue(),title,src,title, 0));
+                        kurtas.add(new GenericProductModel(val.intValue(),title,src,title, 0));
                     }
 
                 } catch (JSONException e) {

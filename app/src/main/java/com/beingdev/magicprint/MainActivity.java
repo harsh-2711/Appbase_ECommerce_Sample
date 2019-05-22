@@ -18,8 +18,8 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.beingdev.magicprint.networksync.CheckInternetConnection;
 import com.beingdev.magicprint.prodcutscategory.Bags;
-import com.beingdev.magicprint.prodcutscategory.Calendars;
-import com.beingdev.magicprint.prodcutscategory.Cards;
+import com.beingdev.magicprint.prodcutscategory.Kurtas;
+import com.beingdev.magicprint.prodcutscategory.Footwear;
 import com.beingdev.magicprint.prodcutscategory.Jewellery;
 import com.beingdev.magicprint.prodcutscategory.Watches;
 import com.beingdev.magicprint.prodcutscategory.Tshirts;
@@ -449,7 +449,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cardsActivity(View view) {
-        startActivity(new Intent(MainActivity.this, Cards.class));
+        startActivity(new Intent(MainActivity.this, Footwear.class));
     }
 
     public void tshirtActivity(View view) {
@@ -469,7 +469,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void calendarsActivity(View view) {
 
-        startActivity(new Intent(MainActivity.this, Calendars.class));
+        startActivity(new Intent(MainActivity.this, Kurtas.class));
     }
 
     public void keychainsActivity(View view) {

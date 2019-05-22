@@ -118,6 +118,15 @@ public class Bags extends AppCompatActivity {
             viewHolder.cardname.setText(model.getCardname());
             viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
             Picasso.with(Bags.this).load(model.getCardimage()).into(viewHolder.cardimage);
+
+            viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(),IndividualProduct.class);
+                    intent.putExtra("product",model);
+                    startActivity(intent);
+                }
+            });
         }
 
 

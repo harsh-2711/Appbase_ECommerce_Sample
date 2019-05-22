@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Appbase_ECommerce_Sample.iml" filepath="$PROJECT_DIR$/Appbase_ECommerce_Sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Appbase_ECommerce_Sample.iml" filepath="$PROJECT_DIR$/Appbase_ECommerce_Sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/E-Commerce App.iml" filepath="$PROJECT_DIR$/E-Commerce App.iml" />
       <module fileurl="file://$PROJECT_DIR$/MagicPrint.iml" filepath="$PROJECT_DIR$/MagicPrint.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -144,11 +144,11 @@
                             <ImageView
                                 android:id="@+id/visitingcards"
                                 style="@style/homegridimage"
-                                android:src="@drawable/visitingcard" />
+                                android:src="@drawable/footwear" />
 
                             <TextView
                                 android:layout_below="@id/visitingcards"
-                                android:text="Visiting Cards"
+                                android:text="Footwear"
                                 style="@style/homegridtext"/>
 
                         </RelativeLayout>
@@ -250,11 +250,11 @@
                             <ImageView
                                 android:id="@+id/calendars"
                                 style="@style/homegridimage"
-                                android:src="@drawable/calendar" />
+                                android:src="@drawable/kurtas" />
 
                             <TextView
                                 android:layout_below="@id/calendars"
-                                android:text="Calendars"
+                                android:text="Kurtas"
                                 style="@style/homegridtext"/>
 
                         </RelativeLayout>

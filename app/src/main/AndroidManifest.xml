@@ -78,7 +78,7 @@
             android:name=".NotificationActivity"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Cards"
+            android:name=".prodcutscategory.Footwear"
             android:theme="@style/WhiteTheme" />
         <activity
             android:name=".IndividualProduct"
@@ -99,7 +99,7 @@
             android:name=".prodcutscategory.Bags"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Calendars"
+            android:name=".prodcutscategory.Kurtas"
             android:theme="@style/WhiteTheme" />
         <activity
             android:name=".prodcutscategory.Watches"

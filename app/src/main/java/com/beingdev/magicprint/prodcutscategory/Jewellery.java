@@ -125,6 +125,15 @@ public class Jewellery extends AppCompatActivity {
             viewHolder.cardname.setText(model.getCardname());
             viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
             Picasso.with(Jewellery.this).load(model.getCardimage()).into(viewHolder.cardimage);
+
+            viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Jewellery.this,IndividualProduct.class);
+                    intent.putExtra("product",model);
+                    startActivity(intent);
+                }
+            });
         }
 
 
@@ -179,7 +188,7 @@ public class Jewellery extends AppCompatActivity {
                 //String result = client.prepareGet("products","2208131121252").execute().body().string();
                 //Log.d("Result", result);
 
-                String query = "{ \"match\": { \"tags\": { \"query\": \"mens-shirts\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
+                String query = "{ \"match\": { \"tags\": { \"query\": \"jewellery\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
                 String result = client.prepareSearch("products", query)
                         .execute()
                         .body()
