@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -79,10 +80,22 @@ public class SearchActivity extends AppCompatActivity {
             try {
 
                 String query =  "{ \"match_phrase_prefix\": { \"title\": { \"query\": \"" + strings[0] + "\", \"analyzer\": \"standard\", \"max_expansions\": 30 } } }";
-                String result = client.prepareSearch("products", query)
+
+                String json = "{ \"query\": { \"bool\": { \"must\":{ \"bool\": { \"should\": [ { \"multi_match\": { \"query\": \"" + strings[0] + "\"," +
+                        " \"fields\": [ \"title\", \"title.search\" ], \"operator\":\"and\" } }," +
+                        " { \"multi_match\": { \"query\": \"" + strings[0] + "\",  \"fields\": [ \"title\", \"title.search\" ], \"type\":\"phrase_prefix\"," +
+                        " \"operator\":\"and\" } } ], \"minimum_should_match\": \"1\" } } } } }";
+
+                //Log.d("JSON", json);
+                String result = client.prepareSearch("products", json)
                         .execute()
                         .body()
                         .string();
+
+                Log.d("Response", result);
+
+                // long time= System.currentTimeMillis();
+                // Log.d("START", String.valueOf(time));
 
                 JSONObject resultJSON = new JSONObject(result);
                 JSONObject hits = resultJSON.getJSONObject("hits");
@@ -107,6 +120,8 @@ public class SearchActivity extends AppCompatActivity {
                     filteredData.add(new SearchItemModel(1, entry, url, desc, price));
                 }
 
+                // long time1= System.currentTimeMillis();
+                // Log.d("FINISH", String.valueOf(time1));
                 //Log.d("Result", finalHits.toString());
 
             } catch (IOException e) {

@@ -140,7 +140,7 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.0.0-beta01'
 
     // Appbase library
-    implementation("io.appbase:appbase-droid:1.0.0")
+    implementation("io.appbase:appbase-droid:1.1.0")
 
     implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
 }
