@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShopByCategoryActivity"></activity>
         <activity android:name=".SearchActivity" />
 
         <meta-data
@@ -110,6 +109,8 @@
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ShopByCategoryActivity"
+            android:theme="@style/WhiteTheme"/>
     </application>
 
 </manifest>

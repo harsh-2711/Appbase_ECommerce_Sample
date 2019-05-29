@@ -7,23 +7,35 @@
     tools:context=".ShopByCategoryActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/header"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbar_by_category"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="#000"
+        style="@style/CustomTheme"
+        android:background="@color/colorAccent">
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Shop By Category"
-        android:textColor="#000"
-        android:textSize="25sp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"/>
+        android:textSize="20sp"
+        android:text="Shop By Category"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+</com.google.android.material.appbar.AppBarLayout>
 
     <ListView
         android:layout_marginTop="10dp"
         android:id="@+id/categoryList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header"/>
+        android:layout_below="@id/toolbar_by_category"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
