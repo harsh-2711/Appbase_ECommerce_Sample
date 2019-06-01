@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -77,13 +78,15 @@ public class SearchActivity extends AppCompatActivity {
 
             AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io", "shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
             try {
+                String query =  "{ \"match_phrase_prefix\": { \"title\": { \"query\": \"" + strings[0] + "\", \"analyzer\": \"standard\", \"max_expansions\": 30 } } }";
 
-                String query = "{ \"query\":{ \"bool\":{ \"must\":{ \"bool\":{ \"should\":[ { \"multi_match\":{ \"query\":" + strings[0] + "," +
-                        " \"fields\":[ \"title\", \"title.search\" ], \"operator\":\"and } }," +
-                        " { \"multi_match\":{ \"query\":" + strings[0] + ",  \"fields\":[ \"title\", \"title.search\" ], \"type\":\"phrase_prefix\"," +
-                        " \"operator\":\"and\" } } ], \"minimum_should_match\":\"1\" } } } } }";
+                String json = "{ \"query\": { \"bool\": { \"must\":{ \"bool\": { \"should\": [ { \"multi_match\": { \"query\": \"" + strings[0] + "\"," +
+                        " \"fields\": [ \"title\", \"title.search\" ], \"operator\":\"and\" } }," +
+                        " { \"multi_match\": { \"query\": \"" + strings[0] + "\",  \"fields\": [ \"title\", \"title.search\" ], \"type\":\"phrase_prefix\"," +
+                        " \"operator\":\"and\" } } ], \"minimum_should_match\": \"1\" } } } } }";
 
-                String result = client.prepareSearch("products", query)
+                //Log.d("JSON", json);
+                String result = client.prepareSearch("products", json)
                         .execute()
                         .body()
                         .string();
@@ -112,8 +115,14 @@ public class SearchActivity extends AppCompatActivity {
 
                     filteredData.add(new SearchItemModel(1, entry, url, desc, price));
                 }
-                return null;
-            } catch (Exception e){
+
+                // long time1= System.currentTimeMillis();
+                // Log.d("FINISH", String.valueOf(time1));
+                //Log.d("Result", finalHits.toString());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
             return  null;

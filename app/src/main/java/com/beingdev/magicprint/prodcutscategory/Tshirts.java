@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.appcompat.widget.Toolbar;
@@ -49,7 +50,7 @@ public class Tshirts extends AppCompatActivity {
     //created for firebaseui android tutorial by Vamsi Tallapudi
 
     private RecyclerView mRecyclerView;
-    private StaggeredGridLayoutManager mLayoutManager;
+    private GridLayoutManager mLayoutManager;
     private LottieAnimationView tv_no_item;
 
     private TshirtsAdapter adapter;
@@ -84,7 +85,7 @@ public class Tshirts extends AppCompatActivity {
             mRecyclerView.setHasFixedSize(true);
         }
         //using staggered grid pattern in recyclerview
-        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mLayoutManager = new GridLayoutManager(getApplicationContext(),2);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         adapter = new TshirtsAdapter(tshirts);
@@ -189,7 +190,7 @@ public class Tshirts extends AppCompatActivity {
                 //String result = client.prepareGet("products","2208131121252").execute().body().string();
                 //Log.d("Result", result);
 
-                String query = "{ \"match\": { \"tags\": { \"query\": \"mens-shirts\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }";
+                String query = "{\"query\":{ \"match\": { \"tags\": { \"query\": \"mens-tshirt\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }}";
                 String result = client.prepareSearch("products", query)
                         .execute()
                         .body()
