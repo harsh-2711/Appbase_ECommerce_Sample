@@ -190,7 +190,7 @@ public class Tshirts extends AppCompatActivity {
                 //String result = client.prepareGet("products","2208131121252").execute().body().string();
                 //Log.d("Result", result);
 
-                String query = "{\"query\":{ \"match\": { \"tags\": { \"query\": \"mens-tshirt\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }}";
+                String query = "{\"query\":{ \"match\": { \"tags\": { \"query\": \"mens-shirts\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }}";
                 String result = client.prepareSearch("products", query)
                         .execute()
                         .body()
