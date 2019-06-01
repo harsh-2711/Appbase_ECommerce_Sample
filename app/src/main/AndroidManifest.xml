@@ -111,6 +111,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ShopByCategoryActivity"
             android:theme="@style/WhiteTheme"/>
+        <activity android:name=".ShopByCategorySearchResult"
+            android:theme="@style/WhiteTheme" />
     </application>
 
 </manifest>
