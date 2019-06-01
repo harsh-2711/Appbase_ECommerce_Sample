@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ShopByCategoryActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginBottom="20dp">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar_by_category"
@@ -24,34 +25,807 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="Shop By Category"/>
+        android:text="Categories"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/notification"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="15dp"/>
+
+
+    <ImageView
+        android:id="@+id/cart"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/cart"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp" />
+
+    <TextView
+        android:id="@+id/updatedetails"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:textAllCaps="true"
+        android:layout_marginRight="20dp"
+        android:textColor="#1976d2"/>
+
+    </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
 </com.google.android.material.appbar.AppBarLayout>
 
-    <ListView
-        android:layout_marginTop="10dp"
-        android:id="@+id/categoryList"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_by_category"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="?attr/actionBarSize">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/fetchingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fetching Categories"
-        android:textSize="20sp"
-        android:layout_below="@id/progressBar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/spare_parts">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/spare_part_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/automotive_and_spare_parts"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Spare Parts"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/automotive">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/automotives_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/automotive"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Automotive"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2.7"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/bras">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/bras_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/bras"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bras"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/car_interior">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/car_interior_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/car_interior"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Car Interior"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/casual_shoes">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/casual_shoes_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/casual_shoes"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Casual Shoes"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5.9"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/clothing">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/clothing_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/clothings"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Clothings"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2.7"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/coffee_mugs">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/coffee_mugs_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/coffee_mugs"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Coffee Mugs"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/footwear">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/footwear_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/footwear_2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Footwear"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2.2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/jewellery">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/jewellery_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/jewellery_2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jewellery"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/kitchen_set">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/kitchen_set_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/kitchen_set"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kitchen Set"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2.7"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/lingerie">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/lingerie_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/lingerie"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lingerie"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3.2"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/rings">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/rings_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/rings"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rings"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/s4s_bras">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/s4s_bras_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/s4s_bras"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="s4s bras"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5.2"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/shirts">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/shirts_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/shirts"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Shirts"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/swim_wear">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/swim_wear_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/swim_wear"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Swim Wear"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="4.7"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/tops">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/tops_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/tops"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tops"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <!-- FROM HERE -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1.9"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/tunics">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/tunics_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/tunics"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tunics"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/western_wear">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/western_wear_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/western_wear"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:id="@+id/western"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Western"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                    <TextView
+                        android:layout_below="@id/western"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wear"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="90dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1.4"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/women_footwear">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/women_footwear_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/women_footwear"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Women"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Footware"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="90dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="2dp"
+                android:id="@+id/women_clothings">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/women_clothings_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/women_clothing"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Women"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:layout_alignParentTop="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Clothings"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="90dp"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <!-- TILL HERE -->
+
+    </LinearLayout>
 
 </RelativeLayout>
