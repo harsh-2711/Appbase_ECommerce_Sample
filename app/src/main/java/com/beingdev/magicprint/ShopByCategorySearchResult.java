@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Pair;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beingdev.magicprint.adapters.CategoryResultAdapter;
+import com.beingdev.magicprint.models.GenericProductModel;
 import com.beingdev.magicprint.models.SearchItemModel;
 
 import org.json.JSONArray;
@@ -53,6 +57,49 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
 
         categoryResultAdapter = new CategoryResultAdapter(list);
         recyclerView.setAdapter(categoryResultAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+            GestureDetector gestureDetector = new GestureDetector(ShopByCategorySearchResult.this, new GestureDetector.SimpleOnGestureListener() {
+
+                @Override public boolean onSingleTapUp(MotionEvent motionEvent) {
+
+                    return true;
+                }
+
+            });
+
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+                ChildView = recyclerView.findChildViewUnder(e.getX(), e.getY());
+
+                if(ChildView != null && gestureDetector.onTouchEvent(e)) {
+                    RecyclerViewItemPosition = recyclerView.getChildAdapterPosition(ChildView);
+                    String productName = list.get(RecyclerViewItemPosition).get(0);
+                    String productDescription = list.get(RecyclerViewItemPosition).get(3);
+                    String productPrice = list.get(RecyclerViewItemPosition).get(1);
+                    String productImage = list.get(RecyclerViewItemPosition).get(2);
+                    String productNewPrice = productPrice.substring(4);
+
+                    GenericProductModel product = new GenericProductModel(0, productName,
+                            productImage, productDescription, Float.valueOf(productNewPrice));
+                    Intent intent = new Intent(getApplicationContext(), IndividualProduct.class);
+                    intent.putExtra("product", product);
+                    startActivity(intent);
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
     }
 
     private class AddItemsToRecycler extends AsyncTask<String,Void,Void> {
@@ -160,6 +207,7 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
                     arrayList.add(entry);
                     arrayList.add("Rs. " + Math.round(price));
                     arrayList.add(url);
+                    arrayList.add(desc);
                     list.add(arrayList);
                 }
 
