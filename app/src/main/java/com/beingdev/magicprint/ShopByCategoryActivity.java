@@ -203,4 +203,14 @@ public class ShopByCategoryActivity extends AppCompatActivity {
         intent.putExtra("category", category);
         startActivity(intent);
     }
+
+    public void Notifications(View view) {
+        startActivity(new Intent(ShopByCategoryActivity.this, NotificationActivity.class));
+        finish();
+    }
+
+    public void viewCart(View view) {
+        startActivity(new Intent(ShopByCategoryActivity.this, Cart.class));
+    }
+
 }

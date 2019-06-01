@@ -233,4 +233,14 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
                 " \"operator\":\"and\" } } ], \"minimum_should_match\":\"1\" } } } }, \"aggs\": { \"unique-terms\": { \"terms\": { \"field\": \"tags.keyword\"" +
                 " } } } }";
     }
+
+    public void Notifications(View view) {
+        startActivity(new Intent(ShopByCategorySearchResult.this, NotificationActivity.class));
+        finish();
+    }
+
+    public void viewCart(View view) {
+        startActivity(new Intent(ShopByCategorySearchResult.this, Cart.class));
+    }
+
 }
