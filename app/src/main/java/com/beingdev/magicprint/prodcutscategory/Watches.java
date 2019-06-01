@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import io.appbase.client.AppbaseClient;
 
@@ -208,7 +209,8 @@ public class Watches extends AppCompatActivity {
                         String src = image.getString("src");
                         Log.d("Result", title);
                         Long val = Long.parseLong(id);
-                        watches.add(new GenericProductModel(val.intValue(),title,src,title, 0));
+                        int random = new Random().nextInt(4500) + 500;
+                        watches.add(new GenericProductModel(val.intValue(),title,src,title, random));
                     }
 
                 } catch (JSONException e) {

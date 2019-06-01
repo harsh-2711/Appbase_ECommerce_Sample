@@ -36,6 +36,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import io.appbase.client.AppbaseClient;
 
@@ -206,7 +207,8 @@ public class Footwear extends AppCompatActivity {
                         String src = image.getString("src");
                         Log.d("Result", title);
                         Long val = Long.parseLong(id);
-                        footwears.add(new GenericProductModel(val.intValue(),title,src,title, 0));
+                        int random = new Random().nextInt(4500) + 500;
+                        footwears.add(new GenericProductModel(val.intValue(),title,src,title, random));
                     }
 
                 } catch (JSONException e) {

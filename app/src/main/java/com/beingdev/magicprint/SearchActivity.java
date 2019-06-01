@@ -75,14 +75,20 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... strings) {
 
-            AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io","shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
+            AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io", "shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
             try {
 
-                String query =  "{ \"match_phrase_prefix\": { \"title\": { \"query\": \"" + strings[0] + "\", \"analyzer\": \"standard\", \"max_expansions\": 30 } } }";
+                String query = "{ \"query\":{ \"bool\":{ \"must\":{ \"bool\":{ \"should\":[ { \"multi_match\":{ \"query\":" + strings[0] + "," +
+                        " \"fields\":[ \"title\", \"title.search\" ], \"operator\":\"and } }," +
+                        " { \"multi_match\":{ \"query\":" + strings[0] + ",  \"fields\":[ \"title\", \"title.search\" ], \"type\":\"phrase_prefix\"," +
+                        " \"operator\":\"and\" } } ], \"minimum_should_match\":\"1\" } } } } }";
+
                 String result = client.prepareSearch("products", query)
                         .execute()
                         .body()
                         .string();
+
+                Log.d("RESPONSE", result);
 
                 JSONObject resultJSON = new JSONObject(result);
                 JSONObject hits = resultJSON.getJSONObject("hits");
@@ -90,7 +96,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 filteredData = new ArrayList<>();
 
-                for(int i = 0; i < finalHits.length(); i++) {
+                for (int i = 0; i < finalHits.length(); i++) {
 
                     JSONObject obj = finalHits.getJSONObject(i);
                     JSONObject source = obj.getJSONObject("_source");
@@ -106,16 +112,11 @@ public class SearchActivity extends AppCompatActivity {
 
                     filteredData.add(new SearchItemModel(1, entry, url, desc, price));
                 }
-
-                //Log.d("Result", finalHits.toString());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+                return null;
+            } catch (Exception e){
                 e.printStackTrace();
             }
-
-            return null;
+            return  null;
         }
 
         @Override

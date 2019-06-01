@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import io.appbase.client.AppbaseClient;
 
@@ -211,7 +212,8 @@ public class Kurtas extends AppCompatActivity {
                         String src = image.getString("src");
                         Log.d("Result", title);
                         Long val = Long.parseLong(id);
-                        kurtas.add(new GenericProductModel(val.intValue(),title,src,title, 0));
+                        int random = new Random().nextInt(4500) + 500;
+                        kurtas.add(new GenericProductModel(val.intValue(),title,src,title, random));
                     }
 
                 } catch (JSONException e) {
