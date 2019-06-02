@@ -70,138 +70,139 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/spare_parts">
+                android:id="@+id/spare_parts"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/spare_part_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/automotive_and_spare_parts"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Spare Parts"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/automotive">
+                android:id="@+id/automotive"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/automotives_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/automotive"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Automotive"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2.7"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/bras">
+                android:id="@+id/bras"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/bras_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/bras"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Bras"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/car_interior">
+                android:id="@+id/car_interior"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/car_interior_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/car_interior"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Car Interior"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -215,138 +216,138 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/casual_shoes">
+                android:id="@+id/casual_shoes"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/casual_shoes_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/casual_shoes"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Casual Shoes"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="5.9"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/clothing">
+                android:id="@+id/clothing"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/clothing_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/clothings"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Clothings"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2.7"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/coffee_mugs">
+                android:id="@+id/coffee_mugs"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/coffee_mugs_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/coffee_mugs"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Coffee Mugs"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/footwear">
+                android:id="@+id/footwear"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/footwear_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/footwear_2"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Footwear"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -361,138 +362,138 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2.2"
+                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/jewellery">
+                android:id="@+id/jewellery"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/jewellery_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/jewellery_2"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Jewellery"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/kitchen_set">
+                android:id="@+id/kitchen_set"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/kitchen_set_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/kitchen_set"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kitchen Set"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2.7"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/lingerie">
+                android:id="@+id/lingerie"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/lingerie_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/lingerie"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lingerie"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3.2"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/rings">
+                android:id="@+id/rings"
+                app:cardElevation="0dp" >
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/rings_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/rings"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Rings"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -507,138 +508,138 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3.5"
+                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/s4s_bras">
+                android:id="@+id/s4s_bras"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/s4s_bras_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/s4s_bras"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="s4s bras"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="5.2"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/shirts">
+                android:id="@+id/shirts"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/shirts_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/shirts"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Shirts"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/swim_wear">
+                android:id="@+id/swim_wear"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/swim_wear_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/swim_wear"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Swim Wear"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="4.7"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/tops">
+                android:id="@+id/tops"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/tops_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/tops"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tops"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -653,164 +654,187 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.9"
+                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/tunics">
+                android:id="@+id/tunics"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/tunics_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/tunics"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="3"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tunics"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/western_wear">
+                android:id="@+id/western_wear"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/western_wear_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/western_wear"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="4"/>
 
-                    <TextView
-                        android:id="@+id/western"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Western"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_weight="1">
 
-                    <TextView
-                        android:layout_below="@id/western"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Wear"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="90dp"
-                        android:layout_alignParentTop="true"/>
+                        <TextView
+                            android:id="@+id/western"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Western"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"/>
 
-                </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wear"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.4"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/women_footwear">
+                android:id="@+id/women_footwear"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/women_footwear_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/women_footwear"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="4"/>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Women"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_gravity="center">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Footware"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="90dp"
-                        android:layout_alignParentTop="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Women's"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"/>
 
-                </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Footwear"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.9"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                app:cardElevation="2dp"
-                android:id="@+id/women_clothings">
+                android:id="@+id/women_clothings"
+                app:cardElevation="0dp">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/women_clothings_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/women_clothing"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="4"/>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Women"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="70dp"
-                        android:layout_alignParentTop="true"/>
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_gravity="center">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Clothings"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="90dp"
-                        android:layout_alignParentTop="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Women's"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"/>
 
-                </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Clothing"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
