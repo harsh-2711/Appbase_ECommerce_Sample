@@ -7,6 +7,7 @@ import android.util.Pair;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,8 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
     View ChildView ;
     int RecyclerViewItemPosition ;
 
+    TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,72 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
 
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
+
+        textView = (TextView) findViewById(R.id.showcaseCategory);
+        switch (category) {
+            case "spareParts":
+                textView.setText("Accessories & Spare parts");
+                break;
+            case "automotive":
+                textView.setText("Automotive");
+                break;
+            case "bras":
+                textView.setText("Bras");
+                break;
+            case "carInterior":
+                textView.setText("Car Interior");
+                break;
+            case "casualShoes":
+                textView.setText("Casual Shoes");
+                break;
+            case "clothing":
+                textView.setText("Clothing");
+                break;
+            case "coffeeMugs":
+                textView.setText("Coffee Mugs");
+                break;
+            case "footwear":
+                textView.setText("Footwear");
+                break;
+            case "jewellery":
+                textView.setText("Jewellery");
+                break;
+            case "kitchenSet":
+                textView.setText("Kitchen & Dining");
+                break;
+            case "lingerie":
+                textView.setText("Lingerie");
+                break;
+            case "rings":
+                textView.setText("Rings");
+                break;
+            case "s4sBras":
+                textView.setText("S4S Bras");
+                break;
+            case "shirts":
+                textView.setText("Shirts");
+                break;
+            case "swimWear":
+                textView.setText("Sleep & Swimwear");
+                break;
+            case "tops":
+                textView.setText("Tops");
+                break;
+            case "tunics":
+                textView.setText("Tops & Tunics");
+                break;
+            case "westernWear":
+                textView.setText("Western Wear");
+                break;
+            case "womenFootwear":
+                textView.setText("Women's Footwear");
+                break;
+            case "womenClothings":
+                textView.setText("Women's Clothing");
+                break;
+            default:
+                break;
+        }
 
         recyclerView = (RecyclerView) findViewById(R.id.category_search_recycler);
         mGridLayoutManager = new GridLayoutManager(ShopByCategorySearchResult.this, 2);
