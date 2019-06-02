@@ -38,7 +38,8 @@
         android:layout_height="20dp"
         android:src="@drawable/notification"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="15dp"/>
+        android:layout_marginRight="15dp"
+        android:onClick="Notifications"/>
 
 
     <ImageView
@@ -47,17 +48,8 @@
         android:layout_height="20dp"
         android:src="@drawable/cart"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="10dp" />
-
-    <TextView
-        android:id="@+id/updatedetails"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update"
-        android:textAllCaps="true"
-        android:layout_marginRight="20dp"
-        android:textColor="#1976d2"/>
+        android:layout_marginRight="10dp"
+        android:onClick="viewCart" />
 
     </LinearLayout>
 
