@@ -17,7 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.beingdev.magicprint.networksync.CheckInternetConnection;
-import com.beingdev.magicprint.prodcutscategory.Bags;
+import com.beingdev.magicprint.prodcutscategory.Accessory;
 import com.beingdev.magicprint.prodcutscategory.Kurtas;
 import com.beingdev.magicprint.prodcutscategory.Footwear;
 import com.beingdev.magicprint.prodcutscategory.Jewellery;
@@ -459,7 +459,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void bagsActivity(View view) {
 
-        startActivity(new Intent(MainActivity.this, Bags.class));
+        startActivity(new Intent(MainActivity.this, Accessory.class));
     }
 
     public void stationaryAcitivity(View view) {

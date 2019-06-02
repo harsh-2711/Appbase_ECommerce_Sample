@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
@@ -25,9 +24,6 @@ import com.beingdev.magicprint.NotificationActivity;
 import com.beingdev.magicprint.R;
 import com.beingdev.magicprint.models.GenericProductModel;
 import com.beingdev.magicprint.networksync.CheckInternetConnection;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -36,7 +32,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import io.appbase.client.AppbaseClient;
@@ -45,7 +40,7 @@ import io.appbase.client.AppbaseClient;
  * Created by kshitij on 22/1/18.
  */
 
-public class Bags extends AppCompatActivity {
+public class Accessory extends AppCompatActivity {
 
 
     //created for firebaseui android tutorial by Vamsi Tallapudi
@@ -118,7 +113,7 @@ public class Bags extends AppCompatActivity {
             }
             viewHolder.cardname.setText(model.getCardname());
             viewHolder.cardprice.setText("₹ " + Float.toString(model.getCardprice()));
-            Picasso.with(Bags.this).load(model.getCardimage()).into(viewHolder.cardimage);
+            Picasso.with(Accessory.this).load(model.getCardimage()).into(viewHolder.cardimage);
 
             viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -155,13 +150,13 @@ public class Bags extends AppCompatActivity {
     }
 
     public void viewCart(View view) {
-        startActivity(new Intent(Bags.this, Cart.class));
+        startActivity(new Intent(Accessory.this, Cart.class));
         finish();
     }
 
 
     public void Notifications(View view) {
-        startActivity(new Intent(Bags.this, NotificationActivity.class));
+        startActivity(new Intent(Accessory.this, NotificationActivity.class));
         finish();
     }
 
@@ -189,7 +184,7 @@ public class Bags extends AppCompatActivity {
                 //String result = client.prepareGet("products","2208131121252").execute().body().string();
                 //Log.d("Result", result);
 
-                String query = "{\"query\":{ \"match\": { \"tags\": { \"query\": \"accessories\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }}";
+                String query = "{\"query\":{ \"match\": { \"tags\": { \"query\": \"accessories\", \"analyzer\": \"standard\"} }  }}";
                 String result = client.prepareSearch("products", query)
                         .execute()
                         .body()

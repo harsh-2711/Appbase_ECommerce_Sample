@@ -56,14 +56,14 @@
 
 -keepclasseswithmembers class * { @com.activeandroid.annotation.Column <fields>; }
 -keepattributes InnerClasses
--keep class com.beingdev.magicprint.prodcutscategory.Bags$* { *; }
+-keep class com.beingdev.magicprint.prodcutscategory.Accessory$* { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Kurtas$* { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Footwear$* { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Watches$* { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Jewellery$* { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Tshirts$* { *; }
 
--keep class com.beingdev.magicprint.prodcutscategory.Bags** { *; }
+-keep class com.beingdev.magicprint.prodcutscategory.Accessory** { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Kurtas** { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Footwear** { *; }
 -keep class com.beingdev.magicprint.prodcutscategory.Watches** { *; }

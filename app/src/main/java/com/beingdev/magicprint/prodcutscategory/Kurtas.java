@@ -194,7 +194,7 @@ public class Kurtas extends AppCompatActivity {
                 //String result = client.prepareGet("products","2208131121252").execute().body().string();
                 //Log.d("Result", result);
 
-                String query = "{\"query\":{ \"match\": { \"tags\": { \"query\": \"women-kurtas\", \"analyzer\": \"standard\", \"max_expansions\": 30 } }  }}";
+                String query = "{\"query\":{ \"match\": { \"tags\": { \"query\": \"women-kurtas\", \"analyzer\": \"standard\", \"max_expansions\": 100 } }  }}";
                 String result = client.prepareSearch("products", query)
                         .execute()
                         .body()

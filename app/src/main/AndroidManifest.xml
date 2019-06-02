@@ -95,7 +95,7 @@
             android:name=".prodcutscategory.Tshirts"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Bags"
+            android:name=".prodcutscategory.Accessory"
             android:theme="@style/WhiteTheme" />
         <activity
             android:name=".prodcutscategory.Kurtas"
