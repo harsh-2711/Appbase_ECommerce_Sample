@@ -310,7 +310,7 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
     }
 
     private String makeJSON(String category) {
-        return "{ \"query\":{ \"bool\":{ \"must\":{ \"bool\":{ \"should\":[ { \"multi_match\":{ \"query\":\"" + category + "\", \"fields\":[ \"tags\", \"tags.search\"" +
+        return "{ \"from\": 0, \"size\": 300, \"query\":{ \"bool\":{ \"must\":{ \"bool\":{ \"should\":[ { \"multi_match\":{ \"query\":\"" + category + "\", \"fields\":[ \"tags\", \"tags.search\"" +
                 " ], \"type\":\"cross_fields\", \"operator\":\"and\" } }, { \"multi_match\":{ \"query\":\"" + category + "\", \"fields\":[ \"tags\", \"tags.search\" ], \"type\":\"phrase_prefix\"," +
                 " \"operator\":\"and\" } } ], \"minimum_should_match\":\"1\" } } } }, \"aggs\": { \"unique-terms\": { \"terms\": { \"field\": \"tags.keyword\"" +
                 " } } } }";

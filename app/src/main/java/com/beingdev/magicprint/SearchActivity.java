@@ -80,7 +80,7 @@ public class SearchActivity extends AppCompatActivity {
             try {
                 String query =  "{ \"match_phrase_prefix\": { \"title\": { \"query\": \"" + strings[0] + "\", \"analyzer\": \"standard\", \"max_expansions\": 30 } } }";
 
-                String json = "{ \"query\": { \"bool\": { \"must\":{ \"bool\": { \"should\": [ { \"multi_match\": { \"query\": \"" + strings[0] + "\"," +
+                String json = "{ \"from\": 0, \"size\": 10, \"query\": { \"bool\": { \"must\":{ \"bool\": { \"should\": [ { \"multi_match\": { \"query\": \"" + strings[0] + "\"," +
                         " \"fields\": [ \"title\", \"title.search\" ], \"operator\":\"and\" } }," +
                         " { \"multi_match\": { \"query\": \"" + strings[0] + "\",  \"fields\": [ \"title\", \"title.search\" ], \"type\":\"phrase_prefix\"," +
                         " \"operator\":\"and\" } } ], \"minimum_should_match\": \"1\" } } } } }";
@@ -91,7 +91,7 @@ public class SearchActivity extends AppCompatActivity {
                         .body()
                         .string();
 
-                Log.d("RESPONSE", result);
+                //Log.d("RESPONSE", result);
 
                 JSONObject resultJSON = new JSONObject(result);
                 JSONObject hits = resultJSON.getJSONObject("hits");
