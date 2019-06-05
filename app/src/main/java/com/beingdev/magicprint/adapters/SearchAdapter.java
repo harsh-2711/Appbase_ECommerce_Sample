@@ -75,18 +75,106 @@ public class SearchAdapter extends ArrayAdapter<SearchItemModel> implements View
             result = convertView;
         }
 
-        if(searchItem.getItem().toLowerCase().contains(queryText.toLowerCase())) {
-            int start = searchItem.getItem().toLowerCase().indexOf(queryText.toLowerCase());
-            int end = start + queryText.length();
+        if(position == 0 || position == 1) {
+            ArrayList<String> tags = searchItem.getTags();
+            ArrayList<String> maxHits = searchItem.getMaxHits();
+            String firstCategory = "", secondCategory = "";
 
-            String firstHalf = searchItem.getItem().substring(0,start);
-            String secondHalf = searchItem.getItem().substring(end);
-            String highlight = searchItem.getItem().substring(start, end);
+            for(int i = 0; i < maxHits.size(); i++) {
+                if(tags.contains(maxHits.get(i))) {
+                    if(firstCategory.equals(""))
+                        firstCategory = maxHits.get(i);
+                    else if(secondCategory.equals(""))
+                        secondCategory = maxHits.get(i);
+                    else
+                        break;
+                }
+            }
 
-            viewHolder.entry.setText(Html.fromHtml(firstHalf + "<b>" + highlight + "</b>" + secondHalf));
+            if(firstCategory.equals("") && secondCategory.equals("")) {
+                if(searchItem.getItem().toLowerCase().contains(queryText.toLowerCase())) {
+                    int start = searchItem.getItem().toLowerCase().indexOf(queryText.toLowerCase());
+                    int end = start + queryText.length();
 
-        } else  {
-            viewHolder.entry.setText(searchItem.getItem());
+                    String firstHalf = searchItem.getItem().substring(0,start);
+                    String secondHalf = searchItem.getItem().substring(end);
+                    String highlight = searchItem.getItem().substring(start, end);
+
+                    if(tags.size() > 0)
+                        viewHolder.entry.setText(Html.fromHtml(firstHalf + "<b>" + highlight + "</b>" + secondHalf + "<br>" +
+                            "<font size=1 color=#e67e22>in " + tags.get(0) + "</font>"));
+                    else
+                        viewHolder.entry.setText(Html.fromHtml(firstHalf + "<b>" + highlight + "</b>" + secondHalf));
+
+                } else  {
+                    viewHolder.entry.setText(searchItem.getItem());
+                }
+            }
+            else if(!firstCategory.equals("") && secondCategory.equals("")) {
+                if(searchItem.getItem().toLowerCase().contains(queryText.toLowerCase())) {
+                    int start = searchItem.getItem().toLowerCase().indexOf(queryText.toLowerCase());
+                    int end = start + queryText.length();
+
+                    String firstHalf = searchItem.getItem().substring(0,start);
+                    String secondHalf = searchItem.getItem().substring(end);
+                    String highlight = searchItem.getItem().substring(start, end);
+
+                    viewHolder.entry.setText(Html.fromHtml(firstHalf + "<b>" + highlight + "</b>" + secondHalf + "<br>" +
+                            "<font size=1 color=#e67e22>in " + firstCategory + "</font>"));
+
+                } else  {
+                    viewHolder.entry.setText(searchItem.getItem());
+                }
+            }
+            else {
+                if(firstCategory.contains("&") || secondCategory.contains("&")) {
+                    if(searchItem.getItem().toLowerCase().contains(queryText.toLowerCase())) {
+                        int start = searchItem.getItem().toLowerCase().indexOf(queryText.toLowerCase());
+                        int end = start + queryText.length();
+
+                        String firstHalf = searchItem.getItem().substring(0,start);
+                        String secondHalf = searchItem.getItem().substring(end);
+                        String highlight = searchItem.getItem().substring(start, end);
+
+                        viewHolder.entry.setText(Html.fromHtml(firstHalf + "<b>" + highlight + "</b>" + secondHalf + "<br>" +
+                                "<font size=1 color=#e67e22>in " + firstCategory + "</font>"));
+
+                    } else  {
+                        viewHolder.entry.setText(searchItem.getItem());
+                    }
+                }
+                else {
+                    if(searchItem.getItem().toLowerCase().contains(queryText.toLowerCase())) {
+                        int start = searchItem.getItem().toLowerCase().indexOf(queryText.toLowerCase());
+                        int end = start + queryText.length();
+
+                        String firstHalf = searchItem.getItem().substring(0,start);
+                        String secondHalf = searchItem.getItem().substring(end);
+                        String highlight = searchItem.getItem().substring(start, end);
+
+                        viewHolder.entry.setText(Html.fromHtml("<html><body>" + firstHalf + "<b>" + highlight + "</b>" + secondHalf + "<br>" +
+                                "<font size=1 color=#e67e22 >in " + firstCategory + " and " + secondCategory + "</font></body></html>"));
+
+                    } else  {
+                        viewHolder.entry.setText(searchItem.getItem());
+                    }
+                }
+            }
+
+        } else {
+            if(searchItem.getItem().toLowerCase().contains(queryText.toLowerCase())) {
+                int start = searchItem.getItem().toLowerCase().indexOf(queryText.toLowerCase());
+                int end = start + queryText.length();
+
+                String firstHalf = searchItem.getItem().substring(0,start);
+                String secondHalf = searchItem.getItem().substring(end);
+                String highlight = searchItem.getItem().substring(start, end);
+
+                viewHolder.entry.setText(Html.fromHtml(firstHalf + "<b>" + highlight + "</b>" + secondHalf));
+
+            } else  {
+                viewHolder.entry.setText(searchItem.getItem());
+            }
         }
 
         return convertView;

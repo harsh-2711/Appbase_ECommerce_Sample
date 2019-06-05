@@ -86,7 +86,7 @@ public class SearchActivity extends AppCompatActivity {
                 String json = "{ \"from\": 0, \"size\": 10, \"query\": { \"bool\": { \"must\":{ \"bool\": { \"should\": [ { \"multi_match\": { \"query\": \"" + queryText + "\"," +
                         " \"fields\": [ \"title\", \"title.search\" ], \"operator\":\"and\" } }," +
                         " { \"multi_match\": { \"query\": \"" + queryText + "\",  \"fields\": [ \"title\", \"title.search\" ], \"type\":\"phrase_prefix\"," +
-                        " \"operator\":\"and\" } } ], \"minimum_should_match\": \"1\" } } } } }";
+                        " \"operator\":\"and\" } } ], \"minimum_should_match\": \"1\" } } } }, \"aggs\": { \"unique-terms\": { \"terms\": { \"field\": \"tags.keyword\" } } } }";
 
                 //Log.d("JSON", json);
                 String result = client.prepareSearch("products", json)
@@ -97,6 +97,21 @@ public class SearchActivity extends AppCompatActivity {
                 //Log.d("RESPONSE", result);
 
                 JSONObject resultJSON = new JSONObject(result);
+
+                JSONObject agg = resultJSON.getJSONObject("aggregations");
+                JSONObject uniqueTerms = agg.getJSONObject("unique-terms");
+                JSONArray buckets = uniqueTerms.getJSONArray("buckets");
+                ArrayList<String> highestHits = new ArrayList<>();
+
+                for (int i = 0; i < buckets.length(); i++) {
+
+                    JSONObject object = buckets.getJSONObject(i);
+                    String hit = object.getString("key");
+                    highestHits.add(hit);
+                }
+                // Log.d("Hits List", highestHits.toString());
+
+
                 JSONObject hits = resultJSON.getJSONObject("hits");
                 JSONArray finalHits = hits.getJSONArray("hits");
 
@@ -108,7 +123,15 @@ public class SearchActivity extends AppCompatActivity {
                     JSONObject source = obj.getJSONObject("_source");
                     String entry = source.getString("title");
 
-                    //Log.d("FINAL HITS", entry);
+                    JSONArray tagsArray = source.getJSONArray("tags");
+                    ArrayList<String> tags = new ArrayList<>();
+
+                    for(int j = 0; j < tagsArray.length(); j++) {
+                        String tag = tagsArray.getString(j);
+                        tags.add(tag);
+                    }
+                    // Log.d("tags", tags.toString());
+
                     String desc = source.getString("body_html");
 
                     JSONObject img = source.getJSONObject("image");
@@ -116,7 +139,7 @@ public class SearchActivity extends AppCompatActivity {
 
                     float price = (new Random().nextInt(5000 - 500 + 1)) + 500;
 
-                    filteredData.add(new SearchItemModel(1, entry, url, desc, price));
+                    filteredData.add(new SearchItemModel(1, entry, url, desc, price, tags, highestHits));
                 }
 
                 // long time1= System.currentTimeMillis();

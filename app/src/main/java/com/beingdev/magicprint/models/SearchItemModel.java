@@ -1,6 +1,7 @@
 package com.beingdev.magicprint.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class SearchItemModel implements Serializable {
 
@@ -9,13 +10,17 @@ public class SearchItemModel implements Serializable {
     String image;
     String description;
     float price;
+    ArrayList<String> tags, maxHits;
 
-    public SearchItemModel(int id, String item, String image, String description, float price) {
+    public SearchItemModel(int id, String item, String image, String description, float price, ArrayList<String> tags,
+                           ArrayList<String> maxHits) {
         this.id = id;
         this.item = item;
         this.image = image;
         this.description = description;
         this.price = price;
+        this.tags = tags;
+        this.maxHits = maxHits;
     }
 
     public int getId() {
@@ -56,5 +61,21 @@ public class SearchItemModel implements Serializable {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
+    }
+
+    public ArrayList<String> getMaxHits() {
+        return maxHits;
+    }
+
+    public void setMaxHits(ArrayList<String> maxHits) {
+        this.maxHits = maxHits;
     }
 }
