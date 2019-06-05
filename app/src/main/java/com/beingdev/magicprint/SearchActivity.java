@@ -72,17 +72,20 @@ public class SearchActivity extends AppCompatActivity {
 
         ArrayList<SearchItemModel> filteredData;
         private SearchAdapter searchAdapter;
+        String queryText;
 
         @Override
         protected Void doInBackground(String... strings) {
 
+            queryText = strings[0];
+
             AppbaseClient client = new AppbaseClient("https://scalr.api.appbase.io", "shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf");
             try {
-                String query =  "{ \"match_phrase_prefix\": { \"title\": { \"query\": \"" + strings[0] + "\", \"analyzer\": \"standard\", \"max_expansions\": 30 } } }";
+                String query =  "{ \"match_phrase_prefix\": { \"title\": { \"query\": \"" + queryText + "\", \"analyzer\": \"standard\", \"max_expansions\": 30 } } }";
 
-                String json = "{ \"from\": 0, \"size\": 10, \"query\": { \"bool\": { \"must\":{ \"bool\": { \"should\": [ { \"multi_match\": { \"query\": \"" + strings[0] + "\"," +
+                String json = "{ \"from\": 0, \"size\": 10, \"query\": { \"bool\": { \"must\":{ \"bool\": { \"should\": [ { \"multi_match\": { \"query\": \"" + queryText + "\"," +
                         " \"fields\": [ \"title\", \"title.search\" ], \"operator\":\"and\" } }," +
-                        " { \"multi_match\": { \"query\": \"" + strings[0] + "\",  \"fields\": [ \"title\", \"title.search\" ], \"type\":\"phrase_prefix\"," +
+                        " { \"multi_match\": { \"query\": \"" + queryText + "\",  \"fields\": [ \"title\", \"title.search\" ], \"type\":\"phrase_prefix\"," +
                         " \"operator\":\"and\" } } ], \"minimum_should_match\": \"1\" } } } } }";
 
                 //Log.d("JSON", json);
@@ -131,7 +134,7 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            searchAdapter = new SearchAdapter(filteredData, getApplicationContext());
+            searchAdapter = new SearchAdapter(filteredData, getApplicationContext(), queryText);
             listView.setAdapter(searchAdapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

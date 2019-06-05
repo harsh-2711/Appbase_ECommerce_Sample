@@ -2,6 +2,7 @@ package com.beingdev.magicprint.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,21 +25,23 @@ public class SearchAdapter extends ArrayAdapter<SearchItemModel> implements View
 
     private ArrayList<SearchItemModel> filteredData;
     Context mContext;
+    String queryText;
 
     private static class ViewHolder {
         TextView entry;
     }
 
-    public SearchAdapter(ArrayList<SearchItemModel> filteredData, Context mContext) {
+    public SearchAdapter(ArrayList<SearchItemModel> filteredData, Context mContext, String queryText) {
         super(mContext, R.layout.row_item, filteredData);
         this.filteredData = filteredData;
         this.mContext = mContext;
+        this.queryText = queryText;
     }
 
     @Override
     public void onClick(View v) {
 
-        Log.d("HERE", "I AM HERE");
+        //Log.d("HERE", "I AM HERE");
         int position = (Integer) v.getTag();
         Object object= getItem(position);
         SearchItemModel searchItemModel = (SearchItemModel) object;
@@ -72,7 +75,19 @@ public class SearchAdapter extends ArrayAdapter<SearchItemModel> implements View
             result = convertView;
         }
 
-        viewHolder.entry.setText(searchItem.getItem());
+        if(searchItem.getItem().toLowerCase().contains(queryText.toLowerCase())) {
+            int start = searchItem.getItem().toLowerCase().indexOf(queryText.toLowerCase());
+            int end = start + queryText.length();
+
+            String firstHalf = searchItem.getItem().substring(0,start);
+            String secondHalf = searchItem.getItem().substring(end);
+            String highlight = searchItem.getItem().substring(start, end);
+
+            viewHolder.entry.setText(Html.fromHtml(firstHalf + "<b>" + highlight + "</b>" + secondHalf));
+
+        } else  {
+            viewHolder.entry.setText(searchItem.getItem());
+        }
 
         return convertView;
     }
