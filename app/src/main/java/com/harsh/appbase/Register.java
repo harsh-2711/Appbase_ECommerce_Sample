@@ -146,7 +146,6 @@ public class Register extends AppCompatActivity {
                                     myRef.child("Users").child(mobile).child("Name").setValue(name);
                                     myRef.child("Users").child(mobile).child("Email").setValue(email);
                                     myRef.child("Users").child(mobile).child("Password").setValue(password);
-                                    myRef.child("Users").child(mobile).child("Profile Image").setValue(profile);
 
                                     myRef.addValueEventListener(new ValueEventListener() {
                                         @Override
