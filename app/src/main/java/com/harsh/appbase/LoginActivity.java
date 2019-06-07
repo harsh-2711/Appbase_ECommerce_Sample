@@ -1,5 +1,7 @@
 package com.harsh.appbase;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -7,9 +9,11 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -20,21 +24,24 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kaopiz.kprogresshud.KProgressHUD;
+
+import java.util.Objects;
 
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText edtemail,edtpass;
-    private String email,pass,sessionmobile;
+    private String email,pass;
     private TextView appname,forgotpass,registernow;
-    private RequestQueue requestQueue;
     private UserSession session;
     public static final String TAG = "MyTag";
-    private int cartcount, wishlistcount;
+    boolean mailFound, passFound;
+    String foundName = "", foundMobile = "", foundImage = "";
 
     //Getting reference to Firebase Database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference mDatabaseReference = database.getReference();
+    DatabaseReference myRef = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +55,18 @@ public class LoginActivity extends AppCompatActivity {
         appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
 
-        edtemail= findViewById(R.id.email);
-        edtpass= findViewById(R.id.password);
+        edtemail = findViewById(R.id.email);
+        edtpass = findViewById(R.id.password);
 
         Bundle registerinfo=getIntent().getExtras();
-        if (registerinfo!=null) {
+        if (registerinfo != null) {
                 edtemail.setText(registerinfo.getString("email"));
         }
 
-        session= new UserSession(getApplicationContext());
-
-        requestQueue = Volley.newRequestQueue(LoginActivity.this);//Creating the RequestQueue
+        session = new UserSession(getApplicationContext());
 
         //if user wants to register
-        registernow= findViewById(R.id.register_now);
+        registernow = findViewById(R.id.register_now);
         registernow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //if user forgets password
-        forgotpass=findViewById(R.id.forgot_pass);
+        forgotpass = findViewById(R.id.forgot_pass);
         forgotpass.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -83,38 +88,24 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //Validating login details
-        Button button=findViewById(R.id.login_button);
+        Button button = findViewById(R.id.login_button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                email=edtemail.getText().toString();
-                pass=edtpass.getText().toString();
+                hideKeyboard(LoginActivity.this);
 
-                //Passing all received data from server to next activity
-                String sessionname = "Developer";
-                sessionmobile = "123";
-                String sessionemail =  email;
-                String sessionphoto =  "https://cdn.shopify.com/s/files/1/0148/1300/3876/products/tata-nano-rubber-mats-grey-allure-auto-cm-543-1100x1100-imaecjxkgfhnb3hq_925d7e5f-5a84-425a-8e0e-01f7538c2346.jpg?v=1547046928";
+                email = edtemail.getText().toString();
+                pass = edtpass.getText().toString();
 
-                //create shared preference and store data
-                session.createLoginSession(sessionname,sessionemail,sessionmobile,sessionphoto);
+                final String sessionphoto =  "https://cdn.shopify.com/s/files/1/0148/1300/3876/products/tata-nano-rubber-mats-grey-allure-auto-cm-543-1100x1100-imaecjxkgfhnb3hq_925d7e5f-5a84-425a-8e0e-01f7538c2346.jpg?v=1547046928";
 
-                //count value of firebase cart and wishlist
-                countFirebaseValues();
-
-                Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(loginSuccess);
-                finish();
-
-                /*
-
-                if (validateUsername(email) && validatePassword(pass)) { //Username and Password Validation
+                if(validateUsername(email) && validatePassword(pass)) {
 
                     //Progress Bar while connection establishes
 
-                          final KProgressHUD progressDialog=  KProgressHUD.create(LoginActivity.this)
+                    final KProgressHUD progressDialog=  KProgressHUD.create(LoginActivity.this)
                             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                             .setLabel("Please wait")
                             .setCancellable(false)
@@ -122,61 +113,64 @@ public class LoginActivity extends AppCompatActivity {
                             .setDimAmount(0.5f)
                             .show();
 
-
-                    LoginRequest loginRequest = new LoginRequest(email, pass, new Response.Listener<String>() {
+                    mailFound = false;
+                    passFound = false;
+                    myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onResponse(String response) {
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Iterable<DataSnapshot> children = snapshot.getChildren();
 
-                            progressDialog.dismiss();
-                            // Response from the server is in the form if a JSON, so we need a JSON Object
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                if (jsonObject.getBoolean("success")) {
-
-                                    //Passing all received data from server to next activity
-                                    String sessionname = jsonObject.getString("name");
-                                    sessionmobile = jsonObject.getString("mobile");
-                                    String sessionemail =  jsonObject.getString("email");
-                                    String sessionphoto =  jsonObject.getString("url");
-
-                                    //create shared preference and store data
-                                    session.createLoginSession(sessionname,sessionemail,sessionmobile,sessionphoto);
-
-                                    //count value of firebase cart and wishlist
-                                    countFirebaseValues();
-
-                                    Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(loginSuccess);
-                                    finish();
-                                } else {
-                                    if(jsonObject.getString("status").equals("INVALID"))
-                                        Toast.makeText(LoginActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
-                                    else{
-                                        Toast.makeText(LoginActivity.this, "Passwords Don't Match", Toast.LENGTH_SHORT).show();
+                                for (DataSnapshot childrenSnapshot : children) {
+                                    if(childrenSnapshot.getKey().equals("Email") && childrenSnapshot.getValue().equals(email)) {
+                                        mailFound = true;
+                                        break;
                                     }
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Toast.makeText(LoginActivity.this, "Bad Response From Server", Toast.LENGTH_SHORT).show();
+                                if (mailFound) {
+                                    for (DataSnapshot childrenSnapshot : children) {
+                                        if (childrenSnapshot.getKey().equals("Name")) {
+                                            foundName = Objects.requireNonNull(childrenSnapshot.getValue()).toString();
+                                            break;
+                                        }
+                                    }
+                                    for (DataSnapshot childrenSnapshot : children) {
+                                        if(childrenSnapshot.getKey().equals("Password") && childrenSnapshot.getValue().equals(pass)) {
+                                            passFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if(mailFound && passFound) {
+                                    foundMobile = snapshot.getKey();
+                                    break;
+                                }
+                            }
+
+                            if(mailFound && passFound) {
+                                // User verified
+
+                                foundImage = foundMobile + pass;
+                                session.createLoginSession(foundName, email, foundMobile, sessionphoto);
+                                countFirebaseValues();
+                                progressDialog.dismiss();
+
+                                Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(loginSuccess);
+                                finish();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             }
                         }
-                    }, new Response.ErrorListener() {
+
                         @Override
-                        public void onErrorResponse(VolleyError error) {
+                        public void onCancelled(DatabaseError databaseError) {
+                            Toast.makeText(LoginActivity.this, "Bad Response From Server", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
-                            if (error instanceof ServerError)
-                                Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-                            else if (error instanceof TimeoutError)
-                                Toast.makeText(LoginActivity.this, "Connection Timed Out", Toast.LENGTH_SHORT).show();
-                            else if (error instanceof NetworkError)
-                                Toast.makeText(LoginActivity.this, "Bad Network Connection", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    loginRequest.setTag(TAG);
-                    requestQueue.add(loginRequest);
                 }
-
-                */
             }
         });
 
@@ -185,11 +179,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private void countFirebaseValues() {
 
-        mDatabaseReference.child("cart").child(sessionmobile).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("User").child(foundMobile).child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.e(dataSnapshot.getKey(),dataSnapshot.getChildrenCount() + "");
-                    session.setCartValue((int)dataSnapshot.getChildrenCount());
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if(snapshot.getKey().equals("Num_Of_Items")) {
+                            session.setCartValue((int)snapshot.getValue());
+                        }
+                    }
             }
 
             @Override
@@ -198,11 +195,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        mDatabaseReference.child("wishlist").child(sessionmobile).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("User").child(foundMobile).child("WishList").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e(dataSnapshot.getKey(),dataSnapshot.getChildrenCount() + "");
-                session.setWishlistValue((int)dataSnapshot.getChildrenCount());
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if(snapshot.getKey().equals("Num_Of_Items")) {
+                        session.setCartValue((int)snapshot.getValue());
+                    }
+                }
             }
 
             @Override
@@ -235,6 +235,14 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 
