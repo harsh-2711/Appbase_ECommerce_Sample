@@ -46,14 +46,14 @@
     <string name="send_password2">\n\n Sorry to know that you forgot your password ! I guess it\'s the right time to get a memory booster !\n\n Just Joking ! No Offence Please !
     \n\n With Regards, \n Kshitij Singh \n (Magic Print)</string>
     <string name="select_category">Select Category</string>
-    <string name="registermail1">\n This is Kshitij Singh , CEO of Magic Print ! \n\nWelcome onboard with us on behalf of our team !\n
+    <string name="registermail1">\n This is Harsh Patel , developer at Appbase ! \n\nWelcome onboard with us on behalf of our team !\n
     We promise to provide unforgettable shopping experience to you in future ! \n\n
     So What are you waiting for , start shopping and get best of our products right at your doorstep !
     \n\n
     We are happy to help you ! In case of any query contact us at our handles mentioned below !\n\n
-    Phone : +91-7905022222\n
-    Email : beingdevofficial@gmail.com\n
-    Address : 424 Lorem Ipsum , Pune , Maharashtra ( 226025 )</string>
+    Phone : +91-1234567890\n
+    Email : dev.appbase@gmail.com\n
+    Address : 424 Lorem Ipsum , Ahmedabad , Gujarat </string>
     <string name="title_activity_process_order">ProcessOrder</string>
     <string name="orderdetails">Your Order has been Placed Succesfully. \n Here is your Unique Order Id !</string>
 
