@@ -1,6 +1,7 @@
 package com.harsh.appbase;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +46,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -100,6 +103,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                hideKeyboard(Register.this);
                 final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
                         .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                         .setLabel("Please wait")
@@ -118,6 +122,11 @@ public class Register extends AppCompatActivity {
 
                     //Validation Success
                     convertBitmapToString(profilePicture);
+                    ImageStorage imageStorage = new ImageStorage();
+                    imageStorage.saveInternalStorage(getApplicationContext(), profilePicture, mobile + password);
+                    // Sanity Check
+                    // File file = imageStorage.getImage(getApplicationContext(), mobile + password + ".jpg");
+                    // Log.d("File name", file.getName());
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     final DatabaseReference myRef = database.getReference();
@@ -355,6 +364,14 @@ public class Register extends AppCompatActivity {
 
         return !(check.length() < 4 || check.length() > 20);
 
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     //TextWatcher for Name -----------------------------------------------------
