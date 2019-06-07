@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
         PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName(R.string.cart).withIcon(R.drawable.cart);
         PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.logout).withIcon(R.drawable.logout);
 
-        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Offers").withIcon(R.drawable.tag);
+        //SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Offers").withIcon(R.drawable.tag);
         SecondaryDrawerItem item8 = new SecondaryDrawerItem().withIdentifier(8).withName(R.string.aboutapp).withIcon(R.drawable.credits);
         SecondaryDrawerItem item9 = new SecondaryDrawerItem().withIdentifier(9).withName(R.string.feedback).withIcon(R.drawable.feedback);
         SecondaryDrawerItem item10 = new SecondaryDrawerItem().withIdentifier(10).withName(R.string.helpcentre).withIcon(R.drawable.helpccenter);
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(true)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
-                        item1, item2, item3, item4, item5, new DividerDrawerItem(), item7, item8, item9, item10, new DividerDrawerItem(), item12, item13
+                        item1, item2, item3, item4, item5, new DividerDrawerItem(), item8, item9, item10, new DividerDrawerItem(), item12, item13
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -316,11 +316,13 @@ public class MainActivity extends AppCompatActivity {
                                 finish();
                                 break;
 
+                            /*
                             case 7:
                                 startActivity(new Intent(MainActivity.this, NotificationActivity.class));
                                 break;
+                            */
 
-                            case 8:
+                            case 7:
                                 new LibsBuilder()
                                         .withFields(R.string.class.getFields())
                                         .withActivityTitle(getString(R.string.about_activity_title))
@@ -339,27 +341,29 @@ public class MainActivity extends AppCompatActivity {
                                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                                         .start(MainActivity.this);
                                 break;
-                            case 9:
+                            case 8:
                                 new EasyFeedback.Builder(MainActivity.this)
                                         .withEmail("beingdevofficial@gmail.com")
                                         .withSystemInfo()
                                         .build()
                                         .start();
                                 break;
-                            case 10:
+                            case 9:
                                 startActivity(new Intent(MainActivity.this, HelpCenter.class));
                                 break;
-                            case 12:
+
+                            case 11:
                                 session.setFirstTimeLaunch(true);
                                 startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                                 finish();
                                 break;
-                            case 13:
+                            case 12:
                                 if (result != null && result.isDrawerOpen()) {
                                     result.closeDrawer();
                                 }
                                 tapview();
                                 break;
+
                             default:
                                 Toast.makeText(MainActivity.this, "Default", Toast.LENGTH_LONG).show();
 
