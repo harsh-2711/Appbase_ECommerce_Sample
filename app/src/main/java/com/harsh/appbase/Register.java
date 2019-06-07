@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.content.res.ResourcesCompat;
@@ -45,6 +46,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -98,52 +100,88 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
+                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                        .setLabel("Please wait")
+                        .setCancellable(false)
+                        .setAnimationSpeed(2)
+                        .setDimAmount(0.5f)
+                        .show();
+
                 //TODO AFTER VALDATION
                 if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()){
 
-                    final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
-                            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                            .setLabel("Please wait")
-                            .setCancellable(false)
-                            .setAnimationSpeed(2)
-                            .setDimAmount(0.5f)
-                            .show();
-
-                    name=edtname.getText().toString();
-                    email=edtemail.getText().toString();
-                    password=edtcnfpass.getText().toString();
-                    mobile=edtnumber.getText().toString();
+                    name = edtname.getText().toString();
+                    email = edtemail.getText().toString();
+                    password = edtcnfpass.getText().toString();
+                    mobile = edtnumber.getText().toString();
 
                     //Validation Success
                     convertBitmapToString(profilePicture);
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference();
-                    myRef.child("Users").child(mobile).child("Cart").child("0").child("Title").setValue("Empty");
-                    myRef.child("Users").child(mobile).child("Wishlist").child("0").child("Title").setValue("Empty");
-                    myRef.child("Users").child(mobile).child("Name").setValue(name);
-                    myRef.child("Users").child(mobile).child("Email").setValue(email);
-                    myRef.child("Users").child(mobile).child("Password").setValue(password);
-                    myRef.child("Users").child(mobile).child("Profile Image").setValue(profile);
 
-                    myRef.addValueEventListener(new ValueEventListener() {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    final DatabaseReference myRef = database.getReference();
+
+                    myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            // This method is called once with the initial value and again
-                            // whenever data at this location is updated.
-                            Log.d(TAG, "Success adding user");
-                            progressDialog.dismiss();
-                            Toasty.success(Register.this,"Registered Succesfully",Toast.LENGTH_SHORT,true).show();
-                            sendRegistrationEmail(name,email);
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                if(snapshot.getKey().equals(mobile)) {
+                                    Toasty.info(Register.this,"User already exists",Toast.LENGTH_SHORT,true).show();
+                                    progressDialog.dismiss();
+
+                                } else {
+
+                                    myRef.child("Users").child(mobile).child("Cart").child("0").child("Title").setValue("Empty");
+                                    myRef.child("Users").child(mobile).child("Wishlist").child("0").child("Title").setValue("Empty");
+                                    myRef.child("Users").child(mobile).child("Name").setValue(name);
+                                    myRef.child("Users").child(mobile).child("Email").setValue(email);
+                                    myRef.child("Users").child(mobile).child("Password").setValue(password);
+                                    myRef.child("Users").child(mobile).child("Profile Image").setValue(profile);
+
+                                    myRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            // This method is called once with the initial value and again
+                                            // whenever data at this location is updated.
+                                            Log.d(TAG, "Success adding user");
+                                            Toasty.success(Register.this,"Registered Succesfully",Toast.LENGTH_SHORT,true).show();
+                                            sendRegistrationEmail(name,email);
+                                            progressDialog.dismiss();
+                                            edtname.setText("");
+                                            edtname.setError("");
+                                            edtemail.setText("");
+                                            edtemail.setError("");
+                                            edtpass.setText("");
+                                            edtpass.setError("");
+                                            edtcnfpass.setText("");
+                                            edtcnfpass.setError("");
+                                            edtnumber.setText("");
+                                            edtnumber.setError("");
+                                            image.setImageDrawable(getDrawable(R.drawable.user));
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError error) {
+                                            // Failed to read value
+                                            Log.w(TAG, "Failed to add user", error.toException());
+                                            Toasty.error(Register.this,"Failed to Register",Toast.LENGTH_LONG,true).show();
+                                            progressDialog.dismiss();
+                                        }
+                                    });
+                                }
+                            }
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError error) {
-                            // Failed to read value
-                            Log.w(TAG, "Failed to add user", error.toException());
+                        public void onCancelled(DatabaseError databaseError) {
+                            Toasty.error(Register.this,"Server error",Toast.LENGTH_SHORT,true).show();
                             progressDialog.dismiss();
-                            Toasty.error(Register.this,"Failed to Register",Toast.LENGTH_LONG,true).show();
                         }
                     });
+
+                } else {
+                    progressDialog.dismiss();
                 }
             }
         });
