@@ -224,7 +224,7 @@ public class Register extends AppCompatActivity {
                         .withMailto(emails)
                         .withType(BackgroundMail.TYPE_PLAIN)
                         .withSubject("Greetings from Appbase")
-                        .withBody("Hello "+ name + "\n " + getString(R.string.registermail1))
+                        .withBody("Hello "+ name + ",\n " + getString(R.string.registermail1))
                         .send();
 
     }
