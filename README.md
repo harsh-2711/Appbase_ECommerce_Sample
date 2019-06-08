@@ -1,9 +1,9 @@
-# Magic Print - An E-Commerce App for Android with Material Design Pattern Using Firebase and MySQL
+# Magic Print - An E-Commerce App for Android
 
-MySQL has been used for user registration and login whereas firebase is being user for data maintenance such as user cart , wishlist , placing ording, listing orders etc !
+The app demonstrates the use of search functionality of the Appbase Android client library for large scale and huge database apps.
 
 [![HitCount](http://hits.dwyl.io/singhkshitij/singhkshitij/Chootu-Frontend.svg)](http://hits.dwyl.io/singhkshitij/singhkshitij/Chootu-Frontend)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-no-red.svg)](https://bitbucket.org/lbesson/ansi-colors)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://bitbucket.org/lbesson/ansi-colors)
 
 See Gifs below to understand flow of App !
 
@@ -53,57 +53,13 @@ See Gifs below to understand flow of App !
 - Stylish Double hierarchy Navigation drawer
 - And much much more , download apk and try to discover !
 
-## Download Magic Print Apk
-
-<a href="https://drive.google.com/open?id=1xOUxLUPaPIjDlRJ__JNfHPhMbICeqZ_b">Download APK</a>
-
-### There is one more Admin App for the same to upload and add products with ease and hassle free, so that you dont have to manually insert them in database. If required head over to my blog and subscribe, we'll mail you the source code immediately.
-
-<a href="https://mytrashcode.com/subscribe/"><img src="https://frplockbypass.info/wp-content/uploads/2018/04/Free-frp-bypass-apk-300x150.png"></a>
-
-## Download and Test Magic Print Dashboard Apk
-
-<a href="https://drive.google.com/open?id=1_TgDP39XfZ5M2a7MhGQlKM04F_cePL8e">Download Apk</a>
-
-## Make User Management work with MySQL
-I have attached php files as well as SQL dB Schema how you should create it. :) Try connecting same way with your won dB.
-
-[Download Php Files alongwith MySQL db schema]
-
-## Make it Work with Firebase
-
- - Activate firebase database service and set rules as 
-{
-  "rules": {
-    ".read": true,
-    ".write": true
-  }
-}
-
- - Then import the below attached JSON files to get some dummy data backup
-[JSON backup file]
-
-### Connected Firebase Database url (in case you need it)
-https://magic-print-8db31.firebaseio.com/
-
-### Questions ? 
-
-- Why Work with 2 different Schema ?
-- Why not firebase only for user Management also ?
-
-Simply because we do not want same dB to hold user as well as product and order data under same umbrella. It can be risky at times.
-
 ### Have an Issue ?
 Log it into Issue Tracker and will give fix soon.
-
-[JSON backup file]: <https://github.com/singhkshitij/MagicPrint/blob/master/magic-print-8db31-export.json>
-[beingdevofficial@gmail.com]: <mailto:beingdevofficial@gmail.com>
-[Download Php Files alongwith MySQL db schema]: <https://github.com/singhkshitij/MagicPrint/blob/master/UseManagementDbDetails.zip>
 
 ```sh
 MIT License
 
-Copyright (c) 2018 Kshitij Singh
+Copyright (c) 2019 Harsh Patel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
