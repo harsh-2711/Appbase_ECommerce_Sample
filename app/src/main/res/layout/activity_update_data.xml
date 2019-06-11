@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
-    tools:context="com.beingdev.magicprint.UpdateData">
+    tools:context="com.harsh.appbase.UpdateData">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbarwrap"

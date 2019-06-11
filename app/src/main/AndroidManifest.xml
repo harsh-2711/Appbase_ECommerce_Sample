@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.beingdev.magicprint">
+    package="com.harsh.appbase">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,14 +9,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".init.CustomApplication"
+        android:name="com.harsh.appbase.init.CustomApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity" />
+        <activity android:name="com.harsh.appbase.SearchActivity" />
 
         <meta-data
             android:name="AA_DB_NAME"
@@ -36,7 +36,7 @@
             android:value="DISABLE" />
 
         <activity
-            android:name=".SplashActivity"
+            android:name="com.harsh.appbase.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -46,72 +46,72 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Register"
+            android:name="com.harsh.appbase.Register"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.harsh.appbase.MainActivity"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.harsh.appbase.LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".HelpCenter"
+            android:name="com.harsh.appbase.HelpCenter"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".Profile"
+            android:name="com.harsh.appbase.Profile"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".Cart"
+            android:name="com.harsh.appbase.Cart"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".UpdateData"
+            android:name="com.harsh.appbase.UpdateData"
             android:theme="@style/WhiteTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ForgotPassword"
+            android:name="com.harsh.appbase.ForgotPassword"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".NotificationActivity"
+            android:name="com.harsh.appbase.NotificationActivity"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Footwear"
+            android:name="com.harsh.appbase.prodcutscategory.Footwear"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".IndividualProduct"
+            android:name="com.harsh.appbase.IndividualProduct"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".Wishlist"
+            android:name="com.harsh.appbase.Wishlist"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".OrderDetails"
+            android:name="com.harsh.appbase.OrderDetails"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".OrderPlaced"
+            android:name="com.harsh.appbase.OrderPlaced"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Tshirts"
+            android:name="com.harsh.appbase.prodcutscategory.Tshirts"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Accessory"
+            android:name="com.harsh.appbase.prodcutscategory.Accessory"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Kurtas"
+            android:name="com.harsh.appbase.prodcutscategory.Kurtas"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Watches"
+            android:name="com.harsh.appbase.prodcutscategory.Watches"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".prodcutscategory.Jewellery"
+            android:name="com.harsh.appbase.prodcutscategory.Jewellery"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name="com.harsh.appbase.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ShopByCategoryActivity"
+        <activity android:name="com.harsh.appbase.ShopByCategoryActivity"
             android:theme="@style/WhiteTheme"/>
-        <activity android:name=".ShopByCategorySearchResult"
+        <activity android:name="com.harsh.appbase.ShopByCategorySearchResult"
             android:theme="@style/WhiteTheme" />
     </application>
 

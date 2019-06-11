@@ -19,6 +19,7 @@
             app:titleTextColor="#000">
 
             <TextView
+                android:id="@+id/showcaseCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Showcase"

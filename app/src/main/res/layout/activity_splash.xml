@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gradient_background"
-    tools:context="com.beingdev.magicprint.SplashActivity">
+    tools:context="com.harsh.appbase.SplashActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

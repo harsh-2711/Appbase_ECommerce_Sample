@@ -269,63 +269,8 @@
                 android:background="@color/grey_light"
                 android:layout_marginTop="2dp"/>
 
-            <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your Custom Message"
-                android:textSize="16dp"
-                android:textColor="@color/gen_black"
-                android:layout_margin="10dp"/>
-
-            <View android:layout_width="match_parent"
-                android:layout_height="@dimen/view_width_small"
-                android:background="@color/grey_light"
-                android:layout_marginTop="2dp"/>
-
-            <com.github.florent37.materialtextfield.MaterialTextField
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:mtf_labelColor="#34495e"
-                app:mtf_image="@drawable/headertext"
-                >
-
-                <EditText
-                    android:id="@+id/customheader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Header"
-                    android:textColor="#424242"
-                    android:textSize="15sp"
-                    android:inputType="textMultiLine"
-                    android:maxLines="3"
-                    android:minLines="2"
-                    android:scrollbars="vertical"/>
-
-            </com.github.florent37.materialtextfield.MaterialTextField>
-
-            <com.github.florent37.materialtextfield.MaterialTextField
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:mtf_labelColor="#34495e"
-                app:mtf_image="@drawable/bubble"
-                android:layout_marginBottom="30dp"
-                >
-
-                <EditText
-                    android:id="@+id/custommessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Content"
-                    android:textColor="#424242"
-                    android:textSize="15sp"
-                    android:inputType="textMultiLine"
-                    android:maxLines="10"
-                    android:minLines="6"
-                    android:scrollbars="vertical"
-                    />
-
-            </com.github.florent37.materialtextfield.MaterialTextField>
-
         </LinearLayout>
+
     </ScrollView>
 
     <LinearLayout
