@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.beingdev.magicprint.networksync.CheckInternetConnection;
@@ -74,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
     private String first_time;
     private JSONObject obj;
 
+    CardView accessory,footwear,jewellery,kurtas,tshirts,watches;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +85,54 @@ public class MainActivity extends AppCompatActivity {
 
         searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         shopByCategory = (Button) findViewById(R.id.shopByCategory);
+        accessory = findViewById(R.id.accessory);
+        footwear = findViewById(R.id.footwear);
+        jewellery = findViewById(R.id.jewellery);
+        kurtas = findViewById(R.id.kurtas);
+        tshirts = findViewById(R.id.shirts);
+        watches = findViewById(R.id.watches);
+
+        accessory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeIntent("accessories");
+            }
+        });
+
+        footwear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeIntent("footwear");
+            }
+        });
+
+        jewellery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeIntent("jewellery");
+            }
+        });
+
+        kurtas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeIntent("westernWear");
+            }
+        });
+
+        tshirts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeIntent("mens-shirts");
+            }
+        });
+
+        watches.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeIntent("watches");
+            }
+        });
 
         searchBar.disableSearch();
 
@@ -442,6 +494,13 @@ public class MainActivity extends AppCompatActivity {
         sliderShow.startAutoCycle();
         super.onResume();
     }
+
+    private void makeIntent(String category) {
+        Intent intent = new Intent(MainActivity.this, ShopByCategorySearchResult.class);
+        intent.putExtra("category", category);
+        startActivity(intent);
+    }
+
 
     public void Notifications(View view) {
         Log.e("Check", "App crashing due to notifications");

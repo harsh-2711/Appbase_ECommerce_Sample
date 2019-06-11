@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.beingdev.magicprint.adapters.CategoryResultAdapter;
 import com.beingdev.magicprint.models.GenericProductModel;
 import com.beingdev.magicprint.models.SearchItemModel;
@@ -35,6 +36,7 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
     ArrayList<ArrayList<String>> list;
     CategoryResultAdapter categoryResultAdapter;
     GridLayoutManager mGridLayoutManager;
+    private LottieAnimationView tv_no_item;
     View ChildView ;
     int RecyclerViewItemPosition ;
 
@@ -47,6 +49,7 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
         String category = intent.getStringExtra("category");
 
         recyclerView = (RecyclerView) findViewById(R.id.category_search_recycler);
+        tv_no_item = findViewById(R.id.tv_no_cards);
         mGridLayoutManager = new GridLayoutManager(ShopByCategorySearchResult.this, 2);
         recyclerView.setLayoutManager(mGridLayoutManager);
 
@@ -70,6 +73,7 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
 
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
 
                 ChildView = recyclerView.findChildViewUnder(e.getX(), e.getY());
 
@@ -170,6 +174,15 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
                 case "womenClothings":
                     json = makeJSON("Women's Clothing");
                     break;
+                case "accessories":
+                    json = makeJSON("accessories");
+                    break;
+                case "mens-shirts":
+                    json = makeJSON("mens-shirts");
+                    break;
+                case "watches":
+                    json = makeJSON("watches");
+                    break;
                 default:
                     break;
             }
@@ -223,6 +236,9 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if(tv_no_item.getVisibility()== View.VISIBLE){
+                tv_no_item.setVisibility(View.GONE);
+            }
             categoryResultAdapter.notifyDataSetChanged();
         }
     }

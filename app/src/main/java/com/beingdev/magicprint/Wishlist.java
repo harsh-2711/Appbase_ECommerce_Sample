@@ -191,14 +191,12 @@ public class Wishlist extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 
     }
 
     public void Notifications(View view) {
-
         startActivity(new Intent(Wishlist.this,NotificationActivity.class));
         finish();
     }

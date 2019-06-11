@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context="com.beingdev.magicprint.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -13,100 +13,100 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@color/colorAccent"
-        android:gravity="left"
-        style="@style/CustomTheme"
-        android:background="@color/colorAccent">
-
-        <TextView
-            android:textColor="@color/primary"
-            android:id="@+id/appname"
-            android:textSize="28sp"
-            android:gravity="start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:padding="5dp"/>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="right"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/CustomTheme"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            android:gravity="left"
+            app:titleTextColor="@color/colorAccent">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/notifintro"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                app:lottie_fileName="ripple.json"
-                app:lottie_loop="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                app:lottie_autoPlay="true"
-                android:onClick="Notifications"/>
-
-            <ImageView
-                android:id="@+id/view_profile"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/profile"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:onClick="viewProfile"/>
-
-            <ImageView
-                android:id="@+id/cart"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/cart"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:onClick="viewCart"/>
-
-        </LinearLayout>
-
-    </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <ScrollView
-        android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbarwrap">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/appname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:padding="5dp"
+                android:text="@string/app_name"
+                android:textColor="@color/primary"
+                android:textSize="28sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/notifintro"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:onClick="Notifications"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="ripple.json"
+                    app:lottie_loop="true" />
+
+                <ImageView
+                    android:id="@+id/view_profile"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:onClick="viewProfile"
+                    android:src="@drawable/profile" />
+
+                <ImageView
+                    android:id="@+id/cart"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
+                    android:onClick="viewCart"
+                    android:src="@drawable/cart" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbarwrap"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/shopByCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
                     android:text="Shop By Category"
-                    android:textAllCaps="false"
-                    android:layout_weight="0.1"/>
+                    android:textAllCaps="false" />
 
                 <com.mancj.materialsearchbar.MaterialSearchBar
+                    android:id="@+id/searchBar"
                     style="@style/MaterialSearchBarLight"
-                    app:mt_speechMode="false"
-                    app:mt_hint="Search"
-                    app:mt_placeholder="Search"
-                    app:mt_maxSuggestionsCount="10"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/searchBar"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.5"
+                    app:mt_hint="Search"
+                    app:mt_maxSuggestionsCount="10"
+                    app:mt_placeholder="Search"
+                    app:mt_speechMode="false" />
 
             </LinearLayout>
 
@@ -119,27 +119,27 @@
                 app:pager_animation_span="1100" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="10dp">
 
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:weightSum="10">
 
                     <androidx.cardview.widget.CardView
-                        android:onClick="cardsActivity"
+                        android:id="@+id/footwear"
                         style="@style/homegridcard"
                         card_view:cardCornerRadius="@dimen/card_album_radius">
 
                         <RelativeLayout
-                            android:gravity="center"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:gravity="center">
 
                             <ImageView
                                 android:id="@+id/visitingcards"
@@ -147,48 +147,48 @@
                                 android:src="@drawable/footwear" />
 
                             <TextView
+                                style="@style/homegridtext"
                                 android:layout_below="@id/visitingcards"
-                                android:text="Footwear"
-                                style="@style/homegridtext"/>
+                                android:text="Footwear" />
 
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/shirts"
                         style="@style/homegridcard"
-                    card_view:cardCornerRadius="@dimen/card_album_radius"
-                        android:onClick="tshirtActivity">
+                        card_view:cardCornerRadius="@dimen/card_album_radius">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <ImageView
-                            android:id="@+id/tshirts"
-                            style="@style/homegridimage"
-                            android:src="@drawable/tshirt" />
+                            <ImageView
+                                android:id="@+id/tshirts"
+                                style="@style/homegridimage"
+                                android:src="@drawable/tshirt" />
 
-                        <TextView
-                            android:layout_below="@id/tshirts"
-                            android:text="T-Shirts"
-                            style="@style/homegridtext"/>
+                            <TextView
+                                style="@style/homegridtext"
+                                android:layout_below="@id/tshirts"
+                                android:text="T-Shirts" />
 
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
 
-          </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:weightSum="10">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/accessory"
                         style="@style/homegridcard"
-                        card_view:cardCornerRadius="@dimen/card_album_radius"
-                        android:onClick="bagsActivity">
+                        card_view:cardCornerRadius="@dimen/card_album_radius">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -196,52 +196,52 @@
 
                             <ImageView
                                 android:id="@+id/bags"
-                                android:src="@drawable/bags"
-                                style="@style/homegridimage" />
+                                style="@style/homegridimage"
+                                android:src="@drawable/bags" />
 
                             <TextView
+                                style="@style/homegridtext"
                                 android:layout_below="@id/bags"
-                                android:text="Accesories"
-                                style="@style/homegridtext"/>
+                                android:text="Accesories" />
 
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/jewellery"
                         style="@style/homegridcard"
-                        card_view:cardCornerRadius="@dimen/card_album_radius"
-                        android:onClick="stationaryAcitivity">
+                        card_view:cardCornerRadius="@dimen/card_album_radius">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <ImageView
-                            android:id="@+id/Stationary"
-                            style="@style/homegridimage"
-                            android:src="@drawable/jewellery" />
+                            <ImageView
+                                android:id="@+id/Stationary"
+                                style="@style/homegridimage"
+                                android:src="@drawable/jewellery_2" />
 
-                        <TextView
-                            android:layout_below="@id/Stationary"
-                            android:text="Jewellery"
-                            style="@style/homegridtext"/>
+                            <TextView
+                                style="@style/homegridtext"
+                                android:layout_below="@id/Stationary"
+                                android:text="Jewellery" />
 
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:weightSum="10">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/kurtas"
                         style="@style/homegridcard"
-                        card_view:cardCornerRadius="@dimen/card_album_radius"
-                        android:onClick="calendarsActivity">
+                        card_view:cardCornerRadius="@dimen/card_album_radius">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -253,71 +253,71 @@
                                 android:src="@drawable/kurtas" />
 
                             <TextView
+                                style="@style/homegridtext"
                                 android:layout_below="@id/calendars"
-                                android:text="Kurtas"
-                                style="@style/homegridtext"/>
+                                android:text="Kurtas" />
 
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/watches"
                         style="@style/homegridcard"
-                        card_view:cardCornerRadius="@dimen/card_album_radius"
-                        android:onClick="keychainsActivity">
+                        card_view:cardCornerRadius="@dimen/card_album_radius">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <ImageView
-                            android:id="@+id/keychain"
-                            style="@style/homegridimage"
-                            android:src="@drawable/watch" />
+                            <ImageView
+                                android:id="@+id/keychain"
+                                style="@style/homegridimage"
+                                android:src="@drawable/watch" />
 
-                        <TextView
-                            android:layout_below="@id/keychain"
-                            android:text="Watches"
-                            style="@style/homegridtext"/>
+                            <TextView
+                                style="@style/homegridtext"
+                                android:layout_below="@id/keychain"
+                                android:text="Watches" />
 
-                    </RelativeLayout>
+                        </RelativeLayout>
 
-                </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:gravity="center"
-                android:background="#34495e"
-                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:background="#34495e"
+                android:gravity="center"
+                android:padding="10dp"
                 android:weightSum="10">
 
                 <TextView
+                    style="@style/headingfonts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="3"
                     android:gravity="left"
                     android:padding="5dp"
-                    style="@style/headingfonts"
-                    android:textColor="#bdc3c7"
                     android:text="We are best at"
-                    android:layout_weight="3"/>
+                    android:textColor="#bdc3c7" />
 
                 <com.tomer.fadingtextview.FadingTextView
-                    android:layout_width="wrap_content"
-                    android:textColor="#ecf0f1"
-                    app:timeout="500"
                     style="@style/headingfonts"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center"
+                    android:textColor="#ecf0f1"
                     app:texts="@array/examples"
-                    android:layout_weight="7"/>
+                    app:timeout="500" />
 
             </LinearLayout>
-
 
 
         </LinearLayout>
