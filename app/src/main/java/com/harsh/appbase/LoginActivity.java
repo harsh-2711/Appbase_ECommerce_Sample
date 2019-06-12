@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //Validating login details
-        Button button = findViewById(R.id.login_button);
+        final Button button = findViewById(R.id.login_button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,8 +103,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(validateUsername(email) && validatePassword(pass)) {
 
-                    //Progress Bar while connection establishes
+                    button.setClickable(false);
 
+                    //Progress Bar while connection establishes
                     final KProgressHUD progressDialog=  KProgressHUD.create(LoginActivity.this)
                             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                             .setLabel("Please wait")
@@ -154,6 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                                 session.createLoginSession(foundName, email, foundMobile, sessionphoto);
                                 countFirebaseValues();
                                 progressDialog.dismiss();
+                                button.setClickable(true);
 
                                 Intent loginSuccess = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(loginSuccess);
@@ -161,6 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(LoginActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
+                                button.setClickable(true);
                             }
                         }
 
@@ -168,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onCancelled(DatabaseError databaseError) {
                             Toast.makeText(LoginActivity.this, "Bad Response From Server", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
+                            button.setClickable(true);
                         }
                     });
                 }

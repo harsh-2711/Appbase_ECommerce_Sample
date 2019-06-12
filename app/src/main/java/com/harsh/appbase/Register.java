@@ -97,11 +97,13 @@ public class Register extends AppCompatActivity {
 
         //validate user details and register user
 
-        Button button=findViewById(R.id.register);
+        final Button button=findViewById(R.id.register);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                button.setClickable(false);
 
                 hideKeyboard(Register.this);
                 final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
@@ -138,6 +140,7 @@ public class Register extends AppCompatActivity {
                                 if(snapshot.getKey().equals(mobile)) {
                                     Toasty.info(Register.this,"User already exists",Toast.LENGTH_SHORT,true).show();
                                     progressDialog.dismiss();
+                                    button.setClickable(true);
 
                                 } else {
 
@@ -167,6 +170,7 @@ public class Register extends AppCompatActivity {
                                             edtnumber.setText("");
                                             edtnumber.setError("");
                                             image.setImageDrawable(getDrawable(R.drawable.user));
+                                            button.setClickable(true);
                                         }
 
                                         @Override
@@ -175,6 +179,7 @@ public class Register extends AppCompatActivity {
                                             Log.w(TAG, "Failed to add user", error.toException());
                                             Toasty.error(Register.this,"Failed to Register",Toast.LENGTH_LONG,true).show();
                                             progressDialog.dismiss();
+                                            button.setClickable(true);
                                         }
                                     });
                                 }
@@ -185,11 +190,13 @@ public class Register extends AppCompatActivity {
                         public void onCancelled(DatabaseError databaseError) {
                             Toasty.error(Register.this,"Server error",Toast.LENGTH_SHORT,true).show();
                             progressDialog.dismiss();
+                            button.setClickable(true);
                         }
                     });
 
                 } else {
                     progressDialog.dismiss();
+                    button.setClickable(true);
                 }
             }
         });
