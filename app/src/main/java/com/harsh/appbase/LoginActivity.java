@@ -183,14 +183,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private void countFirebaseValues() {
 
-        myRef.child("User").child(foundMobile).child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("Users").child(foundMobile).child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                /*
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         if(snapshot.getKey().equals("Num_Of_Items")) {
                             session.setCartValue((int)snapshot.getValue());
                         }
                     }
+                */
+                session.setCartValue((int)dataSnapshot.getChildrenCount());
             }
 
             @Override
@@ -199,14 +202,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        myRef.child("User").child(foundMobile).child("WishList").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("Users").child(foundMobile).child("WishList").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                /*
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     if(snapshot.getKey().equals("Num_Of_Items")) {
                         session.setCartValue((int)snapshot.getValue());
                     }
                 }
+               */
+                session.setWishlistValue((int)dataSnapshot.getChildrenCount());
             }
 
             @Override

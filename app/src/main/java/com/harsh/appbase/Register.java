@@ -144,8 +144,6 @@ public class Register extends AppCompatActivity {
 
                                 } else {
 
-                                    myRef.child("Users").child(mobile).child("Cart").child("Num_Of_Items").setValue(0);
-                                    myRef.child("Users").child(mobile).child("WishList").child("Num_Of_Items").setValue(0);
                                     myRef.child("Users").child(mobile).child("Name").setValue(name);
                                     myRef.child("Users").child(mobile).child("Email").setValue(email);
                                     myRef.child("Users").child(mobile).child("Password").setValue(password);

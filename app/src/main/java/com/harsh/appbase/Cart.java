@@ -101,7 +101,8 @@ public class Cart extends AppCompatActivity {
                 R.layout.cart_item_layout,
                 MovieViewHolder.class,
                 //referencing the node where we want the database to store the data from our Object
-                mDatabaseReference.child("cart").child(mobile).getRef()
+                //mDatabaseReference.child("cart").child(mobile).getRef()
+                mDatabaseReference.child("Users").child(mobile).child("Cart").getRef()
         ) {
             @Override
             protected void populateViewHolder(final MovieViewHolder viewHolder, final SingleProductModel model, final int position) {

@@ -157,11 +157,11 @@ public class IndividualProduct extends AppCompatActivity {
     }
 
     public void increment(View view) {
-        if (quantity < 500) {
+        if (quantity < 10) {
             quantity++;
             quantityProductPage.setText(String.valueOf(quantity));
         } else {
-            Toasty.error(IndividualProduct.this, "Product Count Must be less than 500", Toast.LENGTH_LONG).show();
+            Toasty.error(IndividualProduct.this, "Cannot order more than 10 items", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -174,7 +174,7 @@ public class IndividualProduct extends AppCompatActivity {
 
     public void addToCart(View view) {
         if(session.getCartValue() <= maximumCartValue) {
-            mDatabaseReference.child("cart").child(usermobile).push().setValue(getProductObject());
+            mDatabaseReference.child("Users").child(usermobile).child("Cart").push().setValue(getProductObject());
             session.increaseCartValue();
             Log.e("Cart Value IP", session.getCartValue() + " ");
             Toasty.success(IndividualProduct.this, "Added to Cart", Toast.LENGTH_SHORT).show();
@@ -186,12 +186,12 @@ public class IndividualProduct extends AppCompatActivity {
     public void addToWishList(View view) {
 
         addToWishlist.playAnimation();
-        mDatabaseReference.child("wishlist").child(usermobile).push().setValue(getProductObject());
+        mDatabaseReference.child("Users").child(usermobile).child("WishList").push().setValue(getProductObject());
         session.increaseWishlistValue();
     }
 
     public void goToCart(View view) {
-        mDatabaseReference.child("cart").child(usermobile).push().setValue(getProductObject());
+        mDatabaseReference.child("Users").child(usermobile).child("Cart").push().setValue(getProductObject());
         session.increaseCartValue();
         startActivity(new Intent(IndividualProduct.this, Cart.class));
         finish();

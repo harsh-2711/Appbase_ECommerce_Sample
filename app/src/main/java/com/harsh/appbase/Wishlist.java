@@ -101,7 +101,8 @@ public class Wishlist extends AppCompatActivity {
                 R.layout.cart_item_layout,
                 MovieViewHolder.class,
                 //referencing the node where we want the database to store the data from our Object
-                mDatabaseReference.child("wishlist").child(mobile).getRef()
+                //mDatabaseReference.child("wishlist").child(mobile).getRef();
+                mDatabaseReference.child("Users").child(mobile).child("WishList").getRef()
         ) {
             @Override
             protected void populateViewHolder(final MovieViewHolder viewHolder, final SingleProductModel model, final int position) {
