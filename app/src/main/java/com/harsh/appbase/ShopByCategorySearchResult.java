@@ -56,6 +56,15 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.showcaseCategory);
         switch (category) {
+            case "accessories":
+                textView.setText("Accessories");
+                break;
+            case "mens-shirts":
+                textView.setText("T-Shirts");
+                break;
+            case "watches":
+                textView.setText("Watches");
+                break;
             case "spareParts":
                 textView.setText("Accessories & Spare parts");
                 break;
@@ -108,7 +117,7 @@ public class ShopByCategorySearchResult extends AppCompatActivity {
                 textView.setText("Tops & Tunics");
                 break;
             case "westernWear":
-                textView.setText("Western Wear");
+                textView.setText("Kurtas");
                 break;
             case "womenFootwear":
                 textView.setText("Women's Footwear");

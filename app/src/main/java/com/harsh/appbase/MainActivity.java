@@ -388,7 +388,7 @@ public class MainActivity extends AppCompatActivity {
                                         .start(MainActivity.this);
                                 break;
                             case 8:
-                                new EasyFeedback.Builder(MainActivity.this)
+                                new EasyMagicPrintFeedback.Builder(MainActivity.this)
                                         .withEmail("beingdevofficial@gmail.com")
                                         .withSystemInfo()
                                         .build()

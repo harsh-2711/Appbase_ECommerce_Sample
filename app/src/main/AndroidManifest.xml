@@ -34,6 +34,15 @@
         <meta-data
             android:name="com.onesignal.NotificationOpened.DEFAULT"
             android:value="DISABLE" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
 
         <activity
             android:name="com.harsh.appbase.SplashActivity"
@@ -77,9 +86,6 @@
             android:name="com.harsh.appbase.NotificationActivity"
             android:theme="@style/WhiteTheme" />
         <activity
-            android:name="com.harsh.appbase.prodcutscategory.Footwear"
-            android:theme="@style/WhiteTheme" />
-        <activity
             android:name="com.harsh.appbase.IndividualProduct"
             android:theme="@style/WhiteTheme" />
         <activity
@@ -90,29 +96,14 @@
             android:theme="@style/WhiteTheme" />
         <activity
             android:name="com.harsh.appbase.OrderPlaced"
-            android:theme="@style/WhiteTheme" />
-        <activity
-            android:name="com.harsh.appbase.prodcutscategory.Tshirts"
-            android:theme="@style/WhiteTheme" />
-        <activity
-            android:name="com.harsh.appbase.prodcutscategory.Accessory"
-            android:theme="@style/WhiteTheme" />
-        <activity
-            android:name="com.harsh.appbase.prodcutscategory.Kurtas"
-            android:theme="@style/WhiteTheme" />
-        <activity
-            android:name="com.harsh.appbase.prodcutscategory.Watches"
-            android:theme="@style/WhiteTheme" />
-        <activity
-            android:name="com.harsh.appbase.prodcutscategory.Jewellery"
-            android:theme="@style/WhiteTheme" />
-        <activity
+            android:theme="@style/WhiteTheme" />        <activity
             android:name="com.harsh.appbase.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.harsh.appbase.ShopByCategoryActivity"
             android:theme="@style/WhiteTheme"/>
         <activity android:name="com.harsh.appbase.ShopByCategorySearchResult"
             android:theme="@style/WhiteTheme" />
+        <activity android:name=".MagicPrintFeedback" />
     </application>
 
 </manifest>
