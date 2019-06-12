@@ -112,9 +112,9 @@ public class OrderDetails extends AppCompatActivity {
 
         user = session.getUserDetails();
 
-        placed_user_name=user.get(UserSession.KEY_NAME);
-        getPlaced_user_email=user.get(UserSession.KEY_EMAIL);
-        getPlaced_user_mobile_no=user.get(UserSession.KEY_MOBiLE);
+        placed_user_name = user.get(UserSession.KEY_NAME);
+        getPlaced_user_email = user.get(UserSession.KEY_EMAIL);
+        getPlaced_user_mobile_no = user.get(UserSession.KEY_MOBiLE);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
         currdatetime = sdf.format(new Date());
@@ -133,14 +133,14 @@ public class OrderDetails extends AppCompatActivity {
             order_reference_id = getordernumber();
 
             //adding user details to the database under orders table
-            mDatabaseReference.child("orders").child(getPlaced_user_mobile_no).child(currdatetime).push().setValue(getProductObject());
+            mDatabaseReference.child("Users").child(getPlaced_user_mobile_no).child(currdatetime).push().setValue(getProductObject());
 
             //adding products to the order
             for(SingleProductModel model:cartcollect){
-                mDatabaseReference.child("orders").child(getPlaced_user_mobile_no).child(currdatetime).child("items").push().setValue(model);
+                mDatabaseReference.child("Users").child(getPlaced_user_mobile_no).child(currdatetime).child("items").push().setValue(model);
             }
 
-            mDatabaseReference.child("cart").child(getPlaced_user_mobile_no).removeValue();
+            mDatabaseReference.child("Users").child(getPlaced_user_mobile_no).child("Cart").removeValue();
             session.setCartValue(0);
 
             Intent intent = new Intent(OrderDetails.this, OrderPlaced.class);
@@ -168,9 +168,6 @@ public class OrderDetails extends AppCompatActivity {
             return false;
         } else if (ordernumber.getText().toString().length() < 4 || ordernumber.getText().toString().length() > 12) {
             ordernumber.setError("Number Must consist of 10 characters");
-            return false;
-        } else if (orderpincode.getText().toString().length() < 6 || ordernumber.getText().toString().length() > 8){
-            orderpincode.setError("Pincode must be of 6 digits");
             return false;
         }
 
