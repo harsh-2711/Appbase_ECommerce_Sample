@@ -8,13 +8,14 @@ import java.io.Serializable;
 
 public class SingleProductModel implements Serializable {
 
-    private int prid, no_of_items;
+    private long prid;
+    private long no_of_items;
     private String useremail, usermobile, prname, prprice, primage, prdesc;
 
     public SingleProductModel() {
     }
 
-    public SingleProductModel(int prid, int no_of_items, String useremail, String usermobile, String prname, String prprice, String primage, String prdesc) {
+    public SingleProductModel(long prid, long no_of_items, String useremail, String usermobile, String prname, String prprice, String primage, String prdesc) {
         this.prid = prid;
         this.no_of_items = no_of_items;
         this.useremail = useremail;
@@ -33,11 +34,11 @@ public class SingleProductModel implements Serializable {
         this.usermobile = usermobile;
     }
 
-    public int getNo_of_items() {
+    public long getNo_of_items() {
         return no_of_items;
     }
 
-    public void setNo_of_items(int no_of_items) {
+    public void setNo_of_items(long no_of_items) {
         this.no_of_items = no_of_items;
     }
 
@@ -49,11 +50,11 @@ public class SingleProductModel implements Serializable {
         this.prdesc = prdesc;
     }
 
-    public int getPrid() {
+    public long getPrid() {
         return prid;
     }
 
-    public void setPrid(int prid) {
+    public void setPrid(long prid) {
         this.prid = prid;
     }
 

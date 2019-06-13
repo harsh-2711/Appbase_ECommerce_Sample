@@ -1,18 +1,27 @@
 package com.harsh.appbase;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.harsh.appbase.adapters.ItemsAdapter;
 import com.harsh.appbase.models.GenericProductModel;
 import com.harsh.appbase.models.SingleProductModel;
 import com.harsh.appbase.networksync.CheckInternetConnection;
@@ -24,6 +33,7 @@ import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
 import com.mikepenz.materialdrawer.Drawer;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Wishlist extends AppCompatActivity {
@@ -35,7 +45,7 @@ public class Wishlist extends AppCompatActivity {
     private UserSession session;
     private HashMap<String,String> user;
     private String name,email,photo,mobile;
-    private RecyclerView mRecyclerView;
+    private ListView listView;
     private StaggeredGridLayoutManager mLayoutManager;
 
     //Getting reference to Firebase Database
@@ -44,7 +54,9 @@ public class Wishlist extends AppCompatActivity {
     private LottieAnimationView tv_no_item;
     private FrameLayout activitycartlist;
     private LottieAnimationView emptycart;
-
+    private ArrayList<SingleProductModel> items;
+    private boolean wishListExists = false;
+    private ItemsAdapter itemsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,21 +83,14 @@ public class Wishlist extends AppCompatActivity {
         //validating session
         session.isLoggedIn();
 
-        mRecyclerView = findViewById(R.id.recyclerview);
+        listView = findViewById(R.id.listviewWishlist);
         tv_no_item = findViewById(R.id.tv_no_cards);
         activitycartlist = findViewById(R.id.frame_container);
         emptycart = findViewById(R.id.empty_cart);
 
-        if (mRecyclerView != null) {
-            //to enable optimization of recyclerview
-            mRecyclerView.setHasFixedSize(true);
-        }
-        //using staggered grid pattern in recyclerview
-        mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
         if(session.getWishlistValue()>0) {
-            populateRecyclerView();
+            PrepareItems prepareItems = new PrepareItems();
+            prepareItems.execute();
         }else if(session.getWishlistValue() == 0)  {
             tv_no_item.setVisibility(View.GONE);
             activitycartlist.setVisibility(View.GONE);
@@ -93,50 +98,104 @@ public class Wishlist extends AppCompatActivity {
         }
     }
 
-    private void populateRecyclerView() {
+    private class PrepareItems extends AsyncTask<Void,Void,Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
 
-        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        final FirebaseRecyclerAdapter<SingleProductModel,MovieViewHolder> adapter = new FirebaseRecyclerAdapter<SingleProductModel, MovieViewHolder>(
-                SingleProductModel.class,
-                R.layout.cart_item_layout,
-                MovieViewHolder.class,
-                //referencing the node where we want the database to store the data from our Object
-                //mDatabaseReference.child("wishlist").child(mobile).getRef();
-                mDatabaseReference.child("Users").child(mobile).child("WishList").getRef()
-        ) {
-            @Override
-            protected void populateViewHolder(final MovieViewHolder viewHolder, final SingleProductModel model, final int position) {
-                if(tv_no_item.getVisibility()== View.VISIBLE){
-                    tv_no_item.setVisibility(View.GONE);
+            items = new ArrayList<>();
+            mDatabaseReference.child("Users").child(mobile).child("WishList").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        long prid = 0, no_of_items = 0;
+                        String useremail = "None", usermobile = "None", prname = "None", prprice = "None", primage = "None", prdesc = "None";
+
+                        for(DataSnapshot childSnapshot : snapshot.getChildren()) {
+                            if(childSnapshot.getKey().equals("prid"))
+                                prid = (long)childSnapshot.getValue();
+                            if(childSnapshot.getKey().equals("no_of_items"))
+                                no_of_items = (long)childSnapshot.getValue();
+                            if(childSnapshot.getKey().equals("useremail"))
+                                if(childSnapshot.getValue() != null)
+                                    useremail = childSnapshot.getValue().toString();
+                            if(childSnapshot.getKey().equals("usermobile"))
+                                if(childSnapshot.getValue() != null)
+                                    usermobile = childSnapshot.getValue().toString();
+                            if(childSnapshot.getKey().equals("prname"))
+                                if(childSnapshot.getValue() != null)
+                                    prname = childSnapshot.getValue().toString();
+                            if(childSnapshot.getKey().equals("prprice"))
+                                if(childSnapshot.getValue() != null)
+                                    prprice = childSnapshot.getValue().toString();
+                            if(childSnapshot.getKey().equals("primage"))
+                                if(childSnapshot.getValue() != null)
+                                    primage = childSnapshot.getValue().toString();
+                            if(childSnapshot.getKey().equals("prdesc"))
+                                if(childSnapshot.getValue() != null)
+                                    prdesc = childSnapshot.getValue().toString();
+                        }
+                        items.add(new SingleProductModel(prid, no_of_items, useremail, usermobile, prname, prprice, primage, prdesc));
+                    }
+
+                    itemsAdapter = new ItemsAdapter(items, getApplicationContext(), new ItemsAdapter.ItemAdapterListener() {
+                        @Override
+                        public void deleteOnClick(View v, final int position) {
+                            Toast.makeText(Wishlist.this, items.get(position).getPrname(),Toast.LENGTH_SHORT).show();
+                            mDatabaseReference.child("Users").child(mobile).child("WishList").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    int counter = 0;
+                                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        if(counter == position) {
+                                            snapshot.getRef().removeValue();
+                                            break;
+                                        }
+                                        counter++;
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                            session.decreaseWishlistValue();
+                            items.remove(position);
+                            itemsAdapter.notifyDataSetChanged();
+                        }
+                    });
+
+                    if(tv_no_item.getVisibility()== View.VISIBLE){
+                        tv_no_item.setVisibility(View.GONE);
+                    }
+
+                    listView.setAdapter(itemsAdapter);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            SingleProductModel singleProductModel = items.get(position);
+                            Intent intent = new Intent(Wishlist.this, IndividualProduct.class);
+                            intent.putExtra("product",new GenericProductModel((int)singleProductModel.getPrid(),
+                                    singleProductModel.getPrname(), singleProductModel.getPrimage(),singleProductModel.getPrdesc(),
+                                    Float.parseFloat(singleProductModel.getPrprice())));
+                            startActivity(intent);
+                        }
+                    });
                 }
-                viewHolder.cardname.setText(model.getPrname());
-                viewHolder.cardprice.setText("₹ "+model.getPrprice());
-                viewHolder.cardcount.setText("Quantity : "+model.getNo_of_items());
-                Picasso.with(Wishlist.this).load(model.getPrimage()).into(viewHolder.cardimage);
 
-                viewHolder.carddelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(Wishlist.this,getItem(position).getPrname(),Toast.LENGTH_SHORT).show();
-                        getRef(position).removeValue();
-                        session.decreaseWishlistValue();
-                        startActivity(new Intent(Wishlist.this,Wishlist.class));
-                        finish();
-                    }
-                });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Wishlist.this,IndividualProduct.class);
-                        intent.putExtra("product",new GenericProductModel(model.getPrid(),model.getPrname(),model.getPrimage(),model.getPrdesc(),Float.parseFloat(model.getPrprice())));
-                        startActivity(intent);
-                    }
-                });
-            }
+                }
+            });
 
-        };
-        mRecyclerView.setAdapter(adapter);
+            return null;
+        }
     }
 
     //viewHolder for our Firebase UI
