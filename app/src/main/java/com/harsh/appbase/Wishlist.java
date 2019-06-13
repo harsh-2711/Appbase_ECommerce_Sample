@@ -108,7 +108,7 @@ public class Wishlist extends AppCompatActivity {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         long prid = 0, no_of_items = 0;
-                        String useremail = "None", usermobile = "None", prname = "None", prprice = "None", primage = "None", prdesc = "None";
+                        String useremail = "None", usermobile = "None", prname = "None", prprice = null, primage = "None", prdesc = "None";
 
                         for(DataSnapshot childSnapshot : snapshot.getChildren()) {
                             if(childSnapshot.getKey().equals("prid"))
@@ -161,8 +161,9 @@ public class Wishlist extends AppCompatActivity {
                                 }
                             });
                             session.decreaseWishlistValue();
-                            items.remove(position);
-                            itemsAdapter.notifyDataSetChanged();
+                            Intent intent = new Intent(Wishlist.this, Cart.class);
+                            startActivity(intent);
+                            finish();
                         }
                     });
 

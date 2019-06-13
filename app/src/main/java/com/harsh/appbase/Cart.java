@@ -3,6 +3,7 @@ package com.harsh.appbase;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -108,7 +109,7 @@ public class Cart extends AppCompatActivity {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         long prid = 0, no_of_items = 0;
-                        String useremail = "None", usermobile = "None", prname = "None", prprice = "None", primage = "None", prdesc = "None";
+                        String useremail = "None", usermobile = "None", prname = "None", prprice = null, primage = "None", prdesc = "None";
 
                         for(DataSnapshot childSnapshot : snapshot.getChildren()) {
                             if(childSnapshot.getKey().equals("prid"))
@@ -151,6 +152,7 @@ public class Cart extends AppCompatActivity {
                                     int counter = 0;
                                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                         if(counter == position) {
+                                            Log.d("SNAPSHOT", snapshot.getKey());
                                             snapshot.getRef().removeValue();
                                             break;
                                         }
@@ -164,8 +166,9 @@ public class Cart extends AppCompatActivity {
                                 }
                             });
                             session.decreaseWishlistValue();
-                            items.remove(position);
-                            itemsAdapter.notifyDataSetChanged();
+                            Intent intent = new Intent(Cart.this, Cart.class);
+                            startActivity(intent);
+                            finish();
                         }
                     });
 
