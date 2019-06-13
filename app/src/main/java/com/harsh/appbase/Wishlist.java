@@ -18,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.harsh.appbase.adapters.ItemsAdapter;
 import com.harsh.appbase.models.GenericProductModel;
@@ -141,18 +143,27 @@ public class Wishlist extends AppCompatActivity {
                         @Override
                         public void deleteOnClick(View v, final int position) {
                             Toast.makeText(Wishlist.this, items.get(position).getPrname(),Toast.LENGTH_SHORT).show();
-                            mDatabaseReference.child("Users").child(mobile).child("WishList").addValueEventListener(new ValueEventListener() {
+                            SingleProductModel singleProductModel = items.get(position);
+                            Query queryRef = mDatabaseReference.child("Users").child(mobile).child("WishList").orderByChild("prname").equalTo(singleProductModel.getPrname());
+                            queryRef.addChildEventListener(new ChildEventListener() {
                                 @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    dataSnapshot.getRef().setValue(null);
+                                }
 
-                                    int counter = 0;
-                                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        if(counter == position) {
-                                            snapshot.getRef().removeValue();
-                                            break;
-                                        }
-                                        counter++;
-                                    }
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                }
+
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
                                 }
 
                                 @Override
@@ -161,7 +172,7 @@ public class Wishlist extends AppCompatActivity {
                                 }
                             });
                             session.decreaseWishlistValue();
-                            Intent intent = new Intent(Wishlist.this, Cart.class);
+                            Intent intent = new Intent(Wishlist.this, Wishlist.class);
                             startActivity(intent);
                             finish();
                         }
