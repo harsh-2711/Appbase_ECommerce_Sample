@@ -55,7 +55,6 @@ public class Wishlist extends AppCompatActivity {
     private FrameLayout activitycartlist;
     private LottieAnimationView emptycart;
     private ArrayList<SingleProductModel> items;
-    private boolean wishListExists = false;
     private ItemsAdapter itemsAdapter;
 
     @Override
@@ -197,28 +196,6 @@ public class Wishlist extends AppCompatActivity {
             return null;
         }
     }
-
-    //viewHolder for our Firebase UI
-    public static class MovieViewHolder extends RecyclerView.ViewHolder{
-
-        TextView cardname;
-        ImageView cardimage;
-        TextView cardprice;
-        TextView cardcount;
-        ImageView carddelete;
-
-        View mView;
-        public MovieViewHolder(View v) {
-            super(v);
-            mView = v;
-            cardname = v.findViewById(R.id.cart_prtitle);
-            cardimage = v.findViewById(R.id.image_cartlist);
-            cardprice = v.findViewById(R.id.cart_prprice);
-            cardcount = v.findViewById(R.id.cart_prcount);
-            carddelete = v.findViewById(R.id.deletecard);
-        }
-    }
-
 
     private void getValues() {
 
