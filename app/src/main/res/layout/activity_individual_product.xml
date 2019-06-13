@@ -214,8 +214,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:onClick="addToWishList">
+                    android:weightSum="2">
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/add_to_wishlist"
@@ -292,8 +291,7 @@
             android:textSize="14dp"
             android:textColor="@color/gen_black"
             android:textStyle="bold"
-            android:gravity="center"
-            android:onClick="addToCart"/>
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/buy_now"

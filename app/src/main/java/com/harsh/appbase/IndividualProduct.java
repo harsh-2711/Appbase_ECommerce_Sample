@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import es.dmoral.toasty.Toasty;
 public class IndividualProduct extends AppCompatActivity {
 
     int maximumCartValue = 10;
+    private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     @BindView(R.id.productimage)
     ImageView productimage;
@@ -47,6 +49,8 @@ public class IndividualProduct extends AppCompatActivity {
     EditText quantityProductPage;
     @BindView(R.id.add_to_wishlist)
     LottieAnimationView addToWishlist;
+    @BindView(R.id.layout_action3)
+    LinearLayout wishList;
     //check that product count must not exceed 500
     TextWatcher productcount = new TextWatcher() {
         @Override
@@ -118,6 +122,20 @@ public class IndividualProduct extends AppCompatActivity {
         //get firebase instance
         //initializing database reference
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+        addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToCartMethod();
+            }
+        });
+
+        wishList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToWishListMethod();
+            }
+        });
     }
 
     public void Notifications(View view) {
@@ -172,7 +190,7 @@ public class IndividualProduct extends AppCompatActivity {
         new CheckInternetConnection(this).checkConnection();
     }
 
-    public void addToCart(View view) {
+    public void addToCartMethod() {
         if(session.getCartValue() <= maximumCartValue) {
             mDatabaseReference.child("Users").child(usermobile).child("Cart").push().setValue(getProductObject());
             session.increaseCartValue();
@@ -183,10 +201,19 @@ public class IndividualProduct extends AppCompatActivity {
         }
     }
 
-    public void addToWishList(View view) {
+    public void addToWishListMethod() {
 
         addToWishlist.playAnimation();
-        mDatabaseReference.child("Users").child(usermobile).child("WishList").push().setValue(getProductObject());
+        SingleProductModel singleProductModel = getProductObject();
+        String identifier = generateRandomProductIdentifier(16);
+        mDatabaseReference.child("Users").child(usermobile).child("WishList").child(identifier).child("prid").setValue(singleProductModel.getPrid());
+        mDatabaseReference.child("Users").child(usermobile).child("WishList").child(identifier).child("no_of_items").setValue(singleProductModel.getNo_of_items());
+        mDatabaseReference.child("Users").child(usermobile).child("WishList").child(identifier).child("useremail").setValue(singleProductModel.getUseremail());
+        mDatabaseReference.child("Users").child(usermobile).child("WishList").child(identifier).child("usermobile").setValue(singleProductModel.getUsermobile());
+        mDatabaseReference.child("Users").child(usermobile).child("WishList").child(identifier).child("prname").setValue(singleProductModel.getPrname());
+        mDatabaseReference.child("Users").child(usermobile).child("WishList").child(identifier).child("prprice").setValue(singleProductModel.getPrprice());
+        mDatabaseReference.child("Users").child(usermobile).child("WishList").child(identifier).child("primage").setValue(singleProductModel.getPrimage());
+        mDatabaseReference.child("Users").child(usermobile).child("WishList").child(identifier).child("prdesc").setValue(singleProductModel.getPrdesc());
         session.increaseWishlistValue();
     }
 
@@ -196,5 +223,14 @@ public class IndividualProduct extends AppCompatActivity {
         startActivity(new Intent(IndividualProduct.this, Cart.class));
         finish();
 
+    }
+
+    private String generateRandomProductIdentifier(int count) {
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+        }
+        return builder.toString();
     }
 }
