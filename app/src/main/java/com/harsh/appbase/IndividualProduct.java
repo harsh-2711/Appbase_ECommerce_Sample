@@ -192,7 +192,16 @@ public class IndividualProduct extends AppCompatActivity {
 
     public void addToCartMethod() {
         if(session.getCartValue() <= maximumCartValue) {
-            mDatabaseReference.child("Users").child(usermobile).child("Cart").push().setValue(getProductObject());
+            SingleProductModel singleProductModel = getProductObject();
+            String identifier = generateRandomProductIdentifier(16);
+            mDatabaseReference.child("Users").child(usermobile).child("Cart").child(identifier).child("prid").setValue(singleProductModel.getPrid());
+            mDatabaseReference.child("Users").child(usermobile).child("Cart").child(identifier).child("no_of_items").setValue(singleProductModel.getNo_of_items());
+            mDatabaseReference.child("Users").child(usermobile).child("Cart").child(identifier).child("useremail").setValue(singleProductModel.getUseremail());
+            mDatabaseReference.child("Users").child(usermobile).child("Cart").child(identifier).child("usermobile").setValue(singleProductModel.getUsermobile());
+            mDatabaseReference.child("Users").child(usermobile).child("Cart").child(identifier).child("prname").setValue(singleProductModel.getPrname());
+            mDatabaseReference.child("Users").child(usermobile).child("Cart").child(identifier).child("prprice").setValue(singleProductModel.getPrprice());
+            mDatabaseReference.child("Users").child(usermobile).child("Cart").child(identifier).child("primage").setValue(singleProductModel.getPrimage());
+            mDatabaseReference.child("Users").child(usermobile).child("Cart").child(identifier).child("prdesc").setValue(singleProductModel.getPrdesc());
             session.increaseCartValue();
             Log.e("Cart Value IP", session.getCartValue() + " ");
             Toasty.success(IndividualProduct.this, "Added to Cart", Toast.LENGTH_SHORT).show();
