@@ -1,10 +1,13 @@
 package com.harsh.appbase;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.harsh.appbase.adapters.ItemsAdapter;
+import com.harsh.appbase.models.GenericProductModel;
 import com.harsh.appbase.models.SingleProductModel;
 import com.harsh.appbase.networksync.CheckInternetConnection;
 import com.harsh.appbase.usersession.UserSession;
@@ -34,7 +42,7 @@ public class Cart extends AppCompatActivity {
     private UserSession session;
     private HashMap<String, String> user;
     private String name, email, photo, mobile;
-    private RecyclerView mRecyclerView;
+    private ListView listView;
     private StaggeredGridLayoutManager mLayoutManager;
     private LottieAnimationView tv_no_item;
     private LinearLayout activitycartlist;
@@ -44,6 +52,8 @@ public class Cart extends AppCompatActivity {
     private float totalcost = 0;
     private int totalproducts = 0;
     private int maximumProductsInCart = 10;
+    private ArrayList<SingleProductModel> items;
+    private ItemsAdapter itemsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,22 +80,15 @@ public class Cart extends AppCompatActivity {
         //validating session
         session.isLoggedIn();
 
-        mRecyclerView = findViewById(R.id.recyclerview);
+        listView = findViewById(R.id.listviewCart);
         tv_no_item = findViewById(R.id.tv_no_cards);
         activitycartlist = findViewById(R.id.activity_cart_list);
         emptycart = findViewById(R.id.empty_cart);
         cartcollect = new ArrayList<>();
 
-        if (mRecyclerView != null) {
-            //to enable optimization of recyclerview
-            mRecyclerView.setHasFixedSize(true);
-        }
-        //using staggered grid pattern in recyclerview
-        mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
         if (session.getCartValue() > 0) {
-            populateRecyclerView();
+            PrepareItems prepareItems = new PrepareItems();
+            prepareItems.execute();
         } else if (session.getCartValue() == 0) {
             tv_no_item.setVisibility(View.GONE);
             activitycartlist.setVisibility(View.GONE);
@@ -93,53 +96,101 @@ public class Cart extends AppCompatActivity {
         }
     }
 
-    private void populateRecyclerView() {
+    private class PrepareItems extends AsyncTask<Void,Void,Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
 
-        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        final FirebaseRecyclerAdapter<SingleProductModel, MovieViewHolder> adapter = new FirebaseRecyclerAdapter<SingleProductModel, MovieViewHolder>(
-                SingleProductModel.class,
-                R.layout.cart_item_layout,
-                MovieViewHolder.class,
-                //referencing the node where we want the database to store the data from our Object
-                //mDatabaseReference.child("cart").child(mobile).getRef()
-                mDatabaseReference.child("Users").child(mobile).child("Cart").getRef()
-        ) {
-            @Override
-            protected void populateViewHolder(final MovieViewHolder viewHolder, final SingleProductModel model, final int position) {
-                if (tv_no_item.getVisibility() == View.VISIBLE) {
-                    tv_no_item.setVisibility(View.GONE);
-                }
-                    viewHolder.cardname.setText(model.getPrname());
-                    viewHolder.cardprice.setText("₹ " + model.getPrprice());
-                    viewHolder.cardcount.setText("Quantity : " + model.getNo_of_items());
-                    Picasso.with(Cart.this).load(model.getPrimage()).into(viewHolder.cardimage);
+            items = new ArrayList<>();
+            mDatabaseReference.child("Users").child(mobile).child("Cart").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    totalcost += model.getNo_of_items() * Float.parseFloat(model.getPrprice());
-                    totalproducts += model.getNo_of_items();
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    cartcollect.add(model);
+                        long prid = 0, no_of_items = 0;
+                        String useremail = "None", usermobile = "None", prname = "None", prprice = "None", primage = "None", prdesc = "None";
 
-                    viewHolder.carddelete.setOnClickListener(new View.OnClickListener() {
+                        for(DataSnapshot childSnapshot : snapshot.getChildren()) {
+                            if(childSnapshot.getKey().equals("prid"))
+                                prid = (long)childSnapshot.getValue();
+                            if(childSnapshot.getKey().equals("no_of_items"))
+                                no_of_items = (long)childSnapshot.getValue();
+                            if(childSnapshot.getKey().equals("useremail"))
+                                if(childSnapshot.getValue() != null)
+                                    useremail = childSnapshot.getValue().toString();
+                            if(childSnapshot.getKey().equals("usermobile"))
+                                if(childSnapshot.getValue() != null)
+                                    usermobile = childSnapshot.getValue().toString();
+                            if(childSnapshot.getKey().equals("prname"))
+                                if(childSnapshot.getValue() != null)
+                                    prname = childSnapshot.getValue().toString();
+                            if(childSnapshot.getKey().equals("prprice"))
+                                if(childSnapshot.getValue() != null)
+                                    prprice = childSnapshot.getValue().toString();
+                            if(childSnapshot.getKey().equals("primage"))
+                                if(childSnapshot.getValue() != null)
+                                    primage = childSnapshot.getValue().toString();
+                            if(childSnapshot.getKey().equals("prdesc"))
+                                if(childSnapshot.getValue() != null)
+                                    prdesc = childSnapshot.getValue().toString();
+                        }
+                        SingleProductModel singleProductModel = new SingleProductModel(prid, no_of_items, useremail, usermobile, prname, prprice, primage, prdesc);
+                        items.add(singleProductModel);
+                        totalcost += singleProductModel.getNo_of_items() * Float.parseFloat(singleProductModel.getPrprice());
+                        totalproducts += singleProductModel.getNo_of_items();
+                    }
+
+                    itemsAdapter = new ItemsAdapter(items, getApplicationContext(), new ItemsAdapter.ItemAdapterListener() {
                         @Override
-                        public void onClick(View v) {
-                            Toast.makeText(Cart.this, getItem(position).getPrname(), Toast.LENGTH_SHORT).show();
-                            getRef(position).removeValue();
-                            session.decreaseCartValue();
-                            startActivity(new Intent(Cart.this, Cart.class));
-                            finish();
+                        public void deleteOnClick(View v, final int position) {
+                            Toast.makeText(Cart.this, items.get(position).getPrname(),Toast.LENGTH_SHORT).show();
+                            mDatabaseReference.child("Users").child(mobile).child("Cart").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    int counter = 0;
+                                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        if(counter == position) {
+                                            snapshot.getRef().removeValue();
+                                            break;
+                                        }
+                                        counter++;
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                            session.decreaseWishlistValue();
+                            items.remove(position);
+                            itemsAdapter.notifyDataSetChanged();
                         }
                     });
 
-            }
-        };
-        mRecyclerView.setAdapter(adapter);
+                    if(tv_no_item.getVisibility()== View.VISIBLE){
+                        tv_no_item.setVisibility(View.GONE);
+                    }
+
+                    listView.setAdapter(itemsAdapter);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            return null;
+        }
     }
 
     public void checkout(View view) {
         Intent intent = new Intent(Cart.this, OrderDetails.class);
         intent.putExtra("totalprice", Float.toString(totalcost));
         intent.putExtra("totalproducts", Integer.toString(totalproducts));
-        intent.putExtra("cartproducts", cartcollect);
+        intent.putExtra("cartproducts", items);
         startActivity(intent);
         finish();
     }

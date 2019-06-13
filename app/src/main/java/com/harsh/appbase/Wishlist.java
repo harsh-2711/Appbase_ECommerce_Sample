@@ -46,7 +46,6 @@ public class Wishlist extends AppCompatActivity {
     private HashMap<String,String> user;
     private String name,email,photo,mobile;
     private ListView listView;
-    private StaggeredGridLayoutManager mLayoutManager;
 
     //Getting reference to Firebase Database
     FirebaseDatabase database = FirebaseDatabase.getInstance();
