@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         tshirts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeIntent("mens-shirts");
+                makeIntent("shirts");
             }
         });
 

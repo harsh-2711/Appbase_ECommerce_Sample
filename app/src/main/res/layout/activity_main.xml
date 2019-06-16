@@ -172,7 +172,7 @@
                             <TextView
                                 style="@style/homegridtext"
                                 android:layout_below="@id/tshirts"
-                                android:text="T-Shirts" />
+                                android:text="Shirts" />
 
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
