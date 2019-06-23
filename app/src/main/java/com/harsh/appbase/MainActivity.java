@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.example.searchwidget.SearchBar;
 import com.harsh.appbase.networksync.CheckInternetConnection;
 import com.harsh.appbase.usersession.UserSession;
 import com.daimajia.slider.library.SliderLayout;
@@ -41,7 +42,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
-import com.webianks.easy_feedback.EasyFeedback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +56,7 @@ import io.appbase.client.AppbaseClient;
 
 public class MainActivity extends AppCompatActivity {
 
-    MaterialSearchBar searchBar;
+    SearchBar searchBar;
     Button shopByCategory;
     boolean x = false;
     private SliderLayout sliderShow;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private String first_time;
     private JSONObject obj;
 
-    CardView accessory,footwear,jewellery,kurtas,tshirts,watches;
+    CardView coffeeMugs,footwear,jewellery,kitchenSet,tshirts,carInterior;
 
 
     @Override
@@ -77,19 +77,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
-        shopByCategory = (Button) findViewById(R.id.shopByCategory);
-        accessory = findViewById(R.id.accessory);
+        searchBar = findViewById(R.id.searchBar);
+        shopByCategory = findViewById(R.id.shopByCategory);
+        coffeeMugs = findViewById(R.id.coffee_mugs);
         footwear = findViewById(R.id.footwear);
         jewellery = findViewById(R.id.jewellery);
-        kurtas = findViewById(R.id.kurtas);
+        kitchenSet = findViewById(R.id.kitchen_set);
         tshirts = findViewById(R.id.shirts);
-        watches = findViewById(R.id.watches);
+        carInterior = findViewById(R.id.car_interior);
 
-        accessory.setOnClickListener(new View.OnClickListener() {
+        coffeeMugs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeIntent("accessories");
+                makeIntent("coffeeMugs");
             }
         });
 
@@ -107,10 +107,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        kurtas.setOnClickListener(new View.OnClickListener() {
+        kitchenSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeIntent("westernWear");
+                makeIntent("kitchenSet");
             }
         });
 
@@ -121,10 +121,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        watches.setOnClickListener(new View.OnClickListener() {
+        carInterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeIntent("watches");
+                makeIntent("carInterior");
             }
         });
 

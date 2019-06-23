@@ -7,10 +7,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.searchwidget.Builder.DefaultClientSuggestions;
+import com.example.searchwidget.Model.ClientSuggestionsModel;
+import com.example.searchwidget.Model.SearchPropModel;
+import com.example.searchwidget.SearchBar;
 import com.harsh.appbase.adapters.SearchAdapter;
 import com.harsh.appbase.models.GenericProductModel;
 import com.harsh.appbase.models.SearchItemModel;
@@ -28,36 +33,175 @@ import io.appbase.client.AppbaseClient;
 
 public class SearchActivity extends AppCompatActivity {
 
-    MaterialSearchBar searchBar;
+    SearchBar searchBar;
     ListView listView;
+    private ArrayList<String> dataFields;
+    private ArrayList<Integer> weights;
+    private ArrayList<ClientSuggestionsModel> defaultSuggestions;
+    ArrayList<SearchItemModel> filteredData;
+    private SearchAdapter searchAdapter;
+    String queryText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        searchBar = (MaterialSearchBar) findViewById(R.id.search);
-        listView = (ListView) findViewById(R.id.list);
+        searchBar = (SearchBar) findViewById(R.id.search2);
+//        listView = (ListView) findViewById(R.id.list);
 
-        searchBar.enableSearch();
+//        searchBar.enableSearch();
+//
+//        searchBar.addTextChangeListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                Search search = new Search();
+//                search.execute(String.valueOf(s));
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
-        searchBar.addTextChangeListener(new TextWatcher() {
+        searchBar.setAppbaseClient("https://scalr.api.appbase.io", "shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf", "products");
+
+        // Setting basic search prop
+        dataFields = new ArrayList<>();
+        dataFields.add("title");
+        dataFields.add("title.search");
+
+        // Setting weights for dataFields
+        weights = new ArrayList<>();
+        weights.add(1);
+        weights.add(3);
+
+        // Making list of default suggestions
+        ArrayList<String> suggestions = new ArrayList<>();
+        suggestions.add("Puma T-Shirt");
+        suggestions.add("Apple iPhone XS");
+        suggestions.add("Nike Trousers");
+
+        // Making list of default categories to be displayed
+        ArrayList<String> categories = new ArrayList<>();
+        categories.add("T-Shirt");
+        categories.add("Mobiles");
+
+        // Setting default suggestions
+        defaultSuggestions = new DefaultClientSuggestions(suggestions).setCategories(categories).build();
+        filteredData = new ArrayList<>();
+
+        SearchPropModel searchPropModel = searchBar.setSearchProp("Demo Widget", dataFields)
+                .setQueryFormat("and")
+                .setHighlight(true)
+                .setCategoryField("tags")
+                .setTopEntries(2)
+                .setRedirectIcon(false)
+                .setDefaultSuggestions(defaultSuggestions)
+                .build();
+
+        searchBar.setOnItemClickListener(new SearchBar.ItemClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            public void onClick(View view, int position) {
+                // Single click event
+                Log.d("POSITION", String.valueOf(position));
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Search search = new Search();
-                search.execute(String.valueOf(s));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onLongClick(View view, int position) {
+                // Long click event
+                Log.d("LONG POSITION", String.valueOf(position));
             }
         });
+
+        searchBar.setOnTextChangeListner(new SearchBar.TextChangeListener() {
+            @Override
+            public void onTextChange(String response) {
+                // Responses to the queries passed in the Search Bar are available here
+//                // Parse the response string and add the data in search list respectively
+//                try {
+//                    String result = response;
+//                    JSONObject resultJSON = new JSONObject(result);
+//
+//                    JSONObject agg = resultJSON.getJSONObject("aggregations");
+//                    JSONObject uniqueTerms = agg.getJSONObject("unique-terms");
+//                    JSONArray buckets = uniqueTerms.getJSONArray("buckets");
+//                    ArrayList<String> highestHits = new ArrayList<>();
+//
+//                    for (int i = 0; i < buckets.length(); i++) {
+//
+//                        JSONObject object = buckets.getJSONObject(i);
+//                        String hit = object.getString("key");
+//                        highestHits.add(hit);
+//                    }
+//                    // Log.d("Hits List", highestHits.toString());
+//
+//
+//                    JSONObject hits = resultJSON.getJSONObject("hits");
+//                    JSONArray finalHits = hits.getJSONArray("hits");
+//
+//                    filteredData = new ArrayList<>();
+//
+//                    for (int i = 0; i < finalHits.length(); i++) {
+//
+//                        JSONObject obj = finalHits.getJSONObject(i);
+//                        JSONObject source = obj.getJSONObject("_source");
+//                        String entry = source.getString("title");
+//
+//                        JSONArray tagsArray = source.getJSONArray("tags");
+//                        ArrayList<String> tags = new ArrayList<>();
+//
+//                        for(int j = 0; j < tagsArray.length(); j++) {
+//                            String tag = tagsArray.getString(j);
+//                            tags.add(tag);
+//                        }
+//                        // Log.d("tags", tags.toString());
+//
+//                        String desc = source.getString("body_html");
+//
+//                        JSONObject img = source.getJSONObject("image");
+//                        String url = img.getString("src");
+//
+//                        float price = (new Random().nextInt(5000 - 500 + 1)) + 500;
+//
+//                        filteredData.add(new SearchItemModel(1, entry, url, desc, price, tags, highestHits));
+//                        searchAdapter = new SearchAdapter(filteredData, getApplicationContext(), queryText);
+//                        listView.setAdapter(searchAdapter);
+//
+//                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                            @Override
+//                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                                SearchItemModel searchItemModel = filteredData.get(position);
+//                                GenericProductModel product = new GenericProductModel(searchItemModel.getId(), searchItemModel.getItem(),
+//                                        searchItemModel.getImage(), searchItemModel.getDescription(), searchItemModel.getPrice());
+//                                Intent intent = new Intent(getApplicationContext(), IndividualProduct.class);
+//                                intent.putExtra("product", product);
+//                                startActivity(intent);
+//                            }
+//                        });
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+
+                Log.d("Results", response);
+            }
+        });
+
+        // To log the queries made by Appbase client for debugging
+        searchBar.startSearch(searchPropModel);
+
+        searchBar.setLoggingQuery(true);
+
+
     }
 
     @Override

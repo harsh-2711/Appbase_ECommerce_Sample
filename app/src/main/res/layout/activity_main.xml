@@ -91,22 +91,20 @@
 
                 <Button
                     android:id="@+id/shopByCategory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
                     android:text="Shop By Category"
                     android:textAllCaps="false" />
 
-                <com.mancj.materialsearchbar.MaterialSearchBar
+                <com.example.searchwidget.SearchBar
                     android:id="@+id/searchBar"
-                    style="@style/MaterialSearchBarLight"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    app:mt_hint="Search"
-                    app:mt_maxSuggestionsCount="10"
-                    app:mt_placeholder="Search"
-                    app:mt_speechMode="false" />
+                    android:layout_weight="0.9"
+                    app:maxSuggestionsCount="10"
+                    app:hint="Search Books"
+                    app:placeholder="Search" />
 
             </LinearLayout>
 
@@ -144,7 +142,7 @@
                             <ImageView
                                 android:id="@+id/visitingcards"
                                 style="@style/homegridimage"
-                                android:src="@drawable/footwear" />
+                                android:src="@drawable/women_footwear" />
 
                             <TextView
                                 style="@style/homegridtext"
@@ -167,7 +165,7 @@
                             <ImageView
                                 android:id="@+id/tshirts"
                                 style="@style/homegridimage"
-                                android:src="@drawable/tshirt" />
+                                android:src="@drawable/shirts" />
 
                             <TextView
                                 style="@style/homegridtext"
@@ -186,7 +184,7 @@
                     android:weightSum="10">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/accessory"
+                        android:id="@+id/coffee_mugs"
                         style="@style/homegridcard"
                         card_view:cardCornerRadius="@dimen/card_album_radius">
 
@@ -197,12 +195,12 @@
                             <ImageView
                                 android:id="@+id/bags"
                                 style="@style/homegridimage"
-                                android:src="@drawable/bags" />
+                                android:src="@drawable/coffee_mugs" />
 
                             <TextView
                                 style="@style/homegridtext"
                                 android:layout_below="@id/bags"
-                                android:text="Accesories" />
+                                android:text="Cofee Mugs" />
 
                         </RelativeLayout>
 
@@ -239,7 +237,7 @@
                     android:weightSum="10">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/kurtas"
+                        android:id="@+id/kitchen_set"
                         style="@style/homegridcard"
                         card_view:cardCornerRadius="@dimen/card_album_radius">
 
@@ -250,19 +248,19 @@
                             <ImageView
                                 android:id="@+id/calendars"
                                 style="@style/homegridimage"
-                                android:src="@drawable/kurtas" />
+                                android:src="@drawable/kitchen_set" />
 
                             <TextView
                                 style="@style/homegridtext"
                                 android:layout_below="@id/calendars"
-                                android:text="Kurtas" />
+                                android:text="Kitchen Set" />
 
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/watches"
+                        android:id="@+id/car_interior"
                         style="@style/homegridcard"
                         card_view:cardCornerRadius="@dimen/card_album_radius">
 
@@ -273,12 +271,12 @@
                             <ImageView
                                 android:id="@+id/keychain"
                                 style="@style/homegridimage"
-                                android:src="@drawable/watch" />
+                                android:src="@drawable/car_interior" />
 
                             <TextView
                                 style="@style/homegridtext"
                                 android:layout_below="@id/keychain"
-                                android:text="Watches" />
+                                android:text="Car Interior" />
 
                         </RelativeLayout>
 

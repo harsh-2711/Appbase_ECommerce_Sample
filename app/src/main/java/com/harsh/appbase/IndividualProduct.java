@@ -224,6 +224,7 @@ public class IndividualProduct extends AppCompatActivity {
         mDatabaseReference.child("Users").child(usermobile).child("WishList").child(identifier).child("primage").setValue(singleProductModel.getPrimage());
         mDatabaseReference.child("Users").child(usermobile).child("WishList").child(identifier).child("prdesc").setValue(singleProductModel.getPrdesc());
         session.increaseWishlistValue();
+        Toasty.success(IndividualProduct.this, "Added to WishList", Toast.LENGTH_SHORT).show();
     }
 
     public void goToCart(View view) {

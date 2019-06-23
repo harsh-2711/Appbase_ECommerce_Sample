@@ -7,19 +7,14 @@
     tools:context=".SearchActivity"
     android:orientation="vertical">
 
-    <com.mancj.materialsearchbar.MaterialSearchBar
-        style="@style/MaterialSearchBarLight"
-        app:mt_speechMode="false"
-        app:mt_hint="Search"
-        app:mt_placeholder="Search"
+    <com.example.searchwidget.SearchBar
+        android:id="@+id/search2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/search" />
+        app:maxSuggestionsCount="10"
+        app:hint="Search Books"
+        app:placeholder="Search" />
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"/>
+
 
 </LinearLayout>

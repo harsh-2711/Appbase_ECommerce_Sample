@@ -2,66 +2,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopByCategoryActivity"
+    android:layout_marginBottom="20dp"
     android:orientation="vertical"
-    android:layout_marginBottom="20dp">
+    tools:context=".ShopByCategoryActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar_by_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="#000"
-        style="@style/CustomTheme"
-        android:background="@color/colorAccent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/CustomTheme"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            app:titleTextColor="#000">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Categories"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:textSize="20sp" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="right"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/notification"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="15dp"
-        android:onClick="Notifications"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
+                    android:onClick="Notifications"
+                    android:src="@drawable/notification" />
 
 
-    <ImageView
-        android:id="@+id/cart"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/cart"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="10dp"
-        android:onClick="viewCart" />
+                <ImageView
+                    android:id="@+id/cart"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:onClick="viewCart"
+                    android:src="@drawable/cart" />
 
-    </LinearLayout>
+            </LinearLayout>
 
-    </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-</com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,14 +71,15 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/spare_parts"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:elevation="5dp"
+                card_view:cardCornerRadius="@dimen/card_album_radius"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/spare_parts"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -88,30 +90,30 @@
                         android:id="@+id/spare_part_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/automotive_and_spare_parts"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/automotive_and_spare_parts" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Spare Parts"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Spare Parts" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/automotive"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/automotive"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,30 +124,30 @@
                         android:id="@+id/automotives_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/automotive"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/automotive" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Automotive"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Automotive" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/bras"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/bras"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,30 +158,30 @@
                         android:id="@+id/bras_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/bras"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/bras" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bras"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Bras" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/car_interior"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/car_interior"
-                app:cardElevation="0dp">
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -190,17 +192,17 @@
                         android:id="@+id/car_interior_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/car_interior"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/car_interior" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Car Interior"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Car Interior" />
 
                 </LinearLayout>
 
@@ -216,14 +218,15 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/casual_shoes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/casual_shoes"
-                app:cardElevation="0dp">
+                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -234,30 +237,31 @@
                         android:id="@+id/casual_shoes_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/casual_shoes"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/casual_shoes" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Casual Shoes"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Casual Shoes" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/clothing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/clothing"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -268,30 +272,30 @@
                         android:id="@+id/clothing_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/clothings"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/clothings" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Clothings"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Clothings" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/coffee_mugs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/coffee_mugs"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -302,30 +306,30 @@
                         android:id="@+id/coffee_mugs_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/coffee_mugs"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/coffee_mugs" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Coffee Mugs"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Coffee Mugs" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/footwear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/footwear"
-                app:cardElevation="0dp">
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -336,23 +340,22 @@
                         android:id="@+id/footwear_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/footwear_2"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/footwear_2" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Footwear"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Footwear" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -362,14 +365,14 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/jewellery"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/jewellery"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -380,30 +383,30 @@
                         android:id="@+id/jewellery_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/jewellery_2"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/jewellery_2" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jewellery"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Jewellery" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/kitchen_set"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/kitchen_set"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -414,30 +417,30 @@
                         android:id="@+id/kitchen_set_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/kitchen_set"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/kitchen_set" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kitchen Set"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Kitchen Set" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/lingerie"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/lingerie"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -448,30 +451,30 @@
                         android:id="@+id/lingerie_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/lingerie"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/lingerie" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lingerie"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Lingerie" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/rings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/rings"
-                app:cardElevation="0dp" >
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -482,23 +485,22 @@
                         android:id="@+id/rings_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/rings"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/rings" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rings"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Rings" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -508,14 +510,14 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/s4s_bras"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/s4s_bras"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -526,30 +528,30 @@
                         android:id="@+id/s4s_bras_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/s4s_bras"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/s4s_bras" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="s4s bras"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="s4s bras" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/shirts"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/shirts"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -560,30 +562,30 @@
                         android:id="@+id/shirts_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/shirts"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/shirts" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Shirts"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Shirts" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/swim_wear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/swim_wear"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -594,30 +596,30 @@
                         android:id="@+id/swim_wear_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/swim_wear"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/swim_wear" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Swim Wear"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Swim Wear" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/tops"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/tops"
-                app:cardElevation="0dp">
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -628,16 +630,16 @@
                         android:id="@+id/tops_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/tops"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/tops" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tops"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Tops" />
 
                 </LinearLayout>
 
@@ -654,14 +656,14 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/tunics"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/tunics"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -672,30 +674,30 @@
                         android:id="@+id/tunics_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/tunics"
                         android:layout_gravity="center"
-                        android:layout_weight="3"/>
+                        android:layout_weight="3"
+                        android:src="@drawable/tunics" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tunics"
                         android:layout_gravity="center"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="Tunics" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/western_wear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/western_wear"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -706,31 +708,31 @@
                         android:id="@+id/western_wear_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/western_wear"
                         android:layout_gravity="center"
-                        android:layout_weight="4"/>
+                        android:layout_weight="4"
+                        android:src="@drawable/western_wear" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_gravity="center"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/western"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Western"
                             android:layout_gravity="center"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5"
+                            android:text="Western" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Wear"
                             android:layout_gravity="center"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5"
+                            android:text="Wear" />
 
                     </LinearLayout>
 
@@ -739,14 +741,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/women_footwear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/women_footwear"
-                app:cardElevation="0dp">
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -757,30 +759,30 @@
                         android:id="@+id/women_footwear_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/women_footwear"
                         android:layout_gravity="center"
-                        android:layout_weight="4"/>
+                        android:layout_weight="4"
+                        android:src="@drawable/women_footwear" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:layout_gravity="center">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Women's"
                             android:layout_gravity="center"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5"
+                            android:text="Women's" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Footwear"
                             android:layout_gravity="center"
-                            android:layout_weight="0.5"/>
+                            android:layout_weight="0.5"
+                            android:text="Footwear" />
 
                     </LinearLayout>
 
@@ -789,14 +791,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/women_clothings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/women_clothings"
-                app:cardElevation="0dp">
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:elevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -807,30 +809,30 @@
                         android:id="@+id/women_clothings_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/women_clothing"
                         android:layout_gravity="center"
-                        android:layout_weight="4"/>
+                        android:layout_weight="4"
+                        android:src="@drawable/women_clothing" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:layout_gravity="center">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Women's"
                             android:layout_gravity="center"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:text="Women's" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Clothing"
                             android:layout_gravity="center"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:text="Clothing" />
 
                     </LinearLayout>
 
