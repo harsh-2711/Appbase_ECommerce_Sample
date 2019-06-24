@@ -72,7 +72,7 @@ public class SearchAdapter extends ArrayAdapter<SearchItemModel> implements View
 
         if(position == 0 || position == 1) {
             ArrayList<String> tags = searchItem.getTags();
-            ArrayList<String> maxHits = searchItem.getMaxHits();
+            ArrayList<String> maxHits = new ArrayList<>();
             String firstCategory = "", secondCategory = "";
 
             for(int i = 0; i < maxHits.size(); i++) {

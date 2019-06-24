@@ -10,10 +10,11 @@ public class SearchItemModel implements Serializable {
     String image;
     String description;
     float price;
-    ArrayList<String> tags, maxHits;
+    ArrayList<String> tags;
+    String maxHits;
 
     public SearchItemModel(int id, String item, String image, String description, float price, ArrayList<String> tags,
-                           ArrayList<String> maxHits) {
+                           String maxHits) {
         this.id = id;
         this.item = item;
         this.image = image;
@@ -71,11 +72,11 @@ public class SearchItemModel implements Serializable {
         this.tags = tags;
     }
 
-    public ArrayList<String> getMaxHits() {
+    public String getMaxHits() {
         return maxHits;
     }
 
-    public void setMaxHits(ArrayList<String> maxHits) {
+    public void setMaxHits(String maxHits) {
         this.maxHits = maxHits;
     }
 }
