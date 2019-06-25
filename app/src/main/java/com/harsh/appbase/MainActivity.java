@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     SearchBar searchBar;
     Button shopByCategory;
     boolean x = false;
-    private SliderLayout sliderShow;
+   // private SliderLayout sliderShow;
     private Drawer result;
     private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
     //to get user session data
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         inflateNavDrawer();
 
         //ImageSLider
-        inflateImageSlider();
+        //inflateImageSlider();
 
         if (session.getFirstTime()) {
             //tap target view
@@ -264,27 +264,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void inflateImageSlider() {
-
-        // Using Image Slider -----------------------------------------------------------------------
-        sliderShow = findViewById(R.id.slider);
-
-        //populating Image slider
-        ArrayList<String> sliderImages = new ArrayList<>();
-        //sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/Business_stationery_home_banner.jpg");
-        sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/calendar-diaries-home-banner.jpg");
-        sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/calendar-diaries-banner.jpg");
-        //sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/free-visiting-cards-home-banner.JPG");
-
-        for (String s : sliderImages) {
-            DefaultSliderView sliderView = new DefaultSliderView(this);
-            sliderView.image(s);
-            sliderShow.addSlider(sliderView);
-        }
-
-        sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
-
-    }
+//    private void inflateImageSlider() {
+//
+//        // Using Image Slider -----------------------------------------------------------------------
+////        sliderShow = findViewById(R.id.slider);
+//
+//        //populating Image slider
+//        ArrayList<String> sliderImages = new ArrayList<>();
+//        //sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/Business_stationery_home_banner.jpg");
+//        sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/calendar-diaries-home-banner.jpg");
+//        sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/calendar-diaries-banner.jpg");
+//        //sliderImages.add("https://www.printstop.co.in/images/flashgallary/large/free-visiting-cards-home-banner.JPG");
+//
+//        for (String s : sliderImages) {
+//            DefaultSliderView sliderView = new DefaultSliderView(this);
+//            sliderView.image(s);
+//            sliderShow.addSlider(sliderView);
+//        }
+//
+//        sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
+//
+//    }
 
     private void inflateNavDrawer() {
 
@@ -462,7 +462,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        sliderShow.stopAutoCycle();
+       // sliderShow.stopAutoCycle();
         super.onStop();
 
     }
@@ -489,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
 
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
-        sliderShow.startAutoCycle();
+       // sliderShow.startAutoCycle();
         super.onResume();
     }
 

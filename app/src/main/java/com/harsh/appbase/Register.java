@@ -7,11 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -24,17 +20,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.harsh.appbase.networksync.CheckInternetConnection;
-import com.harsh.appbase.networksync.RegisterRequest;
-import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -42,14 +40,9 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -57,15 +50,142 @@ import es.dmoral.toasty.Toasty;
 
 public class Register extends AppCompatActivity {
 
-    private EditText edtname, edtemail, edtpass, edtcnfpass, edtnumber;
-    private String check,name,email,password,mobile,profile;
+    public static final String TAG = "MyTag";
     CircleImageView image;
     ImageView upload;
     RequestQueue requestQueue;
     boolean IMAGE_STATUS = false;
     Bitmap profilePicture;
-    public static final String TAG = "MyTag";
+    boolean userExits;
+    private EditText edtname, edtemail, edtpass, edtcnfpass, edtnumber;
+    private String check, name, email, password, mobile, profile;
+    TextWatcher nameWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //none
+        }
 
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //none
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            check = s.toString();
+
+            if (check.length() < 4 || check.length() > 20) {
+                edtname.setError("Name Must consist of 4 to 20 characters");
+            }
+        }
+
+    };
+    TextWatcher emailWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //none
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //none
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            check = s.toString();
+
+            if (check.length() < 4 || check.length() > 40) {
+                edtemail.setError("Email Must consist of 4 to 20 characters");
+            } else if (!check.matches("^[A-za-z0-9.@]+")) {
+                edtemail.setError("Only . and @ characters allowed");
+            } else if (!check.contains("@") || !check.contains(".")) {
+                edtemail.setError("Enter Valid Email");
+            }
+
+        }
+
+    };
+    TextWatcher passWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //none
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //none
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            check = s.toString();
+
+            if (check.length() < 4 || check.length() > 20) {
+                edtpass.setError("Password Must consist of 4 to 20 characters");
+            } else if (!check.matches("^[A-za-z0-9@]+")) {
+                edtemail.setError("Only @ special character allowed");
+            }
+        }
+
+    };
+    TextWatcher cnfpassWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //none
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //none
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            check = s.toString();
+
+            if (!check.equals(edtpass.getText().toString())) {
+                edtcnfpass.setError("Both the passwords do not match");
+            }
+        }
+
+    };
+    TextWatcher numberWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //none
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //none
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            check = s.toString();
+
+            if (check.length() > 10) {
+                edtnumber.setError("Number cannot be grated than 10 digits");
+            } else if (check.length() < 10) {
+                edtnumber.setError("Number should be 10 digits");
+            }
+        }
+
+    };
+
+    public static void hideKeyboard(Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +199,8 @@ public class Register extends AppCompatActivity {
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
 
-        upload=findViewById(R.id.uploadpic);
-        image=findViewById(R.id.profilepic);
+        upload = findViewById(R.id.uploadpic);
+        image = findViewById(R.id.profilepic);
         edtname = findViewById(R.id.name);
         edtemail = findViewById(R.id.email);
         edtpass = findViewById(R.id.password);
@@ -97,7 +217,7 @@ public class Register extends AppCompatActivity {
 
         //validate user details and register user
 
-        final Button button=findViewById(R.id.register);
+        final Button button = findViewById(R.id.register);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +226,7 @@ public class Register extends AppCompatActivity {
                 button.setClickable(false);
 
                 hideKeyboard(Register.this);
-                final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
+                final KProgressHUD progressDialog = KProgressHUD.create(Register.this)
                         .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                         .setLabel("Please wait")
                         .setCancellable(false)
@@ -115,7 +235,7 @@ public class Register extends AppCompatActivity {
                         .show();
 
                 //TODO AFTER VALDATION
-                if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()){
+                if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()) {
 
                     name = edtname.getText().toString();
                     email = edtemail.getText().toString();
@@ -132,61 +252,63 @@ public class Register extends AppCompatActivity {
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     final DatabaseReference myRef = database.getReference();
-
                     myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                if(snapshot.getKey().equals(mobile)) {
-                                    Toasty.info(Register.this,"User already exists",Toast.LENGTH_SHORT,true).show();
-                                    progressDialog.dismiss();
-                                    button.setClickable(true);
-
-                                } else {
-
-                                    myRef.child("Users").child(mobile).child("Name").setValue(name);
-                                    myRef.child("Users").child(mobile).child("Email").setValue(email);
-                                    myRef.child("Users").child(mobile).child("Password").setValue(password);
-
-                                    myRef.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            // This method is called once with the initial value and again
-                                            // whenever data at this location is updated.
-                                            Log.d(TAG, "Success adding user");
-                                            Toasty.success(Register.this,"Registered Succesfully",Toast.LENGTH_SHORT,true).show();
-                                            sendRegistrationEmail(name,email);
-                                            progressDialog.dismiss();
-                                            edtname.setText("");
-                                            edtname.setError("");
-                                            edtemail.setText("");
-                                            edtemail.setError("");
-                                            edtpass.setText("");
-                                            edtpass.setError("");
-                                            edtcnfpass.setText("");
-                                            edtcnfpass.setError("");
-                                            edtnumber.setText("");
-                                            edtnumber.setError("");
-                                            image.setImageDrawable(getDrawable(R.drawable.user));
-                                            button.setClickable(true);
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError error) {
-                                            // Failed to read value
-                                            Log.w(TAG, "Failed to add user", error.toException());
-                                            Toasty.error(Register.this,"Failed to Register",Toast.LENGTH_LONG,true).show();
-                                            progressDialog.dismiss();
-                                            button.setClickable(true);
-                                        }
-                                    });
+                                if (snapshot.getKey().equals(mobile)) {
+                                    userExits = true;
                                 }
+                            }
+                            if (userExits) {
+                                Toasty.info(Register.this, "User already exists", Toast.LENGTH_SHORT, true).show();
+                                progressDialog.dismiss();
+                                button.setClickable(true);
+
+                            } else {
+
+                                myRef.child("Users").child(mobile).child("Name").setValue(name);
+                                myRef.child("Users").child(mobile).child("Email").setValue(email);
+                                myRef.child("Users").child(mobile).child("Password").setValue(password);
+
+                                myRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        // This method is called once with the initial value and again
+                                        // whenever data at this location is updated.
+                                        Log.d(TAG, "Success adding user");
+                                        Toasty.success(Register.this, "Registered Succesfully", Toast.LENGTH_SHORT, true).show();
+                                        progressDialog.dismiss();
+                                        sendRegistrationEmail(name, email);
+                                        edtname.setText("");
+                                        edtname.setError("");
+                                        edtemail.setText("");
+                                        edtemail.setError("");
+                                        edtpass.setText("");
+                                        edtpass.setError("");
+                                        edtcnfpass.setText("");
+                                        edtcnfpass.setError("");
+                                        edtnumber.setText("");
+                                        edtnumber.setError("");
+                                        image.setImageDrawable(getDrawable(R.drawable.user));
+                                        button.setClickable(true);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError error) {
+                                        // Failed to read value
+                                        Log.w(TAG, "Failed to add user", error.toException());
+                                        Toasty.error(Register.this, "Failed to Register", Toast.LENGTH_LONG, true).show();
+                                        progressDialog.dismiss();
+                                        button.setClickable(true);
+                                    }
+                                });
                             }
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Toasty.error(Register.this,"Server error",Toast.LENGTH_SHORT,true).show();
+                            Toasty.error(Register.this, "Server error", Toast.LENGTH_SHORT, true).show();
                             progressDialog.dismiss();
                             button.setClickable(true);
                         }
@@ -201,22 +323,22 @@ public class Register extends AppCompatActivity {
 
         //Take already registered user to login page
 
-        final TextView loginuser=findViewById(R.id.login_now);
+        final TextView loginuser = findViewById(R.id.login_now);
         loginuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Register.this,LoginActivity.class));
+                startActivity(new Intent(Register.this, LoginActivity.class));
                 finish();
             }
         });
 
         //take user to reset password
 
-        final TextView forgotpass=findViewById(R.id.forgot_pass);
+        final TextView forgotpass = findViewById(R.id.forgot_pass);
         forgotpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Register.this,ForgotPassword.class));
+                startActivity(new Intent(Register.this, ForgotPassword.class));
                 finish();
             }
         });
@@ -257,7 +379,6 @@ public class Register extends AppCompatActivity {
                         .check();
 
 
-
                 //result will be available in onActivityResult which is overridden
             }
         });
@@ -266,17 +387,17 @@ public class Register extends AppCompatActivity {
     private void sendRegistrationEmail(final String name, final String emails) {
 
 
-                BackgroundMail.newBuilder(Register.this)
-                        .withSendingMessage("Sending Welcome Greetings to Your Email !")
-                        .withSendingMessageSuccess("Kindly Check Your Email now !")
-                        .withSendingMessageError("Failed to send password ! Try Again !")
-                        .withUsername("dev.appbase@gmail.com")
-                        .withPassword("Appbase?")
-                        .withMailto(emails)
-                        .withType(BackgroundMail.TYPE_PLAIN)
-                        .withSubject("Greetings from Appbase")
-                        .withBody("Hello "+ name + ",\n " + getString(R.string.registermail1))
-                        .send();
+        BackgroundMail.newBuilder(Register.this)
+                .withSendingMessage("Sending Welcome Greetings to Your Email !")
+                .withSendingMessageSuccess("Kindly Check Your Email now !")
+                .withSendingMessageError("Failed to send password ! Try Again !")
+                .withUsername("dev.appbase@gmail.com")
+                .withPassword("Appbase?")
+                .withMailto(emails)
+                .withType(BackgroundMail.TYPE_PLAIN)
+                .withSubject("Greetings from Appbase")
+                .withBody("Hello " + name + ",\n " + getString(R.string.registermail1))
+                .send();
 
     }
 
@@ -311,21 +432,25 @@ public class Register extends AppCompatActivity {
 
     private boolean validateProfile() {
         if (!IMAGE_STATUS)
-            Toasty.info(Register.this,"Select A Profile Picture",Toast.LENGTH_LONG).show();
+            Toasty.info(Register.this, "Select A Profile Picture", Toast.LENGTH_LONG).show();
         return IMAGE_STATUS;
     }
+
+    //TextWatcher for Name -----------------------------------------------------
 
     private boolean validateNumber() {
 
         check = edtnumber.getText().toString();
-        Log.e("inside number",check.length()+" ");
-        if (check.length()>10) {
-           return false;
-        }else if(check.length()<10){
+        Log.e("inside number", check.length() + " ");
+        if (check.length() > 10) {
+            return false;
+        } else if (check.length() < 10) {
             return false;
         }
         return true;
     }
+
+    //TextWatcher for Email -----------------------------------------------------
 
     private boolean validateCnfPass() {
 
@@ -334,18 +459,22 @@ public class Register extends AppCompatActivity {
         return check.equals(edtpass.getText().toString());
     }
 
+    //TextWatcher for pass -----------------------------------------------------
+
     private boolean validatePass() {
 
 
         check = edtpass.getText().toString();
 
         if (check.length() < 4 || check.length() > 20) {
-           return false;
+            return false;
         } else if (!check.matches("^[A-za-z0-9@]+")) {
             return false;
         }
         return true;
     }
+
+    //TextWatcher for repeat Password -----------------------------------------------------
 
     private boolean validateEmail() {
 
@@ -356,11 +485,14 @@ public class Register extends AppCompatActivity {
         } else if (!check.matches("^[A-za-z0-9.@]+")) {
             return false;
         } else if (!check.contains("@") || !check.contains(".")) {
-                return false;
+            return false;
         }
 
         return true;
     }
+
+
+    //TextWatcher for Mobile -----------------------------------------------------
 
     private boolean validateName() {
 
@@ -370,149 +502,6 @@ public class Register extends AppCompatActivity {
 
     }
 
-    public static void hideKeyboard(Activity activity) {
-        View view = activity.findViewById(android.R.id.content);
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
-    //TextWatcher for Name -----------------------------------------------------
-
-    TextWatcher nameWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            //none
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //none
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-            check = s.toString();
-
-            if (check.length() < 4 || check.length() > 20) {
-                edtname.setError("Name Must consist of 4 to 20 characters");
-            }
-        }
-
-    };
-
-    //TextWatcher for Email -----------------------------------------------------
-
-    TextWatcher emailWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            //none
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //none
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-            check = s.toString();
-
-            if (check.length() < 4 || check.length() > 40) {
-                edtemail.setError("Email Must consist of 4 to 20 characters");
-            } else if (!check.matches("^[A-za-z0-9.@]+")) {
-                edtemail.setError("Only . and @ characters allowed");
-            } else if (!check.contains("@") || !check.contains(".")) {
-                edtemail.setError("Enter Valid Email");
-            }
-
-        }
-
-    };
-
-    //TextWatcher for pass -----------------------------------------------------
-
-    TextWatcher passWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            //none
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //none
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-            check = s.toString();
-
-            if (check.length() < 4 || check.length() > 20) {
-                edtpass.setError("Password Must consist of 4 to 20 characters");
-            } else if (!check.matches("^[A-za-z0-9@]+")) {
-                edtemail.setError("Only @ special character allowed");
-            }
-        }
-
-    };
-
-    //TextWatcher for repeat Password -----------------------------------------------------
-
-    TextWatcher cnfpassWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            //none
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //none
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-            check = s.toString();
-
-            if (!check.equals(edtpass.getText().toString())) {
-                edtcnfpass.setError("Both the passwords do not match");
-            }
-        }
-
-    };
-
-
-    //TextWatcher for Mobile -----------------------------------------------------
-
-    TextWatcher numberWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            //none
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //none
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-            check = s.toString();
-
-            if (check.length()>10) {
-                edtnumber.setError("Number cannot be grated than 10 digits");
-            }else if(check.length()<10){
-                edtnumber.setError("Number should be 10 digits");
-            }
-        }
-
-    };
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -521,7 +510,7 @@ public class Register extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop () {
+    protected void onStop() {
         super.onStop();
     }
 }

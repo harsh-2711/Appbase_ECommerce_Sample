@@ -3,10 +3,10 @@ package com.harsh.appbase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,7 +46,7 @@ public class IndividualProduct extends AppCompatActivity {
     @BindView(R.id.productdesc)
     TextView productdesc;
     @BindView(R.id.quantityProductPage)
-    EditText quantityProductPage;
+    TextView quantityProductPage;
     @BindView(R.id.add_to_wishlist)
     LottieAnimationView addToWishlist;
     @BindView(R.id.layout_action3)
@@ -104,7 +104,7 @@ public class IndividualProduct extends AppCompatActivity {
         productprice.setText("₹ " + Float.toString(model.getCardprice()));
 
         productname.setText(model.getCardname());
-        productdesc.setText(model.getCarddiscription());
+        productdesc.setText(model.getCarddiscription().equals("null") ? " " : Html.fromHtml(model.getCarddiscription(),Html.FROM_HTML_MODE_LEGACY));
         quantityProductPage.setText("1");
         Picasso.with(IndividualProduct.this).load(model.getCardimage()).into(productimage);
 

@@ -68,16 +68,17 @@ public class SearchActivity extends AppCompatActivity {
         SearchPropModel searchPropModel = searchBar.setSearchProp("Demo Widget", dataFields)
                 .setQueryFormat("and")
                 .setHighlight(true)
-                .setCategoryField("tags")
+                .setCategoryField("src")
                 .setTopEntries(2)
                 .setRedirectIcon(false)
                 .setDefaultSuggestions(defaultSuggestions)
                 .build();
+
         searchBar.setOnItemClickListener(new SearchBar.ItemClickListener() {
             @Override
             public void onClick(View view, int position, ClientSuggestionsModel result) {
                 float price = (new Random().nextInt(5000 - 500 + 1)) + 500;
-                Log.d("resultStr",result.toString());
+                Log.d("resultStr",result.getCategory());
                 SearchItemModel searchItemModel= new SearchItemModel(1, result.getText(), result.getClass().getName(), result.getCategory(),price, categories, result.getHits());
                 GenericProductModel product = new GenericProductModel(searchItemModel.getId(), searchItemModel.getItem(),
                         searchItemModel.getImage(), searchItemModel.getDescription(), searchItemModel.getPrice());

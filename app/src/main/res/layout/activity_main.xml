@@ -109,13 +109,13 @@
 
             </LinearLayout>
 
-            <com.daimajia.slider.library.SliderLayout
+            <ImageView
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:auto_cycle="true"
-                app:pager_animation="Default"
-                app:pager_animation_span="1100" />
+                android:fitsSystemWindows="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/splash_image" />
 
             <LinearLayout
                 android:layout_width="match_parent"

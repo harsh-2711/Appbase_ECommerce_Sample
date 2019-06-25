@@ -139,7 +139,14 @@ public class Cart extends AppCompatActivity {
                         }
                         SingleProductModel singleProductModel = new SingleProductModel(prid, no_of_items, useremail, usermobile, prname, prprice, primage, prdesc);
                         items.add(singleProductModel);
-                        totalcost += singleProductModel.getNo_of_items() * Float.parseFloat(singleProductModel.getPrprice());
+                        Float val;
+                        if(singleProductModel.getPrname() == null) {
+                            val =Float.valueOf(0);
+                        } else  {
+                            val =Float.parseFloat(singleProductModel.getPrprice());
+                        }
+//                        Log.d("Price", singleProductModel.getPrprice());
+                        totalcost += singleProductModel.getNo_of_items() * val;
                         totalproducts += singleProductModel.getNo_of_items();
                     }
 
