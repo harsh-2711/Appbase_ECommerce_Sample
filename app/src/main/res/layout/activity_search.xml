@@ -4,17 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="1"
     tools:context=".SearchActivity"
     android:orientation="vertical">
 
-    <com.example.searchwidget.SearchBar
+    <com.harsh.searchwidget.SearchBar
         android:id="@+id/search2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:maxSuggestionsCount="10"
-        app:hint="Search Books"
+        app:hint="Search"
         app:placeholder="Search" />
 
+    <!--<ListView-->
+        <!--android:id="@+id/search_list_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="9"/>-->
 
 
 </LinearLayout>

@@ -108,6 +108,7 @@ public class Register extends AppCompatActivity {
         }
 
     };
+
     TextWatcher passWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -199,7 +200,7 @@ public class Register extends AppCompatActivity {
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
 
-        upload = findViewById(R.id.uploadpic);
+//        upload = findViewById(R.id.uploadpic);
         image = findViewById(R.id.profilepic);
         edtname = findViewById(R.id.name);
         edtemail = findViewById(R.id.email);
@@ -214,6 +215,8 @@ public class Register extends AppCompatActivity {
         edtnumber.addTextChangedListener(numberWatcher);
 
         requestQueue = Volley.newRequestQueue(Register.this);
+
+        image.setImageDrawable(getDrawable(R.drawable.user));
 
         //validate user details and register user
 
@@ -235,7 +238,7 @@ public class Register extends AppCompatActivity {
                         .show();
 
                 //TODO AFTER VALDATION
-                if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()) {
+                if (validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()) {
 
                     name = edtname.getText().toString();
                     email = edtemail.getText().toString();
@@ -243,66 +246,47 @@ public class Register extends AppCompatActivity {
                     mobile = edtnumber.getText().toString();
 
                     //Validation Success
-                    convertBitmapToString(profilePicture);
-                    ImageStorage imageStorage = new ImageStorage();
-                    imageStorage.saveInternalStorage(getApplicationContext(), profilePicture, mobile + password);
+//                    convertBitmapToString(profilePicture);
+//                    ImageStorage imageStorage = new ImageStorage();
+//                    imageStorage.saveInternalStorage(getApplicationContext(), profilePicture, mobile + password);
                     // Sanity Check
                     // File file = imageStorage.getImage(getApplicationContext(), mobile + password + ".jpg");
                     // Log.d("File name", file.getName());
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     final DatabaseReference myRef = database.getReference();
-                    myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    myRef.child("Users").child(mobile).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                if (snapshot.getKey().equals(mobile)) {
-                                    userExits = true;
-                                }
-                            }
-                            if (userExits) {
+                            if(dataSnapshot.exists()) {
+                                // User Exists
+                                // Do your stuff here if user already exits
+                                Log.d("SnapShot",dataSnapshot.getKey());
                                 Toasty.info(Register.this, "User already exists", Toast.LENGTH_SHORT, true).show();
                                 progressDialog.dismiss();
                                 button.setClickable(true);
-
                             } else {
 
                                 myRef.child("Users").child(mobile).child("Name").setValue(name);
                                 myRef.child("Users").child(mobile).child("Email").setValue(email);
                                 myRef.child("Users").child(mobile).child("Password").setValue(password);
 
-                                myRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        // This method is called once with the initial value and again
-                                        // whenever data at this location is updated.
-                                        Log.d(TAG, "Success adding user");
-                                        Toasty.success(Register.this, "Registered Succesfully", Toast.LENGTH_SHORT, true).show();
-                                        progressDialog.dismiss();
-                                        sendRegistrationEmail(name, email);
-                                        edtname.setText("");
-                                        edtname.setError("");
-                                        edtemail.setText("");
-                                        edtemail.setError("");
-                                        edtpass.setText("");
-                                        edtpass.setError("");
-                                        edtcnfpass.setText("");
-                                        edtcnfpass.setError("");
-                                        edtnumber.setText("");
-                                        edtnumber.setError("");
-                                        image.setImageDrawable(getDrawable(R.drawable.user));
-                                        button.setClickable(true);
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError error) {
-                                        // Failed to read value
-                                        Log.w(TAG, "Failed to add user", error.toException());
-                                        Toasty.error(Register.this, "Failed to Register", Toast.LENGTH_LONG, true).show();
-                                        progressDialog.dismiss();
-                                        button.setClickable(true);
-                                    }
-                                });
+                                Log.d(TAG, "Success adding user");
+                                Toasty.success(Register.this, "Registered Succesfully", Toast.LENGTH_SHORT, true).show();
+                                progressDialog.dismiss();
+                                sendRegistrationEmail(name, email);
+                                edtname.setText("");
+                                edtname.setError("");
+                                edtemail.setText("");
+                                edtemail.setError("");
+                                edtpass.setText("");
+                                edtpass.setError("");
+                                edtcnfpass.setText("");
+                                edtcnfpass.setError("");
+                                edtnumber.setText("");
+                                edtnumber.setError("");
+                                image.setImageDrawable(getDrawable(R.drawable.user));
+                                button.setClickable(true);
                             }
                         }
 
@@ -344,44 +328,44 @@ public class Register extends AppCompatActivity {
         });
 
 
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-
-                Dexter.withActivity(Register.this)
-                        .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .withListener(new MultiplePermissionsListener() {
-                            @Override
-                            public void onPermissionsChecked(MultiplePermissionsReport report) {
-                                // check if all permissions are granted
-                                if (report.areAllPermissionsGranted()) {
-                                    // do you work now
-                                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                    intent.setType("image/*");
-                                    startActivityForResult(intent, 1000);
-                                }
-
-                                // check for permanent denial of any permission
-                                if (report.isAnyPermissionPermanentlyDenied()) {
-                                    // permission is denied permanently, navigate user to app settings
-                                    Snackbar.make(view, "Kindly grant Required Permission", Snackbar.LENGTH_LONG)
-                                            .setAction("Allow", null).show();
-                                }
-                            }
-
-                            @Override
-                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                                token.continuePermissionRequest();
-                            }
-                        })
-                        .onSameThread()
-                        .check();
-
-
-                //result will be available in onActivityResult which is overridden
-            }
-        });
+//        upload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View view) {
+//
+//                Dexter.withActivity(Register.this)
+//                        .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+//                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                        .withListener(new MultiplePermissionsListener() {
+//                            @Override
+//                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                                // check if all permissions are granted
+//                                if (report.areAllPermissionsGranted()) {
+//                                    // do you work now
+//                                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                                    intent.setType("image/*");
+//                                    startActivityForResult(intent, 1000);
+//                                }
+//
+//                                // check for permanent denial of any permission
+//                                if (report.isAnyPermissionPermanentlyDenied()) {
+//                                    // permission is denied permanently, navigate user to app settings
+//                                    Snackbar.make(view, "Kindly grant Required Permission", Snackbar.LENGTH_LONG)
+//                                            .setAction("Allow", null).show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+//                                token.continuePermissionRequest();
+//                            }
+//                        })
+//                        .onSameThread()
+//                        .check();
+//
+//
+//                //result will be available in onActivityResult which is overridden
+//            }
+//        });
     }
 
     private void sendRegistrationEmail(final String name, final String emails) {

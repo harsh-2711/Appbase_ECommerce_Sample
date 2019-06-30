@@ -17,13 +17,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.example.searchwidget.SearchBar;
 import com.harsh.appbase.networksync.CheckInternetConnection;
 import com.harsh.appbase.usersession.UserSession;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.harsh.searchwidget.SearchBar;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         searchBar.disableSearch();
+        searchBar.setPlaceHolderText("Search");
 
         searchBar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -48,14 +48,14 @@
                 app:civ_border_width="1dp"
                 android:src="@drawable/user"/>
 
-            <ImageView
-                android:id="@+id/uploadpic"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:elevation="4dp"
-                android:layout_alignBottom="@+id/profilepic"
-                android:layout_alignRight="@+id/profilepic"
-                android:src="@drawable/uploadpic"/>
+            <!--<ImageView-->
+                <!--android:id="@+id/uploadpic"-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:elevation="4dp"-->
+                <!--android:layout_alignBottom="@+id/profilepic"-->
+                <!--android:layout_alignRight="@+id/profilepic"-->
+                <!--android:src="@drawable/uploadpic"/>-->
 
         </RelativeLayout>
 

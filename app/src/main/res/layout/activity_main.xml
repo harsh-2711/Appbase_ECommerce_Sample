@@ -98,13 +98,13 @@
                     android:text="Shop By Category"
                     android:textAllCaps="false" />
 
-                <com.example.searchwidget.SearchBar
+                <com.harsh.searchwidget.SearchBar
                     android:id="@+id/searchBar"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.9"
                     app:maxSuggestionsCount="10"
-                    app:hint="Search Books"
+                    app:hint="Search"
                     app:placeholder="Search" />
 
             </LinearLayout>
