@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.harsh.appbase.adapters.CategoryResultAdapter;
 import com.harsh.appbase.adapters.SearchAdapter;
 import com.harsh.appbase.models.GenericProductModel;
 import com.harsh.appbase.models.SearchItemModel;
@@ -22,24 +27,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Console;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-
-import io.appbase.client.AppbaseClient;
+import java.util.concurrent.ExecutionException;
 
 public class SearchActivity extends AppCompatActivity {
 
     SearchBar searchBar;
-    ListView listView;
+//    ListView listView;
+    RecyclerView recyclerView;
+    ArrayList<ArrayList<String>> list;
+    CategoryResultAdapter categoryResultAdapter;
+    GridLayoutManager mGridLayoutManager;
     ArrayList<SearchItemModel> filteredData;
-    String queryText;
+//    String queryText;
     private ArrayList<String> dataFields;
     private ArrayList<Integer> weights;
     private ArrayList<ClientSuggestionsModel> defaultSuggestions;
     private SearchAdapter searchAdapter;
+    int RecyclerViewItemPosition;
+    View ChildView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +55,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         searchBar = (SearchBar) findViewById(R.id.search2);
-      //  listView = (ListView) findViewById(R.id.search_list_view);
+//        listView = (ListView) findViewById(R.id.search_list_view);
 
         searchBar.setAppbaseClient("https://scalr.api.appbase.io", "shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf", "products");
 
@@ -74,11 +82,8 @@ public class SearchActivity extends AppCompatActivity {
 
         // Setting default suggestions
         defaultSuggestions = new DefaultClientSuggestions(suggestions).setCategories(categories).build();
-        filteredData = new ArrayList<>();
 
-        searchAdapter = new SearchAdapter(filteredData, this);
         searchBar.setPlaceHolderText("Search");
-        //listView.setAdapter(searchAdapter);
 
         // Setting extra properties
         ArrayList<String> extraProperties = new ArrayList<>();
@@ -94,82 +99,6 @@ public class SearchActivity extends AppCompatActivity {
                 .setExtraFields(extraProperties)
                 .setRedirectIcon(true)
                 .build();
-
-//        searchBar.setOnTextChangeListner(new SearchBar.TextChangeListener() {
-//            @Override
-//            public void onTextChange(String response) {
-//                // Responses to the queries passed in the Search Bar are available here
-//                // Parse the response string and add the data in search list respectively
-//                try {
-//                    JSONObject resultJSON = new JSONObject(response);
-//
-//                    JSONObject agg = resultJSON.getJSONObject("aggregations");
-//                    JSONObject uniqueTerms = agg.getJSONObject("unique-terms");
-//                    JSONArray buckets = uniqueTerms.getJSONArray("buckets");
-//                    ArrayList<String> highestHits = new ArrayList<>();
-//
-//                    for (int i = 0; i < buckets.length(); i++) {
-//
-//                        JSONObject object = buckets.getJSONObject(i);
-//                        String hit = object.getString("key");
-//                        highestHits.add(hit);
-//                    }
-//                    // Log.d("Hits List", highestHits.toString());
-//
-//
-//                    JSONObject hits = resultJSON.getJSONObject("hits");
-//                    JSONArray finalHits = hits.getJSONArray("hits");
-//
-//                    for (int i = 0; i < finalHits.length(); i++) {
-//
-//                        JSONObject obj = finalHits.getJSONObject(i);
-//                        JSONObject source = obj.getJSONObject("_source");
-//                        String entry = source.getString("title");
-//
-//                        JSONArray tagsArray = source.getJSONArray("tags");
-//                        ArrayList<String> tags = new ArrayList<>();
-//
-//                        for(int j = 0; j < tagsArray.length(); j++) {
-//                            String tag = tagsArray.getString(j);
-//                            tags.add(tag);
-//                        }
-//                        // Log.d("tags", tags.toString());
-//
-//                        String desc = source.getString("body_html");
-//
-//                        JSONObject img = source.getJSONObject("image");
-//                        String url = img.getString("src");
-//
-//                        float price = (new Random().nextInt(5000 - 500 + 1)) + 500;
-//
-//                        filteredData.add(new SearchItemModel(1, entry, url, desc, price, tags, highestHits.toString()));
-//                        searchAdapter.notifyDataSetChanged();
-//
-//                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                            @Override
-//                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                                SearchItemModel searchItemModel = filteredData.get(position);
-//                                GenericProductModel product = new GenericProductModel(searchItemModel.getId(), searchItemModel.getItem(),
-//                                        searchItemModel.getImage(), searchItemModel.getDescription(), searchItemModel.getPrice());
-//                                Intent intent = new Intent(getApplicationContext(), IndividualProduct.class);
-//                                intent.putExtra("product", product);
-//                                startActivity(intent);
-//                            }
-//                        });
-//                    }
-//
-//                    // long time1= System.currentTimeMillis();
-//                    // Log.d("FINISH", String.valueOf(time1));
-//                    //Log.d("Result", finalHits.toString());
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                Log.d("Results", response);
-//            }
-//        });
-
 
         searchBar.setOnItemClickListener(new SearchBar.ItemClickListener() {
             @Override
@@ -223,6 +152,71 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onSearchConfirmed(CharSequence text) {
+                try {
+                    String response = searchBar.search(searchPropModel,String.valueOf(text));
+                    Log.d("RESPONSE", response);
+                    filteredData = new ArrayList<>();
+
+                    recyclerView = (RecyclerView) findViewById(R.id.search_list_view);
+                    mGridLayoutManager = new GridLayoutManager(SearchActivity.this, 2);
+                    recyclerView.setLayoutManager(mGridLayoutManager);
+
+                    // Adding items to recycler view
+                    list = new ArrayList<>();
+                    AddItemsToRecycler addItemsToRecycler = new AddItemsToRecycler();
+                    addItemsToRecycler.execute(response);
+
+                    categoryResultAdapter = new CategoryResultAdapter(list);
+                    recyclerView.setAdapter(categoryResultAdapter);
+                    recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+                        GestureDetector gestureDetector = new GestureDetector(SearchActivity.this, new GestureDetector.SimpleOnGestureListener() {
+
+                            @Override public boolean onSingleTapUp(MotionEvent motionEvent) {
+
+                                return true;
+                            }
+
+                        });
+
+                        @Override
+                        public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+
+                            ChildView = recyclerView.findChildViewUnder(e.getX(), e.getY());
+
+                            if(ChildView != null && gestureDetector.onTouchEvent(e)) {
+                                RecyclerViewItemPosition = recyclerView.getChildAdapterPosition(ChildView);
+                                String productName = list.get(RecyclerViewItemPosition).get(0);
+                                String productDescription = list.get(RecyclerViewItemPosition).get(3);
+                                String productPrice = list.get(RecyclerViewItemPosition).get(1);
+                                String productImage = list.get(RecyclerViewItemPosition).get(2);
+                                String productNewPrice = productPrice.substring(4);
+
+                                GenericProductModel product = new GenericProductModel(0, productName,
+                                        productImage, productDescription, Float.valueOf(productNewPrice));
+                                Intent intent = new Intent(getApplicationContext(), IndividualProduct.class);
+                                intent.putExtra("product", product);
+                                startActivity(intent);
+                            }
+                            return false;
+                        }
+
+                        @Override
+                        public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+                        }
+
+                        @Override
+                        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
 
             }
 
@@ -249,92 +243,56 @@ public class SearchActivity extends AppCompatActivity {
         finish();
     }
 
-//    public class Search extends AsyncTask<String, Void, Void> {
-//
-//        ArrayList<SearchItemModel> filteredData;
-//        private SearchAdapter searchAdapter;
-//        String response;
-//
-//        @Override
-//        protected Void doInBackground(String... strings) {
-//
-//            response = strings[0];
-//
-//            try {
-//                JSONObject resultJSON = new JSONObject(response);
-//
-//                JSONObject agg = resultJSON.getJSONObject("aggregations");
-//                JSONObject uniqueTerms = agg.getJSONObject("unique-terms");
-//                JSONArray buckets = uniqueTerms.getJSONArray("buckets");
-//                ArrayList<String> highestHits = new ArrayList<>();
-//
-//                for (int i = 0; i < buckets.length(); i++) {
-//
-//                    JSONObject object = buckets.getJSONObject(i);
-//                    String hit = object.getString("key");
-//                    highestHits.add(hit);
-//                }
-//                // Log.d("Hits List", highestHits.toString());
-//
-//
-//                JSONObject hits = resultJSON.getJSONObject("hits");
-//                JSONArray finalHits = hits.getJSONArray("hits");
-//
-//                filteredData = new ArrayList<>();
-//
-//                for (int i = 0; i < finalHits.length(); i++) {
-//
-//                    JSONObject obj = finalHits.getJSONObject(i);
-//                    JSONObject source = obj.getJSONObject("_source");
-//                    String entry = source.getString("title");
-//
-//                    JSONArray tagsArray = source.getJSONArray("tags");
-//                    ArrayList<String> tags = new ArrayList<>();
-//
-//                    for(int j = 0; j < tagsArray.length(); j++) {
-//                        String tag = tagsArray.getString(j);
-//                        tags.add(tag);
-//                    }
-//                    // Log.d("tags", tags.toString());
-//
-//                    String desc = source.getString("body_html");
-//
-//                    JSONObject img = source.getJSONObject("image");
-//                    String url = img.getString("src");
-//
-//                    float price = (new Random().nextInt(5000 - 500 + 1)) + 500;
-//
-//                    filteredData.add(new SearchItemModel(1, entry, url, desc, price, tags, highestHits.toString()));
-//                }
-//
-//                // long time1= System.currentTimeMillis();
-//                // Log.d("FINISH", String.valueOf(time1));
-//                //Log.d("Result", finalHits.toString());
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            return  null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//            searchAdapter = new SearchAdapter(filteredData, getApplicationContext());
-//            listView.setAdapter(searchAdapter);
-//
-//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                    SearchItemModel searchItemModel = filteredData.get(position);
-//                    GenericProductModel product = new GenericProductModel(searchItemModel.getId(), searchItemModel.getItem(),
-//                            searchItemModel.getImage(), searchItemModel.getDescription(), searchItemModel.getPrice());
-//                    Intent intent = new Intent(getApplicationContext(), IndividualProduct.class);
-//                    intent.putExtra("product", product);
-//                    startActivity(intent);
-//                }
-//            });
-//        }
-//    }
+    private class AddItemsToRecycler extends AsyncTask<String,Void,Void> {
+        String result;
+        @Override
+        protected Void doInBackground(String... strings) {
+            result = strings[0];
+            try {
+
+                JSONObject resultJSON = new JSONObject(result);
+                JSONObject hits = resultJSON.getJSONObject("hits");
+                JSONArray finalHits = hits.getJSONArray("hits");
+
+                for (int i = 0; i < finalHits.length(); i++) {
+
+                    JSONObject obj = finalHits.getJSONObject(i);
+                    JSONObject source = obj.getJSONObject("_source");
+                    String entry = source.getString("title");
+
+                    //Log.d("FINAL HITS", entry);
+                    String desc = source.getString("body_html");
+
+                    JSONObject img = source.getJSONObject("image");
+                    String url = img.getString("src");
+
+                    float price = (new Random().nextInt(5000 - 500 + 1)) + 500;
+
+                    ArrayList<String> arrayList = new ArrayList<>();
+                    if(entry.length() > 40) {
+                        String newEntry = entry.substring(0,40);
+                        newEntry += "...";
+                        entry = newEntry;
+                    }
+                    arrayList.add(entry);
+                    arrayList.add("Rs. " + Math.round(price));
+                    arrayList.add(url);
+                    arrayList.add(desc);
+                    list.add(arrayList);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            categoryResultAdapter.notifyDataSetChanged();
+        }
+    }
+
 }

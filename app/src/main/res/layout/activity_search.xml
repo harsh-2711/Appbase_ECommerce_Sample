@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
     tools:context=".SearchActivity"
     android:orientation="vertical">
 
+    <FrameLayout
+        android:id="@+id/new_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search2">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
+
+    </FrameLayout>
     <com.harsh.searchwidget.SearchBar
         android:id="@+id/search2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         app:maxSuggestionsCount="10"
         app:hint="Search"
         app:placeholder="Search" />
 
-    <!--<ListView-->
-        <!--android:id="@+id/search_list_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="9"/>-->
-
-
-</LinearLayout>
+</RelativeLayout>
