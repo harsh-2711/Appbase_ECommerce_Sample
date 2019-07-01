@@ -177,6 +177,7 @@ public class IndividualProduct extends AppCompatActivity {
     public void increment(View view) {
         if (quantity < 10) {
             quantity++;
+            session.increaseCartValue();
             quantityProductPage.setText(String.valueOf(quantity));
         } else {
             Toasty.error(IndividualProduct.this, "Cannot order more than 10 items", Toast.LENGTH_LONG).show();

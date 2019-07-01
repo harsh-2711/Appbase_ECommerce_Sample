@@ -56,6 +56,7 @@ public class SearchActivity extends AppCompatActivity {
 
         searchBar = (SearchBar) findViewById(R.id.search2);
 //        listView = (ListView) findViewById(R.id.search_list_view);
+        recyclerView = (RecyclerView) findViewById(R.id.search_list_view);
 
         searchBar.setAppbaseClient("https://scalr.api.appbase.io", "shopify-flipkart-test", "xJC6pHyMz", "54fabdda-4f7d-43c9-9960-66ff45d8d4cf", "products");
 
@@ -157,7 +158,6 @@ public class SearchActivity extends AppCompatActivity {
                     Log.d("RESPONSE", response);
                     filteredData = new ArrayList<>();
 
-                    recyclerView = (RecyclerView) findViewById(R.id.search_list_view);
                     mGridLayoutManager = new GridLayoutManager(SearchActivity.this, 2);
                     recyclerView.setLayoutManager(mGridLayoutManager);
 

@@ -111,7 +111,7 @@ public class Cart extends AppCompatActivity {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         long prid = 0, no_of_items = 0;
-                        String useremail = "None", usermobile = "None", prname = "None", prprice = null, primage = "None", prdesc = "None";
+                        String useremail = "None", usermobile = "None", prname = "None", prprice = "0", primage = "None", prdesc = "None";
 
                         for(DataSnapshot childSnapshot : snapshot.getChildren()) {
                             if(childSnapshot.getKey().equals("prid"))
@@ -143,7 +143,7 @@ public class Cart extends AppCompatActivity {
                         if(singleProductModel.getPrname() == null) {
                             val =Float.valueOf(0);
                         } else  {
-                            val =Float.parseFloat(singleProductModel.getPrprice());
+                            val = Float.parseFloat(singleProductModel.getPrprice());
                         }
 //                        Log.d("Price", singleProductModel.getPrprice());
                         totalcost += singleProductModel.getNo_of_items() * val;
@@ -182,7 +182,8 @@ public class Cart extends AppCompatActivity {
 
                                 }
                             });
-                            session.decreaseWishlistValue();
+                            session.decreaseCartValue();
+                            Log.d("CART VALUE",String.valueOf(session.getCartValue()));
                             Intent intent = new Intent(Cart.this, Cart.class);
                             startActivity(intent);
                             finish();
