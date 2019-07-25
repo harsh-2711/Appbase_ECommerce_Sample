@@ -96,7 +96,6 @@ public class SearchActivity extends AppCompatActivity {
                 .setCategoryField("src")
                 .setTopEntries(2)
                 .setRedirectIcon(false)
-                .setDefaultSuggestions(defaultSuggestions)
                 .setExtraFields(extraProperties)
                 .setRedirectIcon(true)
                 .build();
@@ -129,7 +128,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        searchBar.setOnTextChangeListner(new SearchBar.TextChangeListener() {
+        searchBar.setOnTextChangeListener(new SearchBar.TextChangeListener() {
             @Override
             public void onTextChange(String response) {
                 // Responses to the queries passed in the Search Bar are available here
